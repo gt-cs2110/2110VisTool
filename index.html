@@ -6,46 +6,33 @@
         <title>CSS Glowing Line Animation</title>
         <link rel="stylesheet" href="glowingline.css">
         <!--<script src="script.js"></script>-->
-            <style> 
-                .LC3_Container {
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-105%, -120%);
-                    width: 300px;
-                    height: 200px;
-                    background: brown;
-                }
-                .title {
-                    position: relative;
-                    top: 0px;
-                    left: 100px;   
-                }
-                .REGISTER_FILE {
-                    position: relative;
-                    width: 150px;
-                    height: 20px;
-                    background-color: yellowgreen;
-                    border: 3px;
-                    border-style: solid;
-                    border-color: blue;
-                }
-
-            </style>
     </head>
     <body>
-        <section>
-            <div class="LC3_Container">
-                <div class="title">Title (testing some stuff out)</div>
-                <div class="MAR">MAR</div>
-                <div class="MDR">MDR</div>
-                <div class="MEMORY">MEMORY</div>
-                <div class="IR">IR</div>
-                <div class="PC">PC</div>
-                <div class="REGISTER_FILE">REGISTER_FILE</div>
+        <header>
+            <h1>CS 2110 Computer Organization and Programming Visualization Tool</h1>
+        </header>
+        
+        <div class="dropdown">
+            <div class="select">
+                <span class="selected">creating dropdown</span>
+                <div class="caret"></div>
             </div>
-            
-        </section>
+            <ul class="menu">
+                <li>list_item1</li>
+                <li>list_item2</li>
+                <li>list_item3</li>
+                <li>list_item4</li>
+            </ul>
+        </div>
+
+        <div class="LC3_Container">
+            <div id="PC"class="lc3_component">PC</div>
+            <div id="IR"class="lc3_component">IR</div>
+            <div id="REGISTER_FILE"class="lc3_component">REGISTER_FILE</div>
+            <div id="MAR" class="lc3_component">MAR</div>
+            <div id="MEMORY"class="lc3_component">MEMORY</div>
+            <div id="MDR"class="lc3_component">MDR</div>
+        </div>
         <div class="loader"></div>
         
     </body>
