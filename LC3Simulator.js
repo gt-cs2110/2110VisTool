@@ -34,7 +34,7 @@ class LC3Simulator {
 
         this.currClockCycle = 0;
 
-        this.instructions = {
+        this._instructions = {
             ADD_IMMEDIATE: false,
             ADD_REGISTER: false,
             AND_IMMEDIATE: false,
@@ -78,7 +78,9 @@ class LC3Simulator {
         }
   
     }
-  
+    get instructions() {
+        return this._instructions;
+    }
     // Reset the entire simulator state
     reset() {
         this.controlSignals = Object.fromEntries(

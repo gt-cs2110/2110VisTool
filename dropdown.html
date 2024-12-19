@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .dropdown-container {
+            display: inline-block;
+        }
+
+        .dropdown-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .dropdown-button {
+            width: 192px; /* equivalent to w-48 */
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            text-align: left;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown-button:focus {
+            outline: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 192px;
+            margin-top: 4px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: #eff6ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown-container">
+        <label class="dropdown-label" for="dropdown">Select an option</label>
+        <button id="dropdown" class="dropdown-button">Select an option</button>
+        <div id="dropdown-content" class="dropdown-content">
+            <div class="dropdown-item">Option 1</div>
+            <div class="dropdown-item">Option 2</div>
+            <div class="dropdown-item">Option 3</div>
+        </div>
+    </div>
+
+    <script>
+        const dropdownButton = document.getElementById('dropdown');
+        const content = document.getElementById('dropdown-content');
+        const items = document.querySelectorAll('.dropdown-item');
+
+        // Toggle dropdown when button is clicked
+        dropdownButton.addEventListener('click', () => {
+            content.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (event) => {
+            if (!event.target.matches('.dropdown-button')) {
+                if (content.classList.contains('show')) {
+                    content.classList.remove('show');
+                }
+            }
+        });
+
+        // Handle item selection
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                dropdownButton.textContent = item.textContent;
+                content.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
+
+<script>
+const LC3 = new LC3Simulator();
+
+// Get the dropdown content element
+const dropdownContent = document.getElementById('dropdown-content');
+
+// Create and append items
+Object.keys(LC3.instructions).forEach(instruction => {
+    const item = document.createElement('div');
+    item.className = 'dropdown-item';
+    item.textContent = instruction.replace('_', ' ');
+    
+    item.addEventListener('click', () => {
+        dropdownButton.textContent = item.textContent;
+        dropdownContent.classList.remove('show');
+    });
+    
+    dropdownContent.appendChild(item);
+});
+</script>
