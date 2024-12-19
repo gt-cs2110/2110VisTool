@@ -1,5 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import LC3Simulator from './LC3Simulator';
+
+const LC3Simulator = require('./LC3Simulator');
+var LC3 = new LC3Simulator();
+const instructionsDropDown = () => {
+  return (
+    <div className="p-8 space-y-8">
+      <div>
+        <dropDown
+          label="Instructions"
+          //options = ; <- trying to access LC3Simulator's instructions list and put it here ;-;
+        />
+      </div>
+    </div>
+  );
+};
 /** reusable dropdown menu code */
 const dropDown = options => {
   const [isOpen, setIsOpen] = useState(false);
