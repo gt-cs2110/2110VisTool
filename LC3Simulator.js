@@ -78,7 +78,9 @@ class LC3Simulator {
         }
   
     }
-  
+    get instructions() {
+        return this.instructions;
+    }
     // Reset the entire simulator state
     reset() {
         this.controlSignals = Object.fromEntries(
