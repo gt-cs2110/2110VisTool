@@ -12,28 +12,139 @@
             <h1>CS 2110 Computer Organization and Programming Visualization Tool</h1>
         </header>
         
-        <div class="dropdown">
-            <div class="select">
-                <span class="selected">creating dropdown</span>
-                <div class="caret"></div>
-            </div>
-            <ul class="menu">
-                <li>list_item1</li>
-                <li>list_item2</li>
-                <li>list_item3</li>
-                <li>list_item4</li>
-            </ul>
-        </div>
 
-        <div class="LC3_Container">
-            <div id="PC"class="lc3_component">PC</div>
-            <div id="IR"class="lc3_component">IR</div>
-            <div id="REGISTER_FILE"class="lc3_component">REGISTER_FILE</div>
-            <div id="MAR" class="lc3_component">MAR</div>
-            <div id="MEMORY"class="lc3_component">MEMORY</div>
-            <div id="MDR"class="lc3_component">MDR</div>
-        </div>
+        <svg width="1200" height="800" viewBox="0 0 1200 800">
+            <!-- Main Components -->
+            
+            <!-- PC -->
+            <rect class="component" x="50" y="100" width="100" height="60"/>
+            <text class="component-label" x="100" y="130">PC</text>
+            
+            <!-- PC MUX -->
+            <path class="component" d="M200 80 L250 110 L250 150 L200 180 Z"/>
+            <text class="component-label" x="225" y="130">MUX</text>
+            
+            <!-- MAR -->
+            <rect class="component" x="300" y="100" width="100" height="60"/>
+            <text class="component-label" x="350" y="130">MAR</text>
+            
+            <!-- Memory -->
+            <rect class="component" x="450" y="100" width="120" height="100"/>
+            <text class="component-label" x="510" y="150">Memory</text>
+            
+            <!-- MDR -->
+            <rect class="component" x="620" y="100" width="100" height="60"/>
+            <text class="component-label" x="670" y="130">MDR</text>
+            
+            <!-- IR -->
+            <rect class="component" x="300" y="250" width="100" height="60"/>
+            <text class="component-label" x="350" y="280">IR</text>
+            
+            <!-- Register File -->
+            <rect class="component" x="450" y="250" width="120" height="100"/>
+            <text class="component-label" x="510" y="300">Registers</text>
+            
+            <!-- ALU -->
+            <path class="component" d="M620 250 L720 250 L670 350 Z"/>
+            <text class="component-label" x="670" y="300">ALU</text>
+        
+            <!-- Wires -->
+            <!-- PC to MUX -->
+            <path class="wire" id="pc-to-mux" 
+                  d="M150 130 H200"/>
+            
+            <!-- MUX to MAR -->
+            <path class="wire" id="mux-to-mar"
+                  d="M250 130 H300"/>
+            
+            <!-- MAR to Memory -->
+            <path class="wire" id="mar-to-memory"
+                  d="M400 130 H450"/>
+            
+            <!-- Memory to MDR -->
+            <path class="wire" id="memory-to-mdr"
+                  d="M570 130 H620"/>
+            
+            <!-- MDR to Bus -->
+            <path class="wire" id="mdr-to-bus"
+                  d="M670 160 V200 H100 V350"/>
+            
+            <!-- Main Bus (Horizontal) -->
+            <path class="wire" id="main-bus"
+                  d="M50 350 H750"/>
+            
+            <!-- Bus to Register File -->
+            <path class="wire" id="bus-to-reg"
+                  d="M510 350 V350"/>
+            
+            <!-- Register to ALU -->
+            <path class="wire" id="reg-to-alu"
+                  d="M570 300 H620"/>
+            
+            <!-- ALU to Bus -->
+            <path class="wire" id="alu-to-bus"
+                  d="M670 350 V350"/>
+        
+            <!-- Control Signals -->
+            <path class="wire" id="ld-mar" 
+                  d="M350 80 V100"
+                  stroke-dasharray="4"/>
+            <text class="wire-label" x="360" y="90">LD.MAR</text>
+            
+            <path class="wire" id="ld-mdr"
+                  d="M670 80 V100"
+                  stroke-dasharray="4"/>
+            <text class="wire-label" x="680" y="90">LD.MDR</text>
+            
+            <path class="wire" id="ld-ir"
+                  d="M350 230 V250"
+                  stroke-dasharray="4"/>
+            <text class="wire-label" x="360" y="240">LD.IR</text>
+            
+            <path class="wire" id="ld-reg"
+                  d="M510 230 V250"
+                  stroke-dasharray="4"/>
+            <text class="wire-label" x="520" y="240">LD.REG</text>
+          </svg>
+        
+          <div class="control-panel">
+            <button onclick="activateWire('pc-to-mux')">PC → MUX</button>
+            <button onclick="activateWire('mux-to-mar')">MUX → MAR</button>
+            <button onclick="activateWire('mar-to-memory')">MAR → Memory</button>
+            <button onclick="activateWire('memory-to-mdr')">Memory → MDR</button>
+            <button onclick="activateWire('mdr-to-bus')">MDR → Bus</button>
+            <button onclick="startFetchCycle()">Start Fetch Cycle</button>
+          </div>
+
         <div class="loader"></div>
         
+        <script>
+            function activateWire(wireId) {
+              // Reset all wires
+              document.querySelectorAll('.wire').forEach(wire => {
+                wire.classList.remove('active');
+              });
+              
+              // Activate selected wire
+              document.getElementById(wireId).classList.add('active');
+            }
+        
+            function startFetchCycle() {
+              const sequence = [
+                'pc-to-mux',
+                'mux-to-mar',
+                'mar-to-memory',
+                'memory-to-mdr',
+                'mdr-to-bus'
+              ];
+        
+              sequence.forEach((wireId, index) => {
+                setTimeout(() => {
+                  activateWire(wireId);
+                }, index * 1000);
+              });
+            }
+          </script>
+
     </body>
 </html>
