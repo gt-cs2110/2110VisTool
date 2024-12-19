@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import LC3Simulator from './LC3Simulator';
 
-const LC3Simulator = require('./LC3Simulator');
-var LC3 = new LC3Simulator();
-const instructionsDropDown = () => {
+const LC3 = new LC3Simulator();
+
+const InstructionsDropDown = () => {
+  const InstructionOptions = Object.keys(LC3.instructions).map(instruction => ({
+    value : instruction,
+    label: instruction.replace('_', ' ');
+  }));
   return (
     <div className="p-8 space-y-8">
       <div>
         <dropDown
           label="Instructions"
-          //options = ; <- trying to access LC3Simulator's instructions list and put it here ;-;
+          options = {InstructionOptions}
         />
       </div>
     </div>
