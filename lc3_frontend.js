@@ -7,7 +7,7 @@ const LC3 = new LC3Simulator();
 const InstructionsDropDown = () => {
   const InstructionOptions = Object.keys(LC3.instructions).map(instruction => ({
     value : instruction,
-    label: instruction.replace('_', ' ');
+    label: instruction.replace('_', ' ')
   }));
   return (
     <div className="p-8 space-y-8">
