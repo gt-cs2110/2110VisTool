@@ -1,6 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+/** reusable dropdown menu code */
+const dropDown = options => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState();
 
+  return (
+    <div className="relative inline-block w-48">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-left focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {selectedType}
+        </button>
+
+        {isOpen && (
+          <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+          <ul className="py-1">
+            {options.map((name) => (
+              <li
+                key={name}
+                className="px-4 py-2 hover:bg-blue-50 cursor-pointer"
+                onClick={() => {
+                  setSelectedType(name);
+                  setIsOpen(false);
+                }}
+                >
+                  {name}
+                  </li>
+            ))}
+          </ul>
+          </div>
+        )}
+    </div>
+  );
+};
 const LC3InteractiveDatapath = () => {
   const [activeSignals, setActiveSignals] = useState({
     pcToMar: false,
