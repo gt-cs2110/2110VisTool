@@ -5,7 +5,8 @@
     box-sizing: border-box;
 }
 header > h1 {
-    color: aqua;
+    color: white;
+    font-size: 50px;
     text-align: center;
     font-family: Asap, sans-serif;
 }
@@ -13,58 +14,38 @@ body {
     display: flex;
     justify-content:center;
     min-height: 100vh;
-    background: #222;
+    background: #222222;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.LC3_Container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-105%, -120%);
-    width: 300px;
-    height: 200px;
-    background: brown;
-}
-
-.lc3_component {
-    fill: #f0f0f0;
-    stroke: #333;
-    stroke-width: 2;
-  }
   
-  .wire {
-    stroke: #666;
-    stroke-width: 2;
-    fill: none;
-  }
-  
-  .wire.active {
+.wire.active {
+    fill: red;
     stroke: red;
     animation: pulse 1s infinite;
-  }
+}
   
-  .wire-label {
+.wire-label {
     font-size: 12px;
     fill: #333;
-  }
-  
-  .component-label {
+}
+
+.component-label {
     font-size: 14px;
     fill: #333;
     text-anchor: middle;
     dominant-baseline: middle;
-  }
+}
 
-  @keyframes pulse {
+@keyframes pulse {
     0% { stroke-opacity: 1; }
     50% { stroke-opacity: 0.5; }
     100% { stroke-opacity: 1; }
-  }
+}
 
-  .control-panel {
+.control-panel {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -72,9 +53,9 @@ body {
     background: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+}
 
-  button {
+button {
     padding: 5px 10px;
     margin: 5px;
     background: #4CAF50;
@@ -82,11 +63,11 @@ body {
     border: none;
     border-radius: 3px;
     cursor: pointer;
-  }
+}
 
-  button:hover {
+button:hover {
     background: #45a049;
-  }
+}
 
 
 
@@ -95,7 +76,7 @@ body {
 
 .loader {
     position: relative;
-    width: 2px;
+    width: 4px;
     height: 100px;
     background: #000;
 }
