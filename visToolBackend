@@ -1,0 +1,92 @@
+
+
+function activateWire(wireId) {
+    // Reset all wires
+    document.querySelectorAll('.wire').forEach(wire => {
+    wire.classList.remove('active');
+    });
+    
+    // Activate selected wire
+    document.getElementById(wireId).classList.add('active');
+}
+
+function reset() {
+        document.querySelectorAll('.wire').forEach(wire => {
+        wire.classList.remove('active');
+        });
+}
+
+function fetch() {
+    const sequence = [
+        'Line 1_3',      
+        'Top Arrow',
+        'Mid Arrow',
+        'Low Arrow',
+        'BUS to MAR',
+        'MAR to MEMORY',
+        'MEMORY to MDR',
+        'MDR to BUS',
+        'Low Arrow',
+        'Bus to IR'
+    ];
+
+    sequence.forEach((wireId, index) => {
+        setTimeout(() => {
+                activateWire(wireId);
+        }, index * 500);
+    });
+}
+
+function decode() {
+        const sequence = [
+            
+        ]
+
+        sequence.forEach((wireId, index) => {
+            setTimeout(() => {
+                    activateWire(wireId);
+            }, index * 500);
+        });
+
+}
+
+function registerADD() {
+        const sequence = [
+            
+        ]
+
+        sequence.forEach((wireId, index) => {
+            setTimeout(() => {
+                    activateWire(wireId);
+            }, index * 500);
+        });
+
+}
+
+
+function immediateADD() {
+    const sequence = [
+        
+    ]
+
+    sequence.forEach((wireId, index) => {
+        setTimeout(() => {
+                activateWire(wireId);
+        }, index * 500);
+    });
+
+}
+
+function LD() {
+    const sequence = [
+        
+    ]
+
+    sequence.forEach((wireId, index) => {
+        setTimeout(() => {
+                activateWire(wireId);
+        }, index * 500);
+    });
+
+}
+
