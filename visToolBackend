@@ -54,6 +54,8 @@ function fetch() {
     //document.getElementById('pauseBtn').textContent = 'Pause';
     const sequence = [
         //clock cycle 1
+        "1 (GatePC)",
+        "GatePC (shape)",
         'PC to BUS',      
         'Top Arrow',
         'Mid Arrow',
@@ -62,7 +64,7 @@ function fetch() {
         "1 (MAR selector)",
         'MAR selector',
         "MAR (shape)",
-        "PC to PCMUX (1)", //finish highlighting selector
+        "PC to PCMUX (1)",
         "+1 box",
         "PC to PCMUX (2)",
         "PC to PCMUX (3)",
@@ -76,11 +78,14 @@ function fetch() {
         "PC (shape)",
         //clock cycle 2
         'MAR to MEMORY',
+        "0 (RW)",
+        "RW selector",
         "1 (MEM.EN)",
-        'MEMORY (shape)', //fix
+        "MEM.EN selector",
+        'Memory (shape)',
         'MEMORY to MDR',
         "1 (MDR selector)",
-        "MDR selector_2", //lowkey needs name change
+        "GateMDR selector",
         'MDR selector',
         "MDR (shape)",
         //clock cycle 3
@@ -96,7 +101,7 @@ function fetch() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 250);
+        }, index * 450);
         //timeoutIds.push(timeoutIds);
     });
 
@@ -170,13 +175,7 @@ function immediateADD() {
         "Gate.ALU selector",
         "gateMARMUX (shape)",
         "ALU to BUS",
-        'Low Arrow',
-        'Mid Arrow',
-        'Top Arrow',
-        "Bus to Register",
-        "1 (LD.REG)",
-        "LD.REG selector",
-        "Register File (rect)"
+        9
 
 
     ]
@@ -220,7 +219,8 @@ function LD() {
         //clock cycle 1
         'IR to ZEXT/SEXT (1)',
         'IR to ZEXT/SEXT (2)',
-        "Bus to SEXT [8:0]", //the SEXT[8:0] group needs renaming fs
+        "Bus to SEXT [8:0]", 
+        "SEXT[8:0] (shape)",
         "SEXT9 to MUX (1)",
         "SEXT9 to MUX (2)",
         "10 (ADDR2MUX selector)",
@@ -232,34 +232,61 @@ function LD() {
         "PC to ADDR1 (joint line)",
         "PC to ADDR1 (1)", 
         "PC to ADDR1 (2)",
-        "PC to ADDR1 (3)", //unfinished
+        "PC to ADDR1 (3)",
         "PC to ADDR1 (4)",
+        "0 (ADDR1MUX selector)",
+        "ADDR1 selector",
+        "ADDR1MUX (shape)",
         "ADDR1MUX to ADDR (1)",
         "ADDR1MUX to ADDR (2)",
         "ADDR1MUX to ADDR (3)",
+        "ADDR (shape)",
         "ADDR to MUXES (joint)",
         "ADDR to MARMUX (2)",
         "ADDR to MARMUX (3)",
+        "1 (MARMUX selector)",
+        "MARMUX selector",
+        "MARMUX (shape)",               
+        "1 (GateMARMUX)",
+        "GateMARMUX selector",
+        "GateMARMUX (shape)",
         "MARMUX to BUS",
         'Top Arrow',
         'Mid Arrow',
         'Low Arrow',
         'BUS to MAR',
+        "1 (MAR selector)",
+        'MAR selector',
+        "MAR (shape)",
         //clock cycle 2
         'MAR to MEMORY',
+        "0 (RW)",
+        "RW selector",
+        "1 (MEM.EN)",
+        "MEM.EN selector",
+        'Memory (shape)',
         'MEMORY to MDR',
+        "1 (MDR selector)",,
+        'MDR selector',
+        "MDR (shape)",
         //clock cycle 3
+        "1 (GateMDR selector)",
+        "GateMDR selector",
+        "gateMDR (shape)",
         'MDR to BUS',
         'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
-        "Bus to Register"
+        "Bus to Register",,
+        "1 (LD.REG)",
+        "LD.REG selector",
+        "Register File (shape)"
     ]
 
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 500);
+        }, index * 250);
     });
 }
 
@@ -268,28 +295,42 @@ function ST() {
         //clock cycle 1
         'IR to ZEXT/SEXT (1)',
         'IR to ZEXT/SEXT (2)',
-        "Bus to SEXT [8:0]",
+        "Bus to SEXT [8:0]", 
+        "SEXT[8:0] (shape)",
         "SEXT9 to MUX (1)",
         "SEXT9 to MUX (2)",
+        "10 (ADDR2MUX selector)",
+        "ADDR2 selector",
+        "ADDR2MUX (shape)",
         "ADDR2MUX to ADDR (1)",
         "ADDR2MUX to ADDR (2)",
         "ADDR2MUX to ADDR (3)",
         "PC to ADDR1 (joint line)",
-        "PC to ADDR1 (1)",
+        "PC to ADDR1 (1)", 
         "PC to ADDR1 (2)",
         "PC to ADDR1 (3)",
         "PC to ADDR1 (4)",
+        "0 (ADDR1MUX selector)",
+        "ADDR1 selector",
+        "ADDR1MUX (shape)",
         "ADDR1MUX to ADDR (1)",
         "ADDR1MUX to ADDR (2)",
         "ADDR1MUX to ADDR (3)",
+        "ADDR (shape)",
         "ADDR to MUXES (joint)",
         "ADDR to MARMUX (2)",
         "ADDR to MARMUX (3)",
+        "1 (MARMUX selector)",
+        "MARMUX selector",
+        "MARMUX (shape)",                    
         "MARMUX to BUS",
         'Top Arrow',
         'Mid Arrow',
         'Low Arrow',
         'BUS to MAR',
+        "1 (MAR selector)",
+        'MAR selector',
+        "MAR (shape)",
         //clock cycle 2
         "Register to ALU (joint)",
         "ALU to BUS",
