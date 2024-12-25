@@ -6,23 +6,6 @@ function activateWire(wireId) {
     document.getElementById(wireId).classList.add('active');
 }
 
-
-
-function activateText(textId) {
-    // Activate selected wire
-    document.getElementById(textId).classList.add('active');
-}
-
-
-
-function resetText() {
-// Reset all wires
-    document.querySelectorAll('.LC3text').forEach(text => {
-        text.classList.remove('active');
-    });
-}
-
-
 function resetWires() {
     document.querySelectorAll('.wire').forEach(wire => {
         wire.classList.remove('active');
@@ -78,6 +61,7 @@ function fetch() {
         "1 (LD.PC)",
         "PC selector",
         "PC (shape)",
+
         //clock cycle 2
         'MAR to MEMORY',
         "0 (RW)",
@@ -90,6 +74,7 @@ function fetch() {
         "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
+
         //clock cycle 3
         "1 (Gate.MDR)",
         "GateMDR selector",
@@ -159,6 +144,7 @@ function registerADD() {
             'Mid Arrow',
             'Top Arrow',
             "Bus to Register",
+            "DR selector",
             "1 (LD.REG)",
             "LD.REG selector",
             "Register File (shape)"
@@ -207,6 +193,7 @@ function immediateADD() {
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
@@ -246,6 +233,7 @@ function NOT() {
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
@@ -302,6 +290,7 @@ function LD() {
         "1 (MAR selector)",
         'MAR selector',
         "MAR (shape)",
+
         //clock cycle 2
         'MAR to MEMORY',
         "0 (RW)",
@@ -313,6 +302,7 @@ function LD() {
         "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
+
         //clock cycle 3
         "1 (GateMDR selector)",
         "GateMDR selector",
@@ -334,6 +324,7 @@ function LD() {
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
@@ -390,6 +381,7 @@ function ST() {
         "1 (MAR selector)",
         'MAR selector',
         "MAR (shape)",
+
         //clock cycle 2
         "SR2 selector",
         "Register to ALU (joint)",
@@ -403,6 +395,7 @@ function ST() {
         "BUS to MDR",
         "0 (LD.MDR)",
         "MDR selector",
+
         //clock cycle 3
         "1 (RW)",
         "RW selector",
@@ -496,10 +489,10 @@ function LDI() {
         "MEM.EN selector",
         'Memory (shape)',
         'MEMORY to MDR',
-        "1 (MDR selector)",,
+        "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
-        
+
         //clock cycle 5
         "1 (GateMDR selector)",
         "GateMDR selector",
@@ -520,7 +513,8 @@ function LDI() {
             'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
-        "Bus to Register",,
+        "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
@@ -678,7 +672,7 @@ function LDR() {
         "MEM.EN selector",
         'Memory (shape)',
         'MEMORY to MDR',
-        "1 (MDR selector)",,
+        "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
         //clock cycle 3
@@ -701,7 +695,8 @@ function LDR() {
             'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
-        "Bus to Register",,
+        "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
@@ -825,6 +820,7 @@ function LEA() {
         "MARMUX to BUS",
         'Top Arrow',
         "Bus to Register",
+        "DR selector",
         "1 (LD.REG)",
         "LD.REG selector",
         "Register File (shape)"
