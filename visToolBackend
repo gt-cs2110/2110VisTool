@@ -105,13 +105,12 @@ function fetch() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 350);
+        }, index * 250);
         //timeoutIds.push(timeoutIds);
     });
 
 }
 
- 
 function decode() {
         const sequence = [
             "IR to FSM (1)",
@@ -122,12 +121,11 @@ function decode() {
         sequence.forEach((wireId, index) => {
             setTimeout(() => {
                     activateWire(wireId);
-            }, index * 500);
+            }, index * 250);
         });
 
 }
 
- 
 function registerADD() {
         const sequence = [
             "SR2 selector",
@@ -146,6 +144,18 @@ function registerADD() {
             "GateALU (shape)",
             "ALU to BUS",
             'Low Arrow',
+            'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
             'Mid Arrow',
             'Top Arrow',
             "Bus to Register",
@@ -160,7 +170,6 @@ function registerADD() {
             }, index * 250);
         });
 }
-
  
 function immediateADD() {
     const sequence = [
@@ -183,6 +192,18 @@ function immediateADD() {
         "GateALU (shape)",
         "ALU to BUS",
         'Low Arrow',
+        'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
@@ -194,11 +215,10 @@ function immediateADD() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 500);
+        }, index * 250);
     });
 }
 
- 
 function NOT() {
     const sequence = [
         "SR2 selector",
@@ -211,6 +231,18 @@ function NOT() {
         "GateALU (shape)",
         "ALU to BUS",
         'Low Arrow',
+        'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
@@ -222,10 +254,9 @@ function NOT() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 500);
+        }, index * 250);
     });
 }
-
  
 function LD() {
     const sequence = [
@@ -288,6 +319,18 @@ function LD() {
         "GateMDR (shape)",
         'MDR to BUS',
         'Low Arrow',
+        'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",
@@ -303,7 +346,6 @@ function LD() {
     });
 }
 
- 
 function ST() {
     const sequence = [
         //clock cycle 1
@@ -378,10 +420,8 @@ function ST() {
     });
 }
 
- 
 function LDI() {
     const sequence = [
-        //clock cycle 1
         //clock cycle 1
         'IR to ZEXT/SEXT (1)',
         'IR to ZEXT/SEXT (2)',
@@ -424,6 +464,7 @@ function LDI() {
         "1 (MAR selector)",
         'MAR selector',
         "MAR (shape)",
+
         //clock cycle 2
         'MAR to MEMORY',
         "0 (RW)",
@@ -432,9 +473,10 @@ function LDI() {
         "MEM.EN selector",
         'Memory (shape)',
         'MEMORY to MDR',
-        "1 (MDR selector)",,
+        "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
+
         //clock cycle 3
         "1 (GateMDR selector)",
         "GateMDR selector",
@@ -445,6 +487,7 @@ function LDI() {
         "1 (MAR selector)",
         'MAR selector',
         "MAR (shape)",
+
         //clock cycle 4
         'MAR to MEMORY',
         "0 (RW)",
@@ -456,12 +499,25 @@ function LDI() {
         "1 (MDR selector)",,
         'MDR selector',
         "MDR (shape)",
+        
         //clock cycle 5
         "1 (GateMDR selector)",
         "GateMDR selector",
         "GateMDR (shape)",
         'MDR to BUS',
         'Low Arrow',
+        'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",,
@@ -476,7 +532,6 @@ function LDI() {
         }, index * 350);
     });
 }
-
  
 function STI() {
     const sequence = [
@@ -572,7 +627,6 @@ function STI() {
         }, index * 350);
     });
 }
-
  
 function LDR() {
     const sequence = [
@@ -633,6 +687,18 @@ function LDR() {
         "GateMDR (shape)",
         'MDR to BUS',
         'Low Arrow',
+        'BUS to CC (1)',
+            "logic (rect)",
+            'BUS to CC (2)',
+            "1 (LD.CC)",
+            "CC selector",
+            "N box",
+            "Z box",
+            "P box",
+            "CC to FSM (1)",
+            "CC to FSM (2)",
+            "FSM (shape)",
+            'Low Arrow',
         'Mid Arrow',
         'Top Arrow',
         "Bus to Register",,
@@ -647,7 +713,6 @@ function LDR() {
         }, index * 350);
     });
 }
-
  
 function STR() {
     const sequence = [
@@ -720,7 +785,6 @@ function STR() {
         }, index * 350);
     });
 }
-
  
 function LEA() {
     const sequence = [
@@ -772,7 +836,6 @@ function LEA() {
         }, index * 350);
     });
 }
-
  
 function BR() {
     const sequence = [
@@ -804,6 +867,7 @@ function BR() {
         "ADDR to PCMUX (1)",
         "ADDR to PCMUX (2)",
         "ADDR to PCMUX (3)",
+        "01 (PCMUX selector)",
         "PCMUX selector",
         "PCMUX (shape)",
         "PCMUX to PC",
@@ -818,7 +882,6 @@ function BR() {
         }, index * 350);
     });
 }
-
  
 function JMP() {
     const sequence = [
@@ -857,11 +920,20 @@ function JMP() {
         }, index * 250);
     });
 }
-
  
 function JSR() {
     const sequence = [
-        
+        //Clock Cycle 1: Updating R7
+        "1 (GatePC)",
+        "GatePC (shape)",
+        'PC to BUS',      
+        'Top Arrow',
+        "Bus to Register",
+        "1 (LD.REG)",
+        "LD.REG selector",
+        "Register File (shape)",
+
+        //Clock Cycle 2
         'IR to ZEXT/SEXT (1)',
         'IR to ZEXT/SEXT (2)',
         "Bus to SEXT [10:0]",
@@ -902,13 +974,23 @@ function JSR() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
             activateWire(wireId);
-        }, index * 100);
+        }, index * 250);
     });
 }
 
- 
 function JSRR() {
     const sequence = [
+        //Clock Cycle 1: Updating R7
+        "1 (GatePC)",
+        "GatePC (shape)",
+        'PC to BUS',      
+        'Top Arrow',
+        "Bus to Register",
+        "1 (LD.REG)",
+        "LD.REG selector",
+        "Register File (shape)",
+
+        //Clock Cycle 2
         "Register to ALU (joint)",
         "SR1 to ADDR1MUX (1)",
         "SR1 to ADDR1MUX (2)",
