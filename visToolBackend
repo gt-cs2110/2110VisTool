@@ -12,6 +12,34 @@ function resetWires() {
     });
 }
 
+
+const dropdownButton = document.getElementById('dropdown');
+        const content = document.getElementById('dropdown-content');
+        const items = document.querySelectorAll('.dropdown-item');
+
+        // Toggle dropdown when button is clicked
+        dropdownButton.addEventListener('click', () => {
+            content.classList.toggle('show');
+        });
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (event) => {
+            if (!event.target.matches('.dropdown-button')) {
+                if (content.classList.contains('show')) {
+                    content.classList.remove('show');
+                }
+            }
+        });
+
+        // Handle item selection
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                dropdownButton.textContent = item.textContent;
+                content.classList.remove('show');
+            });
+        });
+
+
 /*
 let isPaused = false;
 let timeoutIds = [];
@@ -718,7 +746,7 @@ function STR() {
         "SEXT[5:0] (shape)",
         "SEXT6 to MUX (1)",
         "SEXT6 to MUX (2)",
-        "10 (ADDR2MUX selector)",
+        "01 (ADDR2MUX selector)",
         "ADDR2 selector",
         "ADDR2MUX (shape)",
         "ADDR2MUX to ADDR (1)",
