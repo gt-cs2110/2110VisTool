@@ -14,30 +14,14 @@
             <h1>CS 2110 Computer Organization and Programming Visualization Tool</h1>
       </header>
 
-      <div class="dropdown-container">
-            <label class="dropdown-label" for="dropdown">Select an option</label>
-            <button id="dropdown" class="dropdown-button">Select an option</button>
-            <div id="dropdown-content" class="dropdown-content">
-                <div class="dropdown-item">Fetch</div>
-                <div class="dropdown-item">Decode</div>
-                <div class="dropdown-item">ADD (register)</div>
-                <div class="dropdown-item">ADD (immediate)</div>
-                <div class="dropdown-item">NOT</div>
-                <div class="dropdown-item">LD</div>
-                <div class="dropdown-item">LDI</div>
-                <div class="dropdown-item">LDR</div>
-                <div class="dropdown-item">LEA</div>
-                <div class="dropdown-item">ST</div>
-                <div class="dropdown-item">STI</div>
-                <div class="dropdown-item">STR</div>
-                <div class="dropdown-item">BR</div>
-                <div class="dropdown-item">JMP</div>
-                <div class="dropdown-item">JSR</div>
-                <div class="dropdown-item">JSRR</div>
-                <div class="dropdown-item">TRAP (simplified)</div>
-    
-            </div>
-        </div>
+      
+
+        <select id="instruction-select">
+            <option value="add">ADD</option>
+            <option value="and">AND</option>
+            <option value="not">NOT</option>
+            <!-- Add other instructions -->
+        </select>
 
       <div class="flex-container">
             <div><svg width="750" height="700" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -816,9 +800,42 @@
                   </defs>
             </svg></div>
 
-            <div class="text">PSEUDO</div>
+            <div>
+                  <div id="add" class="text.active">
+                      Operation ADD:
+                      if (bit[5] == 0) {
+                        &emsp;DR = SR1 + SR2;
+                      } else {
+                        &emsp;DR = SR1 + SEXT(imm5);
+                      }
+                      setCC();
+                  </div>
+                  
+                  <div id="and" class="text">
+                      Operation AND:
+                      if (bit[5] == 0) {
+                          DR = SR1 & SR2;
+                      } else {
+                          DR = SR1 & SEXT(imm5);
+                      }
+                      setCC();
+                  </div>
+                  
+                  <div id="not" class="text">
+                      Operation NOT:
+                      DR = ~SR1;
+                      setCC();
+                  </div>
+            </div>
 
       </div>
+
+      <div class="flex-container">
+            <div>
+                <!-- Your SVG here -->
+            </div>
+            
+        </div>
 
       
 
