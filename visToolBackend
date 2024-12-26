@@ -13,32 +13,18 @@ function resetWires() {
 }
 
 
-const dropdownButton = document.getElementById('dropdown');
-        const content = document.getElementById('dropdown-content');
-        const items = document.querySelectorAll('.dropdown-item');
+// Handle item selection
+items.forEach(item => {
+    item.addEventListener('click', () => {
+        dropdownButton.textContent = item.textContent;
+        content.classList.remove('show');
+    });
+});
 
-        // Toggle dropdown when button is clicked
-        dropdownButton.addEventListener('click', () => {
-            content.classList.toggle('show');
-        });
-
-        // Close dropdown when clicking outside
-        window.addEventListener('click', (event) => {
-            if (!event.target.matches('.dropdown-button')) {
-                if (content.classList.contains('show')) {
-                    content.classList.remove('show');
-                }
-            }
-        });
-
-        // Handle item selection
-        items.forEach(item => {
-            item.addEventListener('click', () => {
-                dropdownButton.textContent = item.textContent;
-                content.classList.remove('show');
-            });
-        });
-
+document.getElementById('instruction-select').addEventListener('change', function() {
+    document.querySelectorAll('.text').forEach(el => el.classList.remove('.active'));
+    document.getElementById(this.value).classList.add('.active');
+});
 
 /*
 let isPaused = false;
@@ -118,7 +104,7 @@ function fetch() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 250);
+        }, index * 200);
         //timeoutIds.push(timeoutIds);
     });
 
@@ -134,7 +120,7 @@ function decode() {
         sequence.forEach((wireId, index) => {
             setTimeout(() => {
                     activateWire(wireId);
-            }, index * 250);
+            }, index * 200);
         });
 
 }
@@ -181,7 +167,7 @@ function registerADD() {
         sequence.forEach((wireId, index) => {
             setTimeout(() => {
                     activateWire(wireId);
-            }, index * 250);
+            }, index * 200);
         });
 }
  
@@ -230,7 +216,7 @@ function immediateADD() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 250);
+        }, index * 200);
     });
 }
 
@@ -270,7 +256,7 @@ function NOT() {
     sequence.forEach((wireId, index) => {
         setTimeout(() => {
                 activateWire(wireId);
-        }, index * 250);
+        }, index * 200);
     });
 }
  
