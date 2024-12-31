@@ -1,4 +1,4 @@
-
+// Copyright Huy Nguyen
 
 function activateWire(wireId) {
     resetWires();
