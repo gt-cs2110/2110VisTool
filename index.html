@@ -12,20 +12,20 @@
 <body>
       <header>
             <h1>CS 2110 Computer Organization and Programming Visualization Tool</h1>
+            <h3>Designed by Huy Nguyen</h3>
       </header>
 
       
 
-        <select id="instruction-select">
+        <!--select id="instruction-select">
             <option value="add">ADD</option>
             <option value="and">AND</option>
             <option value="not">NOT</option>
             <option value="ld">LD</option>
-            <!-- Add other instructions -->
-        </select>
+        </select-->
 
       <div class="flex-container">
-            <div><svg width="750" height="700" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div><svg width="850" height="800" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="Bus">
                         <path class="wire" id="Low Arrow"
                               d="M195 1241L270 1284.3V1197.7L195 1241ZM1643 1233.5L262.5 1233.5V1248.5L1643 1248.5V1233.5Z"
@@ -801,7 +801,7 @@
                   </defs>
             </svg></div>
 
-            <div>
+            <!--div>
                   <div id="add" class="text.active">
                       Operation ADD:
                       if (bit[5] == 0) {
@@ -829,21 +829,16 @@
                   </div>
             </div>
 
-      </div>
-
-      <div class="flex-container">
-            <div>
-                <!-- Your SVG here -->
-            </div>
-            
-        </div>
+      </div-->
 
       
 
       <div class="control-panel">
             <button onclick="fetch()">Fetch</button>
             <button onclick="decode()">Decode</button>
-            <button onclick="resetWires()">Reset</button>
+            <button onclick="registerADD()">ADD (reg)</button>
+            <button onclick="immediateADD()">ADD (imm)</button>
+            <button onclick="NOT()">NOT</button>
             <button onclick="LD()">LD</button>
             <button onclick="LDI()">LDI</button>
             <button onclick="LDR()">LDR</button>
@@ -851,18 +846,15 @@
             <button onclick="STI()">STI</button>
             <button onclick="STR()">STR</button>
             <button onclick="LEA()">LEA</button>
-            <button onclick="registerADD()">ADD (reg)</button>
-            <button onclick="immediateADD()">ADD (imm)</button>
-            <button onclick="NOT()">NOT</button>
             <button onclick="BR()">BR</button>
             <button onclick="JMP()">JMP</button>
             <button onclick="JSR()">JSR</button>
             <button onclick="JSRR()">JSRR</button>
             <button onclick="TRAP()">TRAP (simplified)</button>
-
+            <button onclick="resetWires()">Reset State</button>
       </div>
 
-      <div class="loader"></div>
+      <!--div class="loader"></div-->
 </body>
 
 </html>
