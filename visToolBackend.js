@@ -14,16 +14,16 @@ function resetWires() {
 
 
 // Handle item selection
-items.forEach(item => {
-    item.addEventListener('click', () => {
-        dropdownButton.textContent = item.textContent;
-        content.classList.remove('show');
-    });
-});
+// items.forEach(item => {
+//     item.addEventListener('click', () => {
+//         dropdownButton.textContent = item.textContent;
+//         content.classList.remove('show');
+//     });
+// });
 
 document.getElementById('instruction-select').addEventListener('change', function() {
-    document.querySelectorAll('.text').forEach(el => el.classList.remove('.active'));
-    document.getElementById(this.value).classList.add('.active');
+    document.querySelectorAll('.text').forEach(el => el.classList.remove('active'));
+    document.getElementById(this.value).classList.add('active');
 });
 
 /*

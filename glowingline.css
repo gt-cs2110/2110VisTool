@@ -45,14 +45,11 @@ body {
 .text {
     font-family: monospace;
     white-space: pre;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
+    display: none;
     transition: opacity 0.3s;
 }
 .text.active {
+    white-space: pre-line;
     color: white;
     display: block;
     visibility: visible;

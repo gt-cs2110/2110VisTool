@@ -6,7 +6,6 @@
       <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
       <title>LC3 Vis Tool</title>
       <link rel="stylesheet" href="glowingline.css">
-      <script src="visToolBackend.js"></script>
 </head>
 
 <body>
@@ -17,12 +16,12 @@
 
       
 
-        <!--select id="instruction-select">
+      <select id="instruction-select">
             <option value="add">ADD</option>
             <option value="and">AND</option>
             <option value="not">NOT</option>
             <option value="ld">LD</option>
-        </select-->
+      </select>
 
       <div class="flex-container">
             <div><svg width="850" height="800" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -801,8 +800,8 @@
                   </defs>
             </svg></div>
 
-            <!--div>
-                  <div id="add" class="text.active">
+            <div>
+                  <div id="add" class="text active">
                       Operation ADD:
                       if (bit[5] == 0) {
                         &emsp;DR = SR1 + SR2;
@@ -829,7 +828,7 @@
                   </div>
             </div>
 
-      </div-->
+      </div>
 
       
 
@@ -855,6 +854,7 @@
       </div>
 
       <!--div class="loader"></div-->
+      <script src="visToolBackend.js"></script>
 </body>
 
 </html>
