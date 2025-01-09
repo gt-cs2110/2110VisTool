@@ -30,9 +30,17 @@ body {
 
 .flex-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 2rem;
     padding: 1rem;
+}
+
+.middle {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 
