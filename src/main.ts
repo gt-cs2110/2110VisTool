@@ -1,9 +1,12 @@
 // Copyright Huy Nguyen 2025
 
-function activateWire(wireId) {
+const controlPanel = document.getElementsByClassName("control-panel")[0];
+const instrSelect = document.getElementById('instruction-select')!;
+
+function activateWire(wireId: string) {
     resetWires();
     // Activate selected wire
-    document.getElementById(wireId).classList.add('active');
+    document.getElementById(wireId)!.classList.add('active');
 }
 
 function resetWires() {
@@ -21,9 +24,9 @@ function resetWires() {
 //     });
 // });
 
-document.getElementById('instruction-select').addEventListener('change', function() {
+instrSelect.addEventListener('change', function() {
     document.querySelectorAll('.text').forEach(el => el.classList.remove('active'));
-    document.getElementById(this.value).classList.add('active');
+    instrSelect.classList.add('active');
 });
 
 /*
@@ -44,8 +47,33 @@ function clearAllTimeouts() {
     timeoutIds = [];
 }
 */
-
  
+[
+    { text: "Fetch", handler: fetch },
+    { text: "Decode", handler: decode },
+    { text: "ADD (reg)", handler: registerADD },
+    { text: "ADD (imm)", handler: immediateADD },
+    { text: "NOT", handler: NOT },
+    { text: "LD", handler: LD },
+    { text: "LDI", handler: ST },
+    { text: "LDR", handler: LDI },
+    { text: "ST", handler: STI },
+    { text: "STI", handler: LDR },
+    { text: "STR", handler: STR },
+    { text: "LEA", handler: LEA },
+    { text: "BR", handler: BR },
+    { text: "JMP", handler: JMP },
+    { text: "JSR", handler: JSR },
+    { text: "JSRR", handler: JSRR },
+    { text: "TRAP (simplified)", handler: TRAP },
+    { text: "Reset State", handler: resetWires }
+].forEach(bData => {
+    const btn = document.createElement("button");
+    btn.textContent = bData.text;
+    btn.onclick = bData.handler;
+    controlPanel.append(btn);
+})
+
 function fetch() {
     //clearAllTimeouts();
     //isPaused = false;
@@ -593,7 +621,7 @@ function STI() {
         "MEM.EN selector",
         'Memory (shape)',
         'MEMORY to MDR',
-        "1 (MDR selector)",,
+        "1 (MDR selector)",
         'MDR selector',
         "MDR (shape)",
         //clock cycle 3
