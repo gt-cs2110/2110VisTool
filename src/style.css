@@ -52,17 +52,11 @@ body {
 
 .text {
     font-family: monospace;
-    white-space: pre;
-    display: none;
+    white-space: pre-wrap;
     transition: opacity 0.3s;
-}
-.text.active {
-    white-space: pre-line;
     color: white;
     display: block;
-    visibility: visible;
 }
-
 
 .wire.active {
     fill: red;
