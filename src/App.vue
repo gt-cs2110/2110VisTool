@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 import LC3 from './components/LC3.vue';
 import SEQUENCE_DATA from "./sequences.json";
 
@@ -11,6 +11,7 @@ const activeWireTime = computed(() => {
   let scale = Math.pow(4, speedScale.value / 100) / 2;
   return DEFAULT_ACTIVE_WIRE_TIME / scale;
 });
+const lc3Diagram = useTemplateRef("lc3");
 
 const instrDropdownValue = ref("add");
 const instrDDStrings: Record<string, string> = { // TODO: resolve hack
@@ -39,7 +40,7 @@ Operation NOT:
 /**
  * A queue of wires to activate.
  */
- const wireQueue: string[] = [];
+const wireQueue: string[] = [];
 
 let loopId: number | undefined = undefined;
 /**
@@ -56,13 +57,13 @@ function queueTick(ts: number) {
     // If we're ready to queue the next wire:
     if (wireQueue[0] === CYCLE_BREAK) {
         if ((ts - lastWireActivate) >= 2 * activeWireTime.value) {
-            resetWires();
+            lc3Diagram.value?.resetWires();
             wireQueue.shift();
             lastWireActivate = ts;
         }
     } else {
         if ((ts - lastWireActivate) >= activeWireTime.value) {
-            activateWire(wireQueue.shift()!);
+            lc3Diagram.value?.activateWire(wireQueue.shift()!);
             lastWireActivate = ts;
         }
     }
@@ -90,24 +91,10 @@ function pauseQueueLoop() {
  */
 function stopQueueLoop() {
     pauseQueueLoop();
-    resetWires();
+    lc3Diagram.value?.resetWires();
     wireQueue.length = 0;
 }
 
-function activateWire(wireId: string) {
-    // Activate selected wire
-    const wire = document.getElementById(wireId);
-    if (wire) {
-        wire.classList.add('active');
-    } else {
-        console.warn("Failed to activate missing wire:", wireId);
-    }
-}
-function resetWires() {
-    document.querySelectorAll('.wire').forEach(wire => {
-        wire.classList.remove('active');
-    });
-}
 function activateMacro(key: string) {
     if (!(key in SEQUENCE_DATA)) return;
     let { sequence } = SEQUENCE_DATA[key as keyof typeof SEQUENCE_DATA];
@@ -137,7 +124,7 @@ function activateMacro(key: string) {
     </select>
     
     <div class="middle">
-      <LC3 />
+      <LC3 ref="lc3" />
       <div class="text">
           {{ instrDDStrings[instrDropdownValue] }}
       </div>

@@ -58,20 +58,6 @@ body {
     display: block;
 }
 
-.wire.active {
-    fill: red;
-    stroke: red;
-    animation: pulse 1s infinite;
-}
-  
-
-
-@keyframes pulse {
-    0% { stroke-opacity: 1; }
-    50% { stroke-opacity: 0.5; }
-    100% { stroke-opacity: 1; }
-}
-
 .control-panel {
     position: relative;
     padding: 5px;
