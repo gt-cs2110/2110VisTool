@@ -1,3 +1,44 @@
+<script setup lang="ts">
+    defineExpose({
+        /**
+         * Activates the wire with the given ID, causing it to light up.
+         * @param wireId ID of the wire to activate.
+         */
+        activateWire(wireId: string) {
+                // Activate selected wire
+            const wire = document.getElementById(wireId);
+            if (wire) {
+                wire.classList.add('active');
+            } else {
+                console.warn("Failed to activate missing wire:", wireId);
+            }
+        },
+
+        /**
+         * Resets all wires, removing their light-up status.
+         */
+        resetWires() {
+            document.querySelectorAll('.wire').forEach(wire => {
+                wire.classList.remove('active');
+            });
+        }
+    })
+</script>
+
+<style scoped>
+    .wire.active {
+        fill: red;
+        stroke: red;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { stroke-opacity: 1; }
+        50% { stroke-opacity: 0.5; }
+        100% { stroke-opacity: 1; }
+    }
+</style>
+
 <template>
     <div>
         <svg width="850" height="800" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
