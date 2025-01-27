@@ -27,21 +27,19 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: build
-        # Since we have a top-level domain, this is no longer necessary
-        # If we ever need to return to gtmun.github.io/couchmun,
-        # uncomment these two lines.
-        # env:
-        #   BASE_PATH: '/${{ github.event.repository.name }}'
-        run: |
-          npm run build
+      - name: Build
+        run: npm run build
 
-      - name: Upload Artifacts
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dist/'
+          # Upload dist folder
+          path: './dist'
 
   deploy:
     needs: build
