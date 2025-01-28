@@ -10,5 +10,6 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
     Slider: typeof import('primevue/slider')['default']
+    ToggleButton: typeof import('primevue/togglebutton')['default']
   }
 }

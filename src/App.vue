@@ -2,6 +2,7 @@
 import { computed, ref, useTemplateRef } from 'vue';
 import LC3 from './components/LC3.vue';
 import SEQUENCE_DATA from "./sequences.json";
+import { Icon } from "@iconify/vue";
 
 const DEFAULT_ACTIVE_WIRE_TIME = 200;
 const CYCLE_BREAK = "pause-and-clear";
@@ -92,52 +93,55 @@ Operation TRAP:
   PC = mem[ZEXT(trapvect8)];`
 
 };
+
 /**
  * A queue of wires to activate.
  */
-const wireQueue: string[] = [];
+const wireQueue = ref<string[]>([]);
+const loopId = ref<number>();
+const running = computed(() => typeof loopId.value !== "undefined");
+const queueIsEmpty = computed(() => wireQueue.value.length === 0);
 
-let loopId: number | undefined = undefined;
 /**
  * The last tick when a wire was activated.
  */
 let lastWireActivate: number = 0;
 
 function queueTick(ts: number) {
-    if (wireQueue.length === 0) {
+    if (wireQueue.value.length === 0) {
         pauseQueueLoop();
         return;
     }
 
     // If we're ready to queue the next wire:
-    if (wireQueue[0] === CYCLE_BREAK) {
+    if (wireQueue.value[0] === CYCLE_BREAK) {
         if ((ts - lastWireActivate) >= 2 * activeWireTime.value) {
             lc3Diagram.value?.resetWires();
-            wireQueue.shift();
+            wireQueue.value.shift();
             lastWireActivate = ts;
         }
     } else {
         if ((ts - lastWireActivate) >= activeWireTime.value) {
-            lc3Diagram.value?.activateWire(wireQueue.shift()!);
+            lc3Diagram.value?.activateWire(wireQueue.value.shift()!);
             lastWireActivate = ts;
         }
     }
-    loopId = requestAnimationFrame(queueTick);
+    loopId.value = requestAnimationFrame(queueTick);
 }
 
 /**
  * Start queue loop.
  */
 function startQueueLoop() {
-    loopId = requestAnimationFrame(queueTick);
+    loopId.value = requestAnimationFrame(queueTick);
 }
 /**
  * Pause queue loop.
  */
 function pauseQueueLoop() {
-    if (typeof loopId === "number") {
-        cancelAnimationFrame(loopId);
-        loopId = undefined;
+    if (typeof loopId.value === "number") {
+        cancelAnimationFrame(loopId.value);
+        loopId.value = undefined;
         lastWireActivate = 0;
     }
 }
@@ -147,7 +151,14 @@ function pauseQueueLoop() {
 function stopQueueLoop() {
     pauseQueueLoop();
     lc3Diagram.value?.resetWires();
-    wireQueue.length = 0;
+    wireQueue.value.length = 0;
+}
+function toggleQueueLoop() {
+  if (running.value) {
+    pauseQueueLoop();
+  } else {
+    startQueueLoop();
+  }
 }
 
 function activateMacro(key: string) {
@@ -156,10 +167,11 @@ function activateMacro(key: string) {
 
     stopQueueLoop();
     for (let cycle of sequence) {
-        wireQueue.push(...cycle);
-        wireQueue.push(CYCLE_BREAK);
+        wireQueue.value.push(...cycle);
+        wireQueue.value.push(CYCLE_BREAK);
     }
-    if (sequence.length > 0) wireQueue.pop();
+    if (sequence.length > 0) wireQueue.value.pop();
+    window.scrollTo(0, 0);
     startQueueLoop();
 }
 </script>
@@ -172,6 +184,7 @@ function activateMacro(key: string) {
   @apply border-stone-700 border-2 rounded-md;
 }
 </style>
+
 <template>
   <div class="flex flex-col gap-3 p-4">
     <header>
@@ -197,10 +210,12 @@ function activateMacro(key: string) {
 
   <div>
     <div class="control-panel">
-      <Slider v-model="speedScale" class="w-56"/>
-      <Button @click="startQueueLoop()">Play</Button>
-      <Button @click="pauseQueueLoop()">Pause</Button>
-      <Button @click="stopQueueLoop()">Reset Wires</Button>
+      <Slider v-model="speedScale" class="w-56" />
+      <Button @click="toggleQueueLoop()" :aria-label="running ? 'Pause' : 'Play'" :disabled="queueIsEmpty">
+        <Icon v-if="running" icon="mdi:pause" width="24" height="24" />
+        <Icon v-else icon="mdi:play" width="24" height="24" />
+      </Button>
+      <Button @click="stopQueueLoop()" :disabled="queueIsEmpty">Reset Wires</Button>
     </div>
     <div class="control-panel flex-wrap">
       <Button 
