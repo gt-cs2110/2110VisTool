@@ -2,7 +2,6 @@
 import { computed, ref, useTemplateRef } from 'vue';
 import LC3 from './components/LC3.vue';
 import SEQUENCE_DATA from "./sequences.json";
-import { Icon } from "@iconify/vue";
 
 const DEFAULT_ACTIVE_WIRE_TIME = 200;
 const CYCLE_BREAK = "pause-and-clear";
@@ -212,8 +211,8 @@ function activateMacro(key: string) {
     <div class="control-panel">
       <Slider v-model="speedScale" class="w-56" />
       <Button @click="toggleQueueLoop()" :aria-label="running ? 'Pause' : 'Play'" :disabled="queueIsEmpty">
-        <Icon v-if="running" icon="mdi:pause" width="24" height="24" />
-        <Icon v-else icon="mdi:play" width="24" height="24" />
+        <mdi-pause v-if="running" />
+        <mdi-play v-else />
       </Button>
       <Button @click="stopQueueLoop()" :disabled="queueIsEmpty">Reset Wires</Button>
     </div>
