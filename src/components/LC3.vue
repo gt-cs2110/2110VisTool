@@ -25,10 +25,9 @@
     })
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
     .wire.active {
-        fill: red;
-        stroke: red;
+        @apply fill-red-500 stroke-red-500;
         animation: pulse 1s infinite;
     }
 
@@ -40,8 +39,8 @@
 </style>
 
 <template>
-    <div>
-        <svg width="850" height="800" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="rounded bg-stone-700 p-4">
+        <svg width="100%" height="100%" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
                     <path class="wire" id="Low Arrow"
                         d="M195 1241L270 1284.3V1197.7L195 1241ZM1643 1233.5L262.5 1233.5V1248.5L1643 1248.5V1233.5Z"

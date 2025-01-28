@@ -164,52 +164,51 @@ function activateMacro(key: string) {
 }
 </script>
 
+<style scoped lang="postcss">
+.control-panel {
+  --p-slider-track-background: var(--p-stone-500);
+  @apply flex items-center gap-3 p-2;
+  @apply bg-stone-300 dark:bg-stone-600;
+  @apply border-stone-700 border-2 rounded-md;
+}
+</style>
 <template>
-  <div class="flex-container">
+  <div class="flex flex-col gap-3 p-4">
     <header>
-          <h1>CS 2110 Computer Organization and Programming Visualization Tool</h1>
-          <h3>Designed by Huy Nguyen and Henry Bui</h3>
+          <h1 class="text-center text-5xl">LC-3 Visualization Tool</h1>
+          <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
     </header>
 
-    <select v-model="instrDropdownValue">
-          <option value="add">ADD</option>
-          <option value="and">AND</option>
-          <option value="not">NOT</option>
-          <option value="ld">LD</option>
-          <option value="ldi">LDI</option>
-          <option value="ldr">LDR</option>
-          <option value="st">ST</option>
-          <option value="sti">STI</option>
-          <option value="str">STR</option>
-          <option value="lea">LEA</option>
-          <option value="br">BR</option>
-          <option value="jmp">JMP</option>
-          <option value="jsr/jsrr">JSR</option>
-          <option value="trap">TRAP</option>
-    </select>
+    <div class="flex justify-center">
+      <select v-model="instrDropdownValue">
+          <option v-for="value of Object.keys(instrDDStrings)" :value>
+            {{ value.toUpperCase() }}
+          </option>
+      </select>
+    </div>
     
-    <div class="middle">
+    <div class="grid grid-cols-[2fr_1fr] items-center">
+      <!-- The SVG diagram -->
       <LC3 ref="lc3" />
-      <div class="text">
-          {{ instrDDStrings[instrDropdownValue] }}
-      </div>
+      <!-- The pseudocode -->
+      <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre>
     </div>
   </div>
 
   <div>
     <div class="control-panel">
-      <input type="range" min="0" max="100" v-model="speedScale">
-      <button @click="startQueueLoop()">Play</button>
-      <button @click="pauseQueueLoop()">Pause</button>
-      <button @click="stopQueueLoop()">Reset Wires</button>
+      <Slider v-model="speedScale" class="w-56"/>
+      <Button @click="startQueueLoop()">Play</Button>
+      <Button @click="pauseQueueLoop()">Pause</Button>
+      <Button @click="stopQueueLoop()">Reset Wires</Button>
     </div>
-    <div class="control-panel">
-      <button 
+    <div class="control-panel flex-wrap">
+      <Button 
         v-for="[key, { label }] in Object.entries(SEQUENCE_DATA)" 
         @click="activateMacro(key)"
       >
         {{ label }}
-      </button>
+      </Button>
     </div>
   </div>
 </template>
