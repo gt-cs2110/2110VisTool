@@ -170,7 +170,7 @@ function activateMacro(key: string) {
         wireQueue.value.push(CYCLE_BREAK);
     }
     if (sequence.length > 0) wireQueue.value.pop();
-    window.scrollTo(0, 0);
+    lc3Diagram.value.scrollIntoView();
     startQueueLoop();
 }
 </script>
@@ -214,7 +214,7 @@ function activateMacro(key: string) {
         <mdi-pause v-if="running" />
         <mdi-play v-else />
       </Button>
-      <Button @click="stopQueueLoop()" :disabled="queueIsEmpty">Reset Wires</Button>
+      <Button @click="stopQueueLoop()">Reset Wires</Button>
     </div>
     <div class="control-panel flex-wrap">
       <Button 
