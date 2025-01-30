@@ -11,6 +11,10 @@ declare module 'vue' {
     LC3: typeof import('./src/components/LC3.vue')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
+    MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Slider: typeof import('primevue/slider')['default']
+  }
+  export interface ComponentCustomProperties {
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

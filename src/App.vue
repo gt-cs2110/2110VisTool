@@ -209,8 +209,14 @@ function activateMacro(key: string) {
 
   <div>
     <div class="control-panel">
+      Speed: 
       <Slider v-model="speedScale" class="w-56" />
-      <Button @click="toggleQueueLoop()" :aria-label="running ? 'Pause' : 'Play'" :disabled="queueIsEmpty">
+      <Button
+        :disabled="queueIsEmpty"
+        :aria-label="running ? 'Pause' : 'Play'"
+        v-tooltip.top="running ? 'Pause' : 'Play'"
+        @click="toggleQueueLoop()"
+      >
         <mdi-pause v-if="running" />
         <mdi-play v-else />
       </Button>
