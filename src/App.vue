@@ -170,7 +170,7 @@ function activateMacro(key: string) {
         wireQueue.value.push(CYCLE_BREAK);
     }
     if (sequence.length > 0) wireQueue.value.pop();
-    window.scrollTo(0, 0);
+    lc3Diagram.value.scrollIntoView();
     startQueueLoop();
 }
 </script>
@@ -185,44 +185,50 @@ function activateMacro(key: string) {
 </style>
 
 <template>
-  <div class="flex flex-col gap-3 p-4">
-    <header>
-          <h1 class="text-center text-5xl">LC-3 Visualization Tool</h1>
-          <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
-    </header>
-
-    <div class="flex justify-center">
+  <header class="p-4">
+        <h1 class="text-center text-5xl">LC-3 Visualization Tool</h1>
+        <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
+  </header>
+  <div class="flex flex-col gap-3 h-screen">
+    <!-- <div class="flex justify-center">
       <select v-model="instrDropdownValue">
           <option v-for="value of Object.keys(instrDDStrings)" :value>
             {{ value.toUpperCase() }}
           </option>
       </select>
-    </div>
+    </div> -->
     
-    <div class="grid grid-cols-[2fr_1fr] items-center">
+    <div class="flex flex-1 justify-center">
       <!-- The SVG diagram -->
       <LC3 ref="lc3" />
       <!-- The pseudocode -->
-      <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre>
+      <!-- <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre> -->
     </div>
-  </div>
 
-  <div>
-    <div class="control-panel">
-      <Slider v-model="speedScale" class="w-56" />
-      <Button @click="toggleQueueLoop()" :aria-label="running ? 'Pause' : 'Play'" :disabled="queueIsEmpty">
-        <mdi-pause v-if="running" />
-        <mdi-play v-else />
-      </Button>
-      <Button @click="stopQueueLoop()" :disabled="queueIsEmpty">Reset Wires</Button>
-    </div>
-    <div class="control-panel flex-wrap">
-      <Button 
-        v-for="[key, { label }] in Object.entries(SEQUENCE_DATA)" 
-        @click="activateMacro(key)"
-      >
-        {{ label }}
-      </Button>
+    <div>
+      <div class="control-panel">
+        Speed: 
+        <Slider v-model="speedScale" class="w-56" />
+        <Button
+          :disabled="queueIsEmpty"
+          :aria-label="running ? 'Pause' : 'Play'"
+          v-tooltip.top="running ? 'Pause' : 'Play'"
+          @click="toggleQueueLoop()"
+        >
+          <mdi-pause v-if="running" />
+          <mdi-play v-else />
+        </Button>
+        <Button @click="stopQueueLoop()">Reset Wires</Button>
+      </div>
+      <div class="control-panel flex-wrap">
+        <Button 
+          size="small"
+          v-for="[key, { label }] in Object.entries(SEQUENCE_DATA)" 
+          @click="activateMacro(key)"
+        >
+          {{ label }}
+        </Button>
+      </div>
     </div>
   </div>
 </template>

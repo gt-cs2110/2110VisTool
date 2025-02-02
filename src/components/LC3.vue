@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useTemplateRef } from 'vue';
+
+    const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
         /**
          * Activates the wire with the given ID, causing it to light up.
@@ -21,6 +24,10 @@
             document.querySelectorAll('.wire').forEach(wire => {
                 wire.classList.remove('active');
             });
+        },
+
+        scrollIntoView() {
+            top.value?.scrollIntoView();
         }
     })
 </script>
@@ -39,7 +46,7 @@
 </style>
 
 <template>
-    <div class="rounded bg-stone-700 p-4">
+    <div ref="top" class="rounded bg-stone-700 p-4">
         <svg width="100%" height="100%" viewBox="0 0 1650 1591" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
                     <path class="wire" id="Low Arrow"
