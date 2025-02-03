@@ -501,7 +501,8 @@
                 "Low Arrow",
                 "BUS to MDR",
                 "0 (LD.MDR)",
-                "MDR selector"
+                "MDR selector",
+                "MDR (shape)"
             ], [
                 "1 (RW)",
                 "RW selector",
@@ -588,7 +589,8 @@
                 "Low Arrow",
                 "BUS to MDR",
                 "0 (LD.MDR)",
-                "MDR selector"
+                "MDR selector",
+                "MDR (shape)"
             ], [
                 "1 (RW)",
                 "RW selector",
@@ -655,7 +657,8 @@
                 "Low Arrow",
                 "BUS to MDR",
                 "0 (LD.MDR)",
-                "MDR selector"
+                "MDR selector",
+                "MDR (shape)"
             ], [
                 "1 (RW)",
                 "RW selector",
