@@ -7,13 +7,33 @@ import { useTemplateRef } from 'vue';
          * Activates the wire with the given ID, causing it to light up.
          * @param wireId ID of the wire to activate.
          */
-        activateWire(wireId: string) {
+        activateWire(wireId: string, cycle: number) {
                 // Activate selected wire
             const wire = document.getElementById(wireId);
             if (wire) {
-                wire.classList.add('active');
+                wire.classList.remove(
+                    ...Array.from(wire.classList.values())
+                        .filter(cls => cls.startsWith("active-"))
+                );
+                wire.classList.add("active", `active-${cycle}`);
             } else {
                 console.warn("Failed to activate missing wire:", wireId);
+            }
+        },
+        /**
+         * Deactivates the wire with the given ID, causing it to turn off.
+         * @param wireId ID of the wire to activate.
+         */
+        deactivateWire(wireId: string) {
+            const wire = document.getElementById(wireId);
+            if (wire) {
+                wire.classList.remove(
+                    'active',
+                    ...Array.from(wire.classList.values())
+                        .filter(cls => cls.startsWith("active-"))
+                );
+            } else {
+                console.warn("Failed to deactivate missing wire:", wireId);
             }
         },
 
@@ -34,8 +54,29 @@ import { useTemplateRef } from 'vue';
 
 <style scoped lang="postcss">
     .wire.active {
-        @apply fill-red-500 stroke-red-500;
+        @apply fill-slate-500 stroke-slate-500;
         animation: pulse 1s infinite;
+    }
+    .wire.active.active-0 {
+        @apply fill-red-500 stroke-red-500;
+    }
+    .wire.active.active-1 {
+        @apply fill-orange-500 stroke-orange-500;
+    }
+    .wire.active.active-2 {
+        @apply fill-yellow-500 stroke-yellow-500;
+    }
+    .wire.active.active-3 {
+        @apply fill-green-500 stroke-green-500;
+    }
+    .wire.active.active-4 {
+        @apply fill-blue-500 stroke-blue-500;
+    }
+    .wire.active.active-5 {
+        @apply fill-purple-500 stroke-purple-500;
+    }
+    .wire.active.active-6 {
+        @apply fill-pink-500 stroke-pink-500;
     }
 
     @keyframes pulse {
