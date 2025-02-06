@@ -114,7 +114,7 @@
                 "SEXT[4:0] (shape)",
                 "IR to SR2MUX (3)",
                 "IR to SR2MUX (4)",
-                "0 (SR2MUX selector)",
+                "1 (SR2MUX selector)",
                 "SR2MUX selector",
                 "SR2MUX (shape)",
                 "SR2MUX to ALU",
