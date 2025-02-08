@@ -113,15 +113,15 @@ import { useTemplateRef } from 'vue';
                     <path class="wire" id="BUS to CC (1)" d="M752.75 1238V1190.99" stroke="white" stroke-width="6"/>
                 </g>
                 <g class="wire" id="CC (shape)">
-                <g id="N box" filter="url(#filter0_dd_0_1)">
+                <g class="wire" id="N box" filter="url(#filter0_dd_0_1)">
                     <rect x="645" y="1047" width="73.3333" height="59" fill="#D9D9D9"/>
                     <rect x="646.5" y="1048.5" width="70.3333" height="56" stroke="black" stroke-width="3"/>
                 </g>
-                <g id="P box" filter="url(#filter1_dd_0_1)">
+                <g class="wire" id="P box" filter="url(#filter1_dd_0_1)">
                     <rect x="791.667" y="1047" width="73.3333" height="59" fill="#D9D9D9"/>
                     <rect x="793.167" y="1048.5" width="70.3333" height="56" stroke="black" stroke-width="3"/>
                 </g>
-                <g id="Z box" filter="url(#filter2_dd_0_1)">
+                <g class="wire" id="Z box" filter="url(#filter2_dd_0_1)">
                     <rect x="718.333" y="1047" width="73.3333" height="59" fill="#D9D9D9"/>
                     <rect x="719.833" y="1048.5" width="70.3333" height="56" stroke="black" stroke-width="3"/>
                 </g>
