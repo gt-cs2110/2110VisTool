@@ -656,10 +656,10 @@ import { useTemplateRef } from 'vue';
                     <path class="wire" id="DR selector"
                         d="M1542.98 175C1542.98 179.418 1539.39 183 1534.98 183C1530.56 183 1526.98 179.418 1526.98 175C1526.98 170.582 1530.56 167 1534.98 167C1539.39 167 1542.98 170.582 1542.98 175ZM1578.02 176.5H1534.98V173.5H1578.02V176.5Z"
                         fill="white" />
-                    <path class="wire" id="SR2 selector"
+                    <path class="wire" id="SR1 selector"
                         d="M1543 316C1543 320.418 1539.42 324 1535 324C1530.58 324 1527 320.418 1527 316C1527 311.582 1530.58 308 1535 308C1539.42 308 1543 311.582 1543 316ZM1583 317.5H1535V314.5H1583V317.5Z"
                         fill="white" />
-                    <path class="wire" id="SR1 selector"
+                    <path class="wire" id="SR2 selector"
                         d="M1323 312C1323 316.418 1326.58 320 1331 320C1335.42 320 1339 316.418 1339 312C1339 307.582 1335.42 304 1331 304C1326.58 304 1323 307.582 1323 312ZM1283 313.5H1331V310.5H1283V313.5Z"
                         fill="white" />
                     <rect class="wire" id="Register File (shape)" x="1332.5" y="132.5" width="201" height="231" fill="#D9D9D9"
