@@ -88,7 +88,7 @@ import { useTemplateRef } from 'vue';
 
 <template>
     <div ref="top" class="rounded bg-stone-700 p-4">
-        <svg width="100%" height="100%" viewBox="0 0 1650 1781" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="100%" height="100%" viewBox="0 0 1650 1741" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
                     <path class="wire" id="Low Arrow"
                         d="M195 1241L270 1284.3V1197.7L195 1241ZM1643 1233.5L262.5 1233.5V1248.5L1643 1248.5V1233.5Z"
