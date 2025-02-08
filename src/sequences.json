@@ -66,6 +66,12 @@
             [
                 "SR2 selector",
                 "Register to ALU (joint)",
+                "1 (SR1MUX selector)",
+                "SR1MUX selector",
+                "IR[8:6] (SR1MUX text)",
+                "IR[8:6] (SR1MUX selector)",
+                "SR1MUX (shape)",
+                "SR1MUX (output)",
                 "SR1 selector",
                 "Register to SR2MUX",
                 "0 (SR2MUX selector)",
