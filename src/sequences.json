@@ -64,7 +64,7 @@
     "ADD_REG": {
         "label": "ADD (reg)",
         "sequence": [
-            
+            [
                 "1 (SR1MUX selector)",
                 "SR1MUX selector",
                 "IR[8:6] (SR1MUX text)",
@@ -107,6 +107,7 @@
                 "LD.REG selector",
                 "Register File (shape)"
             ]
+        ]
         
 
     },
@@ -156,9 +157,7 @@
                     "BUS to CC (2)",
                     "1 (LD.CC)",
                     "CC selector",
-                    "N box",
-                    "Z box",
-                    "P box",
+                    "CC (shape)",
                     "CC to FSM (1)",
                     "CC to FSM (2)",
                     "FSM (shape)",
