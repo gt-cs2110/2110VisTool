@@ -155,7 +155,7 @@ import { useTemplateRef } from 'vue';
                         fill="white" />
             </g>
             <g id="GatePC">
-                    <path id="GatePC selector"
+                    <path class="wire"id="GatePC selector"
                         d="M942 140C942 135.582 938.418 132 934 132C929.582 132 926 135.582 926 140C926 144.418 929.582 148 934 148C938.418 148 942 144.418 942 140ZM961 138.5H934V141.5H961V138.5Z"
                         fill="white" />
                     <path class="wire" id="PC to BUS" d="M911 65L893.679 95H928.321L911 65ZM914 174V92H908V174H914Z" fill="white" />

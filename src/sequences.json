@@ -4,6 +4,7 @@
         "sequence": [
             [
                 "1 (GatePC)",
+                "GatePC selector",
                 "GatePC (shape)",
                 "PC to BUS",
                 "Top Arrow",
@@ -63,9 +64,7 @@
     "ADD_REG": {
         "label": "ADD (reg)",
         "sequence": [
-            [
-                "SR2 selector",
-                "Register to ALU (joint)",
+            
                 "1 (SR1MUX selector)",
                 "SR1MUX selector",
                 "IR[8:6] (SR1MUX text)",
@@ -73,6 +72,8 @@
                 "SR1MUX (shape)",
                 "SR1MUX (output)",
                 "SR1 selector",
+                "Register to ALU (joint)",
+                "SR2 selector",
                 "Register to SR2MUX",
                 "0 (SR2MUX selector)",
                 "SR2MUX selector",
@@ -106,14 +107,20 @@
                 "LD.REG selector",
                 "Register File (shape)"
             ]
-        ]
+        
 
     },
     "ADD_IMM": {
         "label": "ADD (imm)",
         "sequence": [
             [
-                "SR2 selector",
+                "1 (SR1MUX selector)",
+                "SR1MUX selector",
+                "IR[8:6] (SR1MUX text)",
+                "IR[8:6] (SR1MUX selector)",
+                "SR1MUX (shape)",
+                "SR1MUX (output)",
+                "SR1 selector",
                 "Register to ALU (joint)",
                 "IR to SR2MUX (1)",
                 "IR to SR2MUX (2)",
