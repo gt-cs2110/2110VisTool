@@ -886,6 +886,7 @@
         "sequence": [
             [
                 "1 (GatePC)",
+                "GatePC selector",
                 "GatePC (shape)",
                 "PC to BUS",      
                 "Top Arrow",
@@ -941,6 +942,7 @@
         "sequence": [
             [
                 "1 (GatePC)",
+                "GatePC selector",
                 "GatePC (shape)",
                 "PC to BUS",
                 "Top Arrow",
@@ -991,6 +993,7 @@
         "sequence": [
             [
                 "1 (GatePC)",
+                "GatePC selector",
                 "GatePC (shape)",
                 "PC to BUS",      
                 "Top Arrow",
