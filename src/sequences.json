@@ -558,7 +558,7 @@
                 "GateALU (shape)",
                 "Low Arrow",
                 "BUS to MDR",
-                "0 (LD.MDR)",
+                "1 (LD.MDR)",
                 "MDR selector",
                 "MDR (shape)"
             ], [
@@ -653,7 +653,7 @@
                 "ALU to BUS",
                 "Low Arrow",
                 "BUS to MDR",
-                "0 (LD.MDR)",
+                "1 (LD.MDR)",
                 "MDR selector",
                 "MDR (shape)"
             ], [
@@ -735,7 +735,7 @@
                 "ALU to BUS",
                 "Low Arrow",
                 "BUS to MDR",
-                "0 (LD.MDR)",
+                "1 (LD.MDR)",
                 "MDR selector",
                 "MDR (shape)"
             ], [
