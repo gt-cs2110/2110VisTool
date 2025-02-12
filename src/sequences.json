@@ -900,8 +900,7 @@
                 "DR selector",
                 "1 (LD.REG)",
                 "LD.REG selector",
-                "Register File (shape)"
-            ], [
+                "Register File (shape)",
                 "IR to ZEXT/SEXT (1)",
                 "IR to ZEXT/SEXT (2)",
                 "Bus to SEXT [10:0]",
@@ -956,8 +955,7 @@
                 "DR selector",
                 "1 (LD.REG)",
                 "LD.REG selector",
-                "Register File (shape)"
-            ], [
+                "Register File (shape)",
                 "Register to ALU (joint)",
                 "SR1 to ADDR1MUX (1)",
                 "SR1 to ADDR1MUX (2)",
