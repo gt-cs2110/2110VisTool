@@ -169,7 +169,7 @@ import { useTemplateRef } from 'vue';
                 <line class="wire" id="PC to ADDR1MUX(2)" x1="768" y1="730" x2="1146" y2="730" stroke="white" stroke-width="6"/>
                 <line class="wire" id="PC to ADDR1MUX(1)" x1="1143" y1="733" x2="1143" y2="203" stroke="white" stroke-width="6"/>
                 </g>
-                <line class="wire" id="PC to ADDR1 (joint line)" x1="1051" y1="202" x2="1146" y2="202" stroke="white" stroke-width="6"/>
+                <line class="wire" id="PC to MUXES (joint line)" x1="1051" y1="202" x2="1146" y2="202" stroke="white" stroke-width="6"/>
             </g>
             <g id="PCMUX">
                 <path class="wire" id="PCMUX selector" d="M810.333 329C810.333 334.891 815.109 339.667 821 339.667C826.891 339.667 831.667 334.891 831.667 329C831.667 323.109 826.891 318.333 821 318.333C815.109 318.333 810.333 323.109 810.333 329ZM801 331L821 331L821 327L801 327L801 331Z" fill="white"/>
