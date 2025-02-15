@@ -1107,6 +1107,7 @@
                 "MDR selector",
                 "MDR (shape)"
             ], [
+                "1 (GateMDR text)",
                 "GateMDR selector",
                 "GateMDR (shape)",
                 "MDR to BUS",
