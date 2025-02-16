@@ -19,7 +19,7 @@ Refactoring using Vue.js and Tailwind was done by Henry Bui: Vue components can 
 
 ## Running the Visualization Tool
 
-Currently, the visualization tool is hosted online using GitHub Pages: https://gt-cs2110.github.io/2110VisTool/ 
+Currently, the visualization tool is hosted online using GitHub Pages. Run it here:<br /> https://gt-cs2110.github.io/2110VisTool/ 
 
 ## Authors
 
