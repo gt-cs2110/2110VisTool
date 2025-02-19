@@ -233,19 +233,19 @@ function activateMacro(key: string) {
     <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
   </header>
   <div class="flex flex-col gap-3 h-screen">
-    <<div class="flex justify-center">
+    <!-- <div class="flex justify-center">
       <select v-model="instrDropdownValue">
           <option v-for="value of Object.keys(instrDDStrings)" :value>
             {{ value.toUpperCase() }}
           </option>
       </select>
-    </div>>
+    </div> -->
     
     <div class="flex flex-1 justify-center">
       <!-- The SVG diagram -->
       <LC3 ref="lc3" />
       <!-- The pseudocode -->
-      <<pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre>>
+      <!-- <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre> -->
     </div>
 
     <div>
