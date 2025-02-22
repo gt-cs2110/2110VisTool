@@ -113,7 +113,7 @@ import { useTemplateRef } from 'vue';
 
 <template>
     <div ref="top" class="diagram">
-        <svg width="100%" height="100%" viewBox="0 0 1650 1671" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- <svg width="100%" height="100%" viewBox="0 0 1650 1671" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
                 <path class="wire" id="Low Arrow" d="M195 1241L270 1284.3V1197.7L195 1241ZM1643 1233.5L262.5 1233.5V1248.5L1643 1248.5V1233.5Z" fill="white"/>
                 <path class="wire" id="Mid Arrow" d="M1635 1241.01L1635 49.9967" stroke="white" stroke-width="15"/>
@@ -512,6 +512,91 @@ import { useTemplateRef } from 'vue';
             <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
             </filter>
             </defs>
+        </svg> -->
+        <svg width="100%" height="100%" viewBox="0 0 1500 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5"/>
+                </pattern>
+                <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <rect width="100" height="100" fill="url(#smallGrid)"/>
+                    <path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1"/>
+                </pattern>
+                <marker
+                    id="triangle"
+                    viewBox="0 0 10 10"
+                    refX="1"
+                    refY="5"
+                    markerUnits="strokeWidth"
+                    markerWidth="10"
+                    markerHeight="10"
+                    orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="white" />
+                </marker>
+            </defs>
+            <rect v-if="true" width="100%" height="100%" fill="url(#grid)" />
+            <!-- Wire layer -->
+            <g>
+                <Wire :points="[
+                    [50, 50],
+                    [1450, 50],
+                    [1450, 1100],
+                    [50, 1100]
+                ]" stroke-width="10" stroke="white"
+                />
+            </g>
+            <!-- Animation layer -->
+            <g>
+            
+            </g>
+            <!-- Component layer -->
+            <g>
+                <!-- CC Logic -->
+                <LogicComponent id="Logic" :x="600" :y="1000" :width="225" :height="50" label="LOGIC" />
+                <g>
+                    <LogicComponent id="N box" :x="600" :y="900" :width="75" :height="50" label="N" />
+                    <LogicComponent id="Z box" :x="675" :y="900" :width="75" :height="50" label="Z" />
+                    <LogicComponent id="P box" :x="750" :y="900" :width="75" :height="50" label="P" />
+                </g>
+                <!-- I/O -->
+                <LogicComponent id="Input" :x="1160" :y="1150" :width="120" :height="75" label="Input" />
+                <LogicComponent id="Output" :x="1320" :y="1150" :width="120" :height="75" label="Output" />
+                <!-- PC -->
+                <LogicComponent id="PC" :x="700" :y="170" :width="300" :height="60" label="Program Counter" />
+                <Mux id="PCMUX" :x="760" :y="260" :width="180" :height="80" orientation="up" label="PCMUX" />
+                <LogicComponent id="+1" :x="1000" :y="260" :width="50" :height="50" label="+1" />
+                <TriState id="GatePC" :x="825" :y="100" :size="50" orientation="up" />
+                <!-- ADDR -->
+                <Mux id="ADDR1MUX" :x="580" :y="510" :width="200" :height="80" orientation="up" label="ADDR1MUX" />
+                <Mux id="ADDR2MUX" :x="280" :y="510" :width="240" :height="80" orientation="up" label="ADDR2MUX" />
+                <ALU id="ADDR adder" :x="425" :y="390" :width="250" :height="90" orientation="up" label="+" />
+                <Mux id="MARMUX" :x="210" :y="170" :width="180" :height="80" orientation="up" label="MARMUX" />
+                <TriState id="GateMARMUX" :x="275" :y="100" :size="50" orientation="up" />
+                <!-- Register File -->
+                <LogicComponent id="Register File" :x="1200" :y="100" :width="200" :height="250" label="Register File" label-size="lg" />
+                <!-- ALU -->
+                <ALU id="ALU component" :x="1200" :y="880" :width="200" :height="80" orientation="down" label="ALU" />
+                <Mux id="SR1MUX" :x="1160" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="SR1MUX" />
+                <Mux id="SR2MUX" :x="1150" :y="750" :width="180" :height="80" orientation="down" label="SR2MUX" />
+                <Mux id="DRMUX" :x="1320" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="DRMUX" />
+                <TriState id="GateALU" :x="1275" :y="1000" :size="50" orientation="down" />
+                <!-- SEXTs -->
+                <LogicComponent id="ZEXT[7:0]" :x="50" :y="400" :width="100" :height="50" label="ZEXT" />
+                <LogicComponent id="SEXT[10:0]" :x="150" :y="700" :width="100" :height="50" label="SEXT" />
+                <LogicComponent id="SEXT[8:0]" :x="150" :y="780" :width="100" :height="50" label="SEXT" />
+                <LogicComponent id="SEXT[5:0]" :x="150" :y="860" :width="100" :height="50" label="SEXT" />
+                <LogicComponent id="SEXT[4:0]" :x="900" :y="700" :width="100" :height="50" label="SEXT" />
+                <!-- IR -->
+                <LogicComponent id="IR" :x="150" :y="1000" :width="300" :height="50" label="Instruction Register" />
+                <!-- Finite State Machine -->
+                <LogicComponent id="FSM" :x="900" :y="760" :width="150" :height="200" label="Finite State Machine" />
+                <!-- Memory -->
+                <LogicComponent id="MAR" :x="575" :y="1210" :width="250" :height="70" label="Memory Address Register" />
+                <LogicComponent id="Memory" :x="350" :y="1150" :width="200" :height="210" label="Memory" />
+                <Mux id="MDRMUX" :x="150" :y="1310" :width="200 * 0.5" :height="80 * 0.5" orientation="up" />
+                <LogicComponent id="MDR" :x="75" :y="1210" :width="250" :height="70" label="Memory Data Register" />
+                <TriState id="GateMDR" :x="175" :y="1150" :size="50" orientation="up" />
+            </g>
         </svg>
     </div>
 </template>

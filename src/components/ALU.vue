@@ -27,7 +27,7 @@ import { computed } from 'vue';
         /**
          * The difference in size between the long and short sides of the ALU component.
          * 
-         * If the long side is `s` pixels, then the short side is `s - 2 * slant` pixels.
+         * If the long side is `s` pixels, then the short side is `s * (2 * slant - 1)` pixels.
          */
         slant?: number,
         /**
