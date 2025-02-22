@@ -78,6 +78,10 @@ import { useTemplateRef } from 'vue';
         @apply text-sky-950;
     }
     
+    :deep(.diagram-wire) {
+        @apply stroke-white;
+    }
+
     .wire.active {
         @apply fill-slate-500 stroke-slate-500;
         animation: pulse 1s infinite;
@@ -523,14 +527,13 @@ import { useTemplateRef } from 'vue';
                     <path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1"/>
                 </pattern>
                 <marker
-                    id="triangle"
+                    id="arrow"
                     viewBox="0 0 10 10"
-                    refX="1"
+                    refX="5"
                     refY="5"
-                    markerUnits="strokeWidth"
-                    markerWidth="10"
-                    markerHeight="10"
-                    orient="auto">
+                    markerWidth="6"
+                    markerHeight="6"
+                    orient="auto-start-reverse">
                     <path d="M 0 0 L 10 5 L 0 10 z" fill="white" />
                 </marker>
             </defs>
@@ -542,7 +545,10 @@ import { useTemplateRef } from 'vue';
                     [1450, 50],
                     [1450, 1100],
                     [50, 1100]
-                ]" stroke-width="10" stroke="white"
+                ]" 
+                    stroke-width="10"
+                    mark-start
+                    mark-end
                 />
             </g>
             <!-- Animation layer -->
