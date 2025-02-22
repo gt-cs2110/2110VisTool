@@ -1,14 +1,42 @@
+<!-- The pants-shaped component for all diagram components that are arithmetic operations (e.g., adder/ALU). -->
+
 <script setup lang="ts">
 import { computed } from 'vue';
 
     const { x, y, width, height, orientation, slant = 0.8, label = "", labelSize = "md" } = defineProps<{
+        /**
+         * Leftmost X position of component
+         */
         x: number,
+        /**
+         * Topmost Y position of component
+         */
         y: number,
+        /**
+         * Width of component
+         */
         width: number,
+        /**
+         * Height of component
+         */
         height: number,
+        /**
+         * The direction that the short side is pointing.
+         */
         orientation: "up" | "down" | "left" | "right",
+        /**
+         * The difference in size between the long and short sides of the ALU component.
+         * 
+         * If the long side is `s` pixels, then the short side is `s - 2 * slant` pixels.
+         */
         slant?: number,
+        /**
+         * The text to add in the center of the ALU.
+         */
         label?: string,
+        /**
+         * The size of the text in the center of the ALU.
+         */
         labelSize?: "sm" | "md" | "lg"
     }>();
 
@@ -62,18 +90,13 @@ import { computed } from 'vue';
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <foreignObject v-if="label" :x :y="orientation == 'down' ? y + height / 2 : y" :width :height="height / 2" class="diagram-text">
-            <div 
-                xmlns="http://www.w3.org/1999/xhtml"
-                class="w-full h-full flex justify-center items-center"
-                :class="{
-                    'text-xl': labelSize == 'sm',
-                    'text-3xl': labelSize == 'md',
-                    'text-4xl': labelSize == 'lg'
-                }"
-            >
-                <span>{{ label }}</span>
-            </div>
-        </foreignObject>
+        <TextBox 
+            :x
+            :y="orientation == 'down' ? y + height / 2 : y" 
+            :width
+            :height="height / 2" 
+            :label
+            :size="labelSize"
+        />
     </g>
 </template>

@@ -1,12 +1,35 @@
+<!-- A triangular component for all tri-state buffers. -->
+ 
 <script setup lang="ts">
 import { computed } from 'vue';
 
     const { x, y, size, orientation, label = "", labelSize = "md" } = defineProps<{
+        /**
+         * Leftmost X position of component
+         */
         x: number,
+        /**
+         * Topmost Y position of component
+         */
         y: number,
+        /**
+         * The side length of the triangle.
+         * 
+         * This component is an equilateral triangle, 
+         * so if the main axis has a length of `size`, the cross axis has a length of `size * sqrt(3) / 2`.
+         */
         size: number,
+        /**
+         * The direction the pointy side is facing.
+         */
         orientation: "up" | "down" | "left" | "right",
+        /**
+         * The label for this component.
+         */
         label?: string,
+        /**
+         * The size of the label for this component.
+         */
         labelSize?: "sm" | "md" | "lg"
     }>();
 
@@ -37,18 +60,6 @@ import { computed } from 'vue';
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <foreignObject v-if="label" :x :y :width :height class="diagram-text">
-            <div 
-                xmlns="http://www.w3.org/1999/xhtml"
-                class="w-full h-full flex justify-center items-center"
-                :class="{
-                    'text-xl': labelSize == 'sm',
-                    'text-3xl': labelSize == 'md',
-                    'text-4xl': labelSize == 'lg'
-                }"
-            >
-                <span>{{ label }}</span>
-            </div>
-        </foreignObject>
+        <TextBox :x :y :width :height :label :size="labelSize" />
     </g>
 </template>

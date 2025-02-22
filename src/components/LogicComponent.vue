@@ -1,10 +1,30 @@
+<!-- A generic rectangular component for all non-specially-shaped components (e.g., registers, SEXT, FSM, Memory) -->
+
 <script setup lang="ts">
     const { x, y, width, height, label = "", labelSize = "md" } = defineProps<{
+        /**
+         * Leftmost X position of component
+         */
         x: number,
+        /**
+         * Topmost Y position of component
+         */
         y: number,
+        /**
+         * Width of component
+         */
         width: number,
+        /**
+         * Height of component
+         */
         height: number,
+        /**
+         * The text to add in the center of the component.
+         */
         label?: string,
+        /**
+         * The size of the text in the center of the component.
+         */
         labelSize?: "sm" | "md" | "lg"
     }>();
 </script>
@@ -12,18 +32,6 @@
 <template>
     <g class="diagram-shape">
         <rect :x :y :width :height />
-        <foreignObject v-if="label" :x :y :width :height class="diagram-text">
-            <div 
-                xmlns="http://www.w3.org/1999/xhtml"
-                class="w-full h-full flex justify-center items-center"
-                :class="{
-                    'text-xl': labelSize == 'sm',
-                    'text-3xl': labelSize == 'md',
-                    'text-4xl': labelSize == 'lg'
-                }"
-            >
-                <span>{{ label }}</span>
-            </div>
-        </foreignObject>
+        <TextBox :x :y :width :height :label :size="labelSize" />
     </g>
 </template>
