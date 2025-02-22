@@ -7,14 +7,20 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ALU: typeof import('./src/components/ALU.vue')['default']
     Button: typeof import('primevue/button')['default']
     Divider: typeof import('primevue/divider')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
+    LogicComponent: typeof import('./src/components/LogicComponent.vue')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
+    Mux: typeof import('./src/components/Mux.vue')['default']
     Slider: typeof import('primevue/slider')['default']
+    Text: typeof import('./src/components/Text.vue')['default']
+    TriState: typeof import('./src/components/TriState.vue')['default']
+    Wire: typeof import('./src/components/Wire.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']
