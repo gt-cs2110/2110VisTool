@@ -564,11 +564,11 @@ import { useTemplateRef } from 'vue';
             <!-- Component layer -->
             <g>
                 <!-- CC Logic -->
-                <LogicComponent id="Logic" :x="600" :y="1000" :width="225" :height="50" label="LOGIC" />
+                <LogicComponent id="Logic" :x="580" :y="1000" :width="240" :height="50" label="LOGIC" />
                 <g>
-                    <LogicComponent id="N box" :x="600" :y="900" :width="75" :height="50" label="N" />
-                    <LogicComponent id="Z box" :x="675" :y="900" :width="75" :height="50" label="Z" />
-                    <LogicComponent id="P box" :x="750" :y="900" :width="75" :height="50" label="P" />
+                    <LogicComponent id="N box" :x="580" :y="900" :width="80" :height="50" label="N" />
+                    <LogicComponent id="Z box" :x="660" :y="900" :width="80" :height="50" label="Z" />
+                    <LogicComponent id="P box" :x="740" :y="900" :width="80" :height="50" label="P" />
                 </g>
                 <!-- I/O -->
                 <LogicComponent id="Input" :x="1160" :y="1150" :width="120" :height="75" label="Input" />
@@ -603,10 +603,10 @@ import { useTemplateRef } from 'vue';
                 <!-- Finite State Machine -->
                 <LogicComponent id="FSM" :x="900" :y="760" :width="150" :height="200" label="Finite State Machine" />
                 <!-- Memory -->
-                <LogicComponent id="MAR" :x="575" :y="1210" :width="250" :height="70" label="Memory Address Register" />
-                <LogicComponent id="Memory" :x="350" :y="1150" :width="200" :height="210" label="Memory" />
+                <LogicComponent id="MAR" :x="630" :y="1210" :width="260" :height="70" label="Memory Address Register" />
+                <LogicComponent id="Memory" :x="380" :y="1150" :width="200" :height="210" label="Memory" />
                 <Mux id="MDRMUX" :x="150" :y="1310" :width="200 * 0.5" :height="80 * 0.5" orientation="up" />
-                <LogicComponent id="MDR" :x="75" :y="1210" :width="250" :height="70" label="Memory Data Register" />
+                <LogicComponent id="MDR" :x="70" :y="1210" :width="260" :height="70" label="Memory Data Register" />
                 <TriState id="GateMDR" :x="175" :y="1150" :size="50" orientation="up" label="GateMDR" />
             </g>
         </svg>
