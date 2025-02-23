@@ -32,6 +32,8 @@
 <template>
     <g class="diagram-shape">
         <rect :x :y :width :height />
-        <TextBox :x :y :width :height :label :size="labelSize" />
+        <TextBox :x :y :width :height :size="labelSize">
+            {{ label }}
+        </TextBox>
     </g>
 </template>

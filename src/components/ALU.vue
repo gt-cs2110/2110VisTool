@@ -95,8 +95,9 @@ import { computed } from 'vue';
             :y="orientation == 'down' ? y + height / 2 : y" 
             :width
             :height="height / 2" 
-            :label
             :size="labelSize"
-        />
+        >
+            {{ label }}
+        </TextBox>
     </g>
 </template>

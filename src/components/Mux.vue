@@ -76,6 +76,8 @@ import { computeLabelProps } from '../position';
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <TextBox v-bind="labelProps" :label :size="labelSize" />
+        <TextBox v-bind="labelProps" :size="labelSize">
+            {{ label }}
+        </TextBox>
     </g>
 </template>

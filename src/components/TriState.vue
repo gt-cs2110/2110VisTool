@@ -60,6 +60,8 @@ import { computed } from 'vue';
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <TextBox :x :y :width :height :label :size="labelSize" />
+        <TextBox :x :y :width :height :size="labelSize">
+            {{ label }}
+        </TextBox>
     </g>
 </template>

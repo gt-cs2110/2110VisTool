@@ -1,7 +1,7 @@
 <!-- Text, word-wrappable and enclosed in an invisible box. -->
 
 <script setup lang="ts">
-    const { x, y, width, height, label = "", size = "md", over = 'component', overflow = "center" } = defineProps<{
+    const { x, y, width, height, size = "md", over = 'component', overflow = "center" } = defineProps<{
         /**
          * Leftmost X position of component
          */
@@ -19,10 +19,6 @@
          */
         height: number,
         /**
-         * The text.
-         */
-        label?: string,
-        /**
          * The size of the text.
          */
         size?: 'sm' | 'md' | 'lg',
@@ -36,7 +32,7 @@
 </script>
 
 <template>
-    <foreignObject v-if="label" :x :y :width :height 
+    <foreignObject v-if="$slots.default" :x :y :width :height 
         class="diagram-text" 
         :class="{
             [`diagram-text-${over}`]: true,
@@ -55,7 +51,9 @@
             'justify-end': overflow == 'left',
         }"
     >
-        <span>{{ label }}</span>
+        <span>
+            <slot />
+        </span>
     </div>
 </foreignObject>
 </template>
