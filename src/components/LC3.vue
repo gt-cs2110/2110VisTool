@@ -57,6 +57,12 @@ import { useTemplateRef } from 'vue';
         @apply rounded bg-stone-700 p-4;
         @apply select-none;
     }
+
+    :deep(.diagram-text) {
+        @apply text-white;
+
+        @apply text-center font-bold;
+    }
     :deep(.diagram-shape) * {
         @apply transition;
     }
@@ -64,22 +70,22 @@ import { useTemplateRef } from 'vue';
         @apply fill-surface-300 stroke-black;
         stroke-width: 5;
     }
-    :deep(.diagram-shape) .diagram-text {
+    :deep(.diagram-shape) .diagram-text.diagram-text-component {
         @apply text-black;
-
-        @apply text-center;
-        @apply font-bold text-4xl;
     }
 
     :deep(.diagram-shape):hover rect, :deep(.diagram-shape):hover polygon, :deep(.diagram-shape):hover path {
         @apply fill-sky-300;
     }
-    :deep(.diagram-shape):hover .diagram-text {
+    :deep(.diagram-shape):hover .diagram-text.diagram-text-component {
         @apply text-sky-950;
     }
     
     :deep(.diagram-wire) {
         @apply stroke-white;
+    }
+    :deep(.diagram-wire-head) {
+        @apply fill-white;
     }
 
     .wire.active {
@@ -534,7 +540,7 @@ import { useTemplateRef } from 'vue';
                     markerWidth="6"
                     markerHeight="6"
                     orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="white" />
+                    <path d="M 0 0 L 10 5 L 0 10 z" class="diagram-wire-head" />
                 </marker>
             </defs>
             <rect v-if="true" width="100%" height="100%" fill="url(#grid)" />
@@ -582,9 +588,9 @@ import { useTemplateRef } from 'vue';
                 <LogicComponent id="Register File" :x="1200" :y="100" :width="200" :height="250" label="Register File" label-size="lg" />
                 <!-- ALU -->
                 <ALU id="ALU component" :x="1200" :y="880" :width="200" :height="80" orientation="down" label="ALU" />
-                <Mux id="SR1MUX" :x="1160" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="SR1MUX" />
+                <Mux id="SR1MUX" :x="1160" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="SR1MUX" label-pos="down" />
                 <Mux id="SR2MUX" :x="1150" :y="750" :width="180" :height="80" orientation="down" label="SR2MUX" />
-                <Mux id="DRMUX" :x="1320" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="DRMUX" />
+                <Mux id="DRMUX" :x="1320" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="DRMUX" label-pos="down" />
                 <TriState id="GateALU" :x="1275" :y="1000" :size="50" orientation="down" />
                 <!-- SEXTs -->
                 <LogicComponent id="ZEXT[7:0]" :x="50" :y="400" :width="100" :height="50" label="ZEXT" />

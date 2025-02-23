@@ -3,8 +3,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { computeLabelProps } from '../position';
 
-    const { x, y, width, height, orientation, slant = 0.8, label = "", labelSize = "md" } = defineProps<{
+    const { x, y, width, height, orientation, slant = 0.8, label = "", labelSize = "md", labelPos = "inside" } = defineProps<{
         /**
          * Leftmost X position of component
          */
@@ -38,7 +39,8 @@ import { computed } from 'vue';
         /**
          * The size of the text in the center of the MUX.
          */
-        labelSize?: "sm" | "md" | "lg"
+        labelSize?: "sm" | "md" | "lg",
+        labelPos?: "inside" | "up" | "down" | "left" | "right",
     }>();
 
     const points = computed<[number, number][]>(() => {
@@ -54,11 +56,26 @@ import { computed } from 'vue';
             return [];
         }
     });
+
+    const labelProps = computed(() => {
+        if (labelPos == "inside") {
+            return {
+                x,
+                y: orientation == "down" ? y : y + height / 3,
+                width: width,
+                height: 2 * height / 3,
+                over: "component",
+                overflow: "center"
+            };
+        } else {
+            return computeLabelProps(labelPos, x, y, width, height);
+        }
+    })
 </script>
 
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <TextBox :x :y="orientation == 'down' ? y : y + 1 * height / 3" :width :height="2 * height / 3" :label :size="labelSize" />
+        <TextBox v-bind="labelProps" :label :size="labelSize" />
     </g>
 </template>

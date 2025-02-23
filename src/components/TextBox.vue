@@ -1,7 +1,7 @@
 <!-- Text, word-wrappable and enclosed in an invisible box. -->
 
 <script setup lang="ts">
-    const { x, y, width, height, label = "", size = "md", over = 'component' } = defineProps<{
+    const { x, y, width, height, label = "", size = "md", over = 'component', overflow = "center" } = defineProps<{
         /**
          * Leftmost X position of component
          */
@@ -29,19 +29,30 @@
         /**
          * Whether this text is over a component or over a background.
          */
-        over?: 'component' | "background"
+        over?: 'component' | "background",
+
+        overflow?: "center" | "left" | "right",
     }>();
 </script>
 
 <template>
-    <foreignObject v-if="label" :x :y :width :height class="diagram-text" :class="`diagram-text-${over}`">
+    <foreignObject v-if="label" :x :y :width :height 
+        class="diagram-text" 
+        :class="{
+            [`diagram-text-${over}`]: true,
+            'overflow-visible': typeof overflow !== 'undefined',
+        }"
+    >
     <div 
         xmlns="http://www.w3.org/1999/xhtml"
-        class="w-full h-full flex justify-center items-center"
+        class="w-full h-full flex items-center"
         :class="{
             'text-xl': size == 'sm',
             'text-3xl': size == 'md',
-            'text-4xl': size == 'lg'
+            'text-4xl': size == 'lg',
+            'justify-center': overflow == 'center',
+            'justify-start': overflow == 'right',
+            'justify-end': overflow == 'left',
         }"
     >
         <span>{{ label }}</span>
