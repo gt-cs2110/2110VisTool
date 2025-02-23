@@ -17,6 +17,7 @@ declare module 'vue' {
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Mux: typeof import('./src/components/Mux.vue')['default']
+    Port: typeof import('./src/components/Port.vue')['default']
     Slider: typeof import('primevue/slider')['default']
     TextBox: typeof import('./src/components/TextBox.vue')['default']
     TriState: typeof import('./src/components/TriState.vue')['default']

@@ -88,6 +88,14 @@ import { useTemplateRef } from 'vue';
         @apply fill-white;
     }
 
+    :deep(.diagram-port) circle {
+        @apply fill-white;
+    }
+    :deep(.diagram-port) line {
+        @apply stroke-white;
+        stroke-width: 5;
+    }
+
     .wire.active {
         @apply fill-slate-500 stroke-slate-500;
         animation: pulse 1s infinite;

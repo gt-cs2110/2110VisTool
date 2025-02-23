@@ -4,7 +4,7 @@
     const { points, markStart = false, markEnd = false } = defineProps<{
         points: [x: number, y: number][],
         markStart?: boolean,
-        markEnd?: boolean
+        markEnd?: boolean,
     }>();
 </script>
 

@@ -2,7 +2,6 @@
  
 <script setup lang="ts">
 import { computed } from 'vue';
-import { computeLabelProps } from '../position';
 
     const { x, y, size, orientation, label = "", labelSize = "sm", labelPos = "right" } = defineProps<{
         /**
@@ -59,14 +58,19 @@ import { computeLabelProps } from '../position';
             return [];
         }
     });
-    const labelProps = computed(() => computeLabelProps(labelPos, x, y, width.value, height.value));
 </script>
 
 <template>
     <g class="diagram-shape">
+        <Port 
+            :x="labelPos == 'right' ? x + width * 3 / 4 : x + width / 4"
+            :y="y + height / 2"
+            :r="10"
+            :ports="2"
+            :orientation="labelPos"
+            :label
+            :label-size
+        />
         <polygon :points="points.join(' ')" />
-        <TextBox v-bind="labelProps" :size="labelSize">
-            {{ label }}
-        </TextBox>
     </g>
 </template>

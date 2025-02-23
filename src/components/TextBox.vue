@@ -26,7 +26,10 @@
          * Whether this text is over a component or over a background.
          */
         over?: 'component' | "background",
-
+        /**
+         * If specified, this determines whether the textbox is allowed to overflow.
+         * If it is, then this specifies which direction the text overflows.
+         */
         overflow?: "center" | "left" | "right",
     }>();
 </script>
