@@ -577,13 +577,13 @@ import { useTemplateRef } from 'vue';
                 <LogicComponent id="PC" :x="700" :y="170" :width="300" :height="60" label="Program Counter" />
                 <Mux id="PCMUX" :x="760" :y="260" :width="180" :height="80" orientation="up" label="PCMUX" />
                 <LogicComponent id="+1" :x="1000" :y="260" :width="50" :height="50" label="+1" />
-                <TriState id="GatePC" :x="825" :y="100" :size="50" orientation="up" />
+                <TriState id="GatePC" :x="825" :y="100" :size="50" orientation="up" label="GatePC" />
                 <!-- ADDR -->
                 <Mux id="ADDR1MUX" :x="580" :y="510" :width="200" :height="80" orientation="up" label="ADDR1MUX" />
                 <Mux id="ADDR2MUX" :x="280" :y="510" :width="240" :height="80" orientation="up" label="ADDR2MUX" />
                 <ALU id="ADDR adder" :x="425" :y="390" :width="250" :height="90" orientation="up" label="+" />
                 <Mux id="MARMUX" :x="210" :y="170" :width="180" :height="80" orientation="up" label="MARMUX" />
-                <TriState id="GateMARMUX" :x="275" :y="100" :size="50" orientation="up" />
+                <TriState id="GateMARMUX" :x="275" :y="100" :size="50" orientation="up" label="GateMARMUX" />
                 <!-- Register File -->
                 <LogicComponent id="Register File" :x="1200" :y="100" :width="200" :height="250" label="Register File" label-size="lg" />
                 <!-- ALU -->
@@ -591,7 +591,7 @@ import { useTemplateRef } from 'vue';
                 <Mux id="SR1MUX" :x="1160" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="SR1MUX" label-pos="down" />
                 <Mux id="SR2MUX" :x="1150" :y="750" :width="180" :height="80" orientation="down" label="SR2MUX" />
                 <Mux id="DRMUX" :x="1320" :y="1300" :width="80 * 0.8" :height="180 * 0.8" orientation="right" label="DRMUX" label-pos="down" />
-                <TriState id="GateALU" :x="1275" :y="1000" :size="50" orientation="down" />
+                <TriState id="GateALU" :x="1275" :y="1000" :size="50" orientation="down" label="GateALU" />
                 <!-- SEXTs -->
                 <LogicComponent id="ZEXT[7:0]" :x="50" :y="400" :width="100" :height="50" label="ZEXT" />
                 <LogicComponent id="SEXT[10:0]" :x="150" :y="700" :width="100" :height="50" label="SEXT" />
@@ -607,7 +607,7 @@ import { useTemplateRef } from 'vue';
                 <LogicComponent id="Memory" :x="350" :y="1150" :width="200" :height="210" label="Memory" />
                 <Mux id="MDRMUX" :x="150" :y="1310" :width="200 * 0.5" :height="80 * 0.5" orientation="up" />
                 <LogicComponent id="MDR" :x="75" :y="1210" :width="250" :height="70" label="Memory Data Register" />
-                <TriState id="GateMDR" :x="175" :y="1150" :size="50" orientation="up" />
+                <TriState id="GateMDR" :x="175" :y="1150" :size="50" orientation="up" label="GateMDR" />
             </g>
         </svg>
     </div>

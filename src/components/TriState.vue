@@ -2,8 +2,9 @@
  
 <script setup lang="ts">
 import { computed } from 'vue';
+import { computeLabelProps } from '../position';
 
-    const { x, y, size, orientation, label = "", labelSize = "md" } = defineProps<{
+    const { x, y, size, orientation, label = "", labelSize = "sm", labelPos = "right" } = defineProps<{
         /**
          * Leftmost X position of component
          */
@@ -30,10 +31,19 @@ import { computed } from 'vue';
         /**
          * The size of the label for this component.
          */
-        labelSize?: "sm" | "md" | "lg"
+        labelSize?: "sm" | "md" | "lg",
+
+        labelPos?: "left" | "right"
     }>();
 
     const SQRT3_2 = Math.sqrt(3) / 2;
+
+    const width = computed(() => {
+        return orientation === "up" || orientation === "down" ? size : SQRT3_2 * size;
+    });
+    const height = computed(() => {
+        return orientation === "up" || orientation === "down" ? SQRT3_2 * size : size;
+    });
     const points = computed<[number, number][]>(() => {
         const base = size;
         const hght = size * SQRT3_2;
@@ -49,18 +59,13 @@ import { computed } from 'vue';
             return [];
         }
     });
-    const width = computed(() => {
-        return orientation === "up" || orientation === "down" ? size : SQRT3_2 * size;
-    });
-    const height = computed(() => {
-        return orientation === "up" || orientation === "down" ? SQRT3_2 * size : size;
-    });
+    const labelProps = computed(() => computeLabelProps(labelPos, x, y, width.value, height.value));
 </script>
 
 <template>
     <g class="diagram-shape">
         <polygon :points="points.join(' ')" />
-        <TextBox :x :y :width :height :size="labelSize">
+        <TextBox v-bind="labelProps" :size="labelSize">
             {{ label }}
         </TextBox>
     </g>
