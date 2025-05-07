@@ -52,7 +52,9 @@ import { useTemplateRef } from 'vue';
     })
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+    @reference "@/style.css";
+    
     .wire.active {
         @apply fill-slate-500 stroke-slate-500;
         animation: pulse 1s infinite;

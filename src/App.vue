@@ -218,7 +218,9 @@ function activateMacro(key: string) {
 }
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+@reference "@/style.css";
+
 .control-panel {
   --p-slider-track-background: var(--p-stone-500);
   @apply flex items-stretch gap-2 p-2;

@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
-import './style.pcss';
+import './style.css';
 
 createApp(App)
     .use(PrimeVue, {
@@ -12,7 +12,7 @@ createApp(App)
         options: {
             cssLayer: {
                 name: 'primevue',
-                order: 'tailwind-base, primevue, tailwind-utilities'
+                order: 'theme, primevue, base'
             }
         }
     })
