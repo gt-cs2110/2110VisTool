@@ -218,12 +218,13 @@ function activateMacro(key: string) {
 }
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+@reference "@/style.css";
+
 .control-panel {
-  --p-slider-track-background: var(--p-stone-500);
   @apply flex items-stretch gap-2 p-2;
-  @apply bg-stone-300 dark:bg-stone-600;
-  @apply border-stone-700 border-2 rounded-md;
+  @apply bg-surface-300 dark:bg-surface-600;
+  @apply border-surface border-2 rounded-md;
 }
 </style>
 

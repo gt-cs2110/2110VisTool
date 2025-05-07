@@ -52,10 +52,12 @@ import { useTemplateRef } from 'vue';
     })
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
+    @reference "@/style.css";
+    
     .wire.active {
-        @apply fill-slate-500 stroke-slate-500;
-        animation: pulse 1s infinite;
+        @apply fill-surface-500 stroke-surface-500;
+        animation: wire-pulse 1s infinite;
     }
     .wire.active.active-0 {
         @apply fill-red-500 stroke-red-500;
@@ -79,7 +81,7 @@ import { useTemplateRef } from 'vue';
         @apply fill-pink-500 stroke-pink-500;
     }
 
-    @keyframes pulse {
+    @keyframes wire-pulse {
         0% { stroke-opacity: 1; }
         50% { stroke-opacity: 0.5; }
         100% { stroke-opacity: 1; }
@@ -87,7 +89,7 @@ import { useTemplateRef } from 'vue';
 </style>
 
 <template>
-    <div ref="top" class="rounded bg-stone-700 p-4">
+    <div ref="top" class="rounded bg-surface-700 p-4">
         <svg width="100%" height="100%" viewBox="0 0 1650 1671" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
                 <path class="wire" id="Low Arrow" d="M195 1241L270 1284.3V1197.7L195 1241ZM1643 1233.5L262.5 1233.5V1248.5L1643 1248.5V1233.5Z" fill="white"/>
