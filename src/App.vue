@@ -92,7 +92,6 @@ Operation TRAP:
   PC = mem[ZEXT(trapvect8)];`
 
 };
-
 /**
  * A queue of wires to activate.
  */
@@ -100,7 +99,8 @@ const wireState = ref({
   wires: [] as string[],
   step: 0,
   stop: 0,
-  cycle: 0
+  cycle: 0,
+  macro: undefined as string | undefined,
 });
 const loopId = ref<number>();
 const running = computed(() => typeof loopId.value !== "undefined");
@@ -160,9 +160,9 @@ function runTick(ts: number) {
 /**
  * Start queue loop.
  */
-function startDiagramLoop(stop: "end" | "cycle" = "end") {
-  if (stop == "end") wireState.value.stop = wireState.value.wires.length;
-  if (stop == "cycle") {
+function startDiagramLoop(pauseAt: "end" | "cycle" = "end") {
+  if (pauseAt == "end") wireState.value.stop = wireState.value.wires.length;
+  if (pauseAt == "cycle") {
     let next = wireState.value.wires.indexOf(CYCLE_BREAK, wireState.value.step + 1);
     if (next == -1) next = wireState.value.wires.length;
     wireState.value.stop = next;
@@ -191,7 +191,8 @@ function resetDiagramLoop() {
       wires: [],
       step: 0,
       stop: 0,
-      cycle: 0
+      cycle: 0,
+      macro: undefined
     };
 }
 function toggleDiagramLoop() {
@@ -208,6 +209,7 @@ function activateMacro(key: string) {
 
     resetDiagramLoop();
 
+    wireState.value.macro = key;
     // Add CYCLE_BREAKs between the cycles
     for (let cycle of sequence) {
       wireState.value.wires.push(...cycle, CYCLE_BREAK);
@@ -230,8 +232,20 @@ function activateMacro(key: string) {
 
 <template>
   <header class="p-4">
-    <h1 class="text-center text-5xl">LC-3 Visualization Tool</h1>
-    <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
+      <div class="flex gap-1 items-center justify-center">
+        <h1 class="text-center text-4xl">
+          LC-3 Visualization Tool
+        </h1>
+        <Button
+          severity="secondary"
+          variant="text"
+          icon="pi"
+          aria-label="About"
+          rounded
+        >
+          <MdiInformationOutline />
+        </Button>
+      </div>
   </header>
   <div class="flex flex-col gap-3 h-screen">
     <!-- <div class="flex justify-center">
@@ -294,15 +308,19 @@ function activateMacro(key: string) {
         </Button>
         <Button :disabled="wireState.wires.length == 0" @click="resetDiagramLoop()">Reset Wires</Button>
       </div>
-      <div class="control-panel flex-wrap">
-        <Button 
-          size="small"
-          v-for="[key, { label }] in Object.entries(SEQUENCE_DATA)" 
-          @click="activateMacro(key)"
-        >
-          {{ label }}
-        </Button>
-      </div>
+      <Menubar :model="Object.entries(SEQUENCE_DATA).map(([key, { label }]) => ({ label, key, command(e) { activateMacro(e.item.key!); } }))">
+        <template #item="{ item, label, props }">
+          <a
+            v-bind="props.action"
+            class="transition-colors rounded outline outline-surface-500"
+            :class="{
+              'bg-primary hover:bg-primary-emphasis outline-0': wireState.macro == item.key
+            }"
+          >
+            {{ label }}
+          </a>
+        </template>
+      </Menubar>
     </div>
   </div>
 </template>
