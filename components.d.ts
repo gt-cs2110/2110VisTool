@@ -9,12 +9,16 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
+    MdiInformationOutline: typeof import('~icons/mdi/information-outline')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
+    Menubar: typeof import('primevue/menubar')['default']
+    SiGithub: typeof import('~icons/simple-icons/github')['default']
     Slider: typeof import('primevue/slider')['default']
   }
   export interface ComponentCustomProperties {
