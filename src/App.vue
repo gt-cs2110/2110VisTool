@@ -268,36 +268,51 @@ function activateMacro(key: string) {
         <div class="flex items-center gap-2">
           Speed: 
           <Slider v-model="speedScale" class="w-56" />
+          <div class="pl-1">
+            <Button
+              :disabled="isLoopDone"
+              :aria-label="running ? 'Pause' : 'Play'"
+              v-tooltip.top="running ? 'Pause' : 'Play'"
+              @click="toggleDiagramLoop()"
+              class="transition"
+              icon="pi"
+              rounded
+            >
+              <mdi-pause v-if="running" />
+              <mdi-play v-else />
+            </Button>
+          </div>
         </div>
-        <Button
-          :disabled="isLoopDone"
-          :aria-label="running ? 'Pause' : 'Play'"
-          v-tooltip.top="running ? 'Pause' : 'Play'"
-          @click="toggleDiagramLoop()"
-          class="transition"
-          icon="pi"
-        >
-          <mdi-pause v-if="running" />
-          <mdi-play v-else />
-        </Button>
         <Divider layout="vertical" />
         <div class="flex gap-2 items-center">
           Step
-          <Button
-            aria-label="Step Backward"
-            v-tooltip.top="'Step Backward'"
-            @click="() => { pauseDiagramLoop(); stepBack() }"
-          >
-            <mdi-step-backward />
-          </Button>
-          <Button
-            :disabled="isLoopDone"
-            aria-label="Step Forward"
-            v-tooltip.top="'Step Forward'"
-            @click="() => { pauseDiagramLoop(); stepFwd() }"
-          >
-            <mdi-step-forward />
-          </Button>
+          <div class="flex gap-0.5">
+            <Button
+              aria-label="Step Backward"
+              v-tooltip.top="'Step Backward'"
+              @click="() => { pauseDiagramLoop(); stepBack() }"
+              :dt="{
+                root: {
+                  borderRadius: '{form.field.border.radius} 0 0 {form.field.border.radius}'
+                }
+              }"
+            >
+              <mdi-step-backward />
+            </Button>
+            <Button
+              :disabled="isLoopDone"
+              aria-label="Step Forward"
+              v-tooltip.top="'Step Forward'"
+              @click="() => { pauseDiagramLoop(); stepFwd() }"
+              :dt="{
+                root: {
+                  borderRadius: '0 {form.field.border.radius} {form.field.border.radius} 0'
+                }
+              }"
+            >
+              <mdi-step-forward />
+            </Button>
+          </div>
         </div>
         <Divider layout="vertical" />
         <Button
@@ -312,9 +327,11 @@ function activateMacro(key: string) {
         <template #item="{ item, label, props }">
           <a
             v-bind="props.action"
-            class="transition-colors rounded outline outline-surface-500"
+            class="transition-colors rounded"
             :class="{
-              'bg-primary hover:bg-primary-emphasis outline-0': wireState.macro == item.key
+              'outline outline-surface-500': wireState.macro != item.key,
+              'bg-primary hover:bg-primary-emphasis': wireState.macro == item.key && !isLoopDone,
+              'outline outline-primary-500': wireState.macro == item.key && isLoopDone,
             }"
           >
             {{ label }}

@@ -79,6 +79,13 @@ createApp(App)
                             }
                         }
                     }
+                },
+                components: {
+                    divider: {
+                        vertical: {
+                            margin: "0 0.1rem"
+                        }
+                    }
                 }
             }),
             options: {
