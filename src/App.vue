@@ -349,11 +349,12 @@ function activateMacro(key: string) {
             borderRadius: '0',
           }
         }"
+        class="px-0"
       >
         <template #item="{ item, label, props }">
           <a
             v-bind="props.action"
-            class="transition-colors rounded"
+            class="transition-colors rounded text-sm p-1 xl:text-base xl:p-2"
             :class="{
               'outline outline-surface-500': wireState.macro != item.key,
               'bg-primary hover:bg-primary-emphasis text-primary-contrast': wireState.macro == item.key && !isLoopDone,

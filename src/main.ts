@@ -79,6 +79,11 @@ createApp(App)
                                 background: '{surface.900}'
                             }
                         }
+                    },
+                    navigation: {
+                        item: {
+                            padding: "0.5rem 0.5rem"
+                        }
                     }
                 },
                 components: {
