@@ -13,6 +13,8 @@ const activeWireTime = computed(() => {
 });
 const lc3Diagram = useTemplateRef("lc3");
 
+const infoDialogVisible = ref(false);
+
 const instrDropdownValue = ref("add");
 const instrDDStrings: Record<string, string> = { // TODO: resolve hack
   "add": `\
@@ -92,7 +94,6 @@ Operation TRAP:
   PC = mem[ZEXT(trapvect8)];`
 
 };
-
 /**
  * A queue of wires to activate.
  */
@@ -100,7 +101,8 @@ const wireState = ref({
   wires: [] as string[],
   step: 0,
   stop: 0,
-  cycle: 0
+  cycle: 0,
+  macro: undefined as string | undefined,
 });
 const loopId = ref<number>();
 const running = computed(() => typeof loopId.value !== "undefined");
@@ -160,9 +162,9 @@ function runTick(ts: number) {
 /**
  * Start queue loop.
  */
-function startDiagramLoop(stop: "end" | "cycle" = "end") {
-  if (stop == "end") wireState.value.stop = wireState.value.wires.length;
-  if (stop == "cycle") {
+function startDiagramLoop(pauseAt: "end" | "cycle" = "end") {
+  if (pauseAt == "end") wireState.value.stop = wireState.value.wires.length;
+  if (pauseAt == "cycle") {
     let next = wireState.value.wires.indexOf(CYCLE_BREAK, wireState.value.step + 1);
     if (next == -1) next = wireState.value.wires.length;
     wireState.value.stop = next;
@@ -191,7 +193,8 @@ function resetDiagramLoop() {
       wires: [],
       step: 0,
       stop: 0,
-      cycle: 0
+      cycle: 0,
+      macro: undefined
     };
 }
 function toggleDiagramLoop() {
@@ -208,6 +211,7 @@ function activateMacro(key: string) {
 
     resetDiagramLoop();
 
+    wireState.value.macro = key;
     // Add CYCLE_BREAKs between the cycles
     for (let cycle of sequence) {
       wireState.value.wires.push(...cycle, CYCLE_BREAK);
@@ -222,16 +226,28 @@ function activateMacro(key: string) {
 @reference "@/style.css";
 
 .control-panel {
-  @apply flex items-stretch gap-2 p-2;
-  @apply bg-surface-300 dark:bg-surface-600;
-  @apply border-surface border-2 rounded-md;
+  @apply flex flex-col items-stretch;
+  @apply bg-surface-ui border-surface border-2 rounded-t px-2;
 }
 </style>
 
 <template>
   <header class="p-4">
-    <h1 class="text-center text-5xl">LC-3 Visualization Tool</h1>
-    <h3 class="text-center text-xl">Designed by Huy Nguyen and Henry Bui</h3>
+      <div class="flex gap-1 items-center justify-center">
+        <h1 class="text-center text-4xl">
+          LC-3 Visualization Tool
+        </h1>
+        <Button
+          severity="secondary"
+          variant="text"
+          icon="pi"
+          aria-label="About"
+          rounded
+          @click="infoDialogVisible = true"
+        >
+          <MdiInformationOutline />
+        </Button>
+      </div>
   </header>
   <div class="flex flex-col gap-3 h-screen">
     <!-- <div class="flex justify-center">
@@ -249,41 +265,68 @@ function activateMacro(key: string) {
       <!-- <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre> -->
     </div>
 
-    <div>
-      <div class="control-panel">
+    <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">
+      This visualization tool is an interactive guide on how to trace the LC-3 datapath.<br>
+
+      Designed by Huy Nguyen & Henry Bui, maintained by the <a class="text-blue-500 underline" href="https://github.com/gt-cs2110/">GT CS 2110 TA Team</a>.
+
+      <template #footer>
+        <a title="Source Code" aria-label="Source Code" href="https://github.com/gt-cs2110/2110VisTool">
+          <SiGithub />
+        </a>
+      </template>
+    </Dialog>
+
+    <div class="control-panel">
+      <div class="flex items-stretch gap-2 py-2">
         <div class="flex items-center gap-2">
           Speed: 
           <Slider v-model="speedScale" class="w-56" />
+          <div class="pl-1">
+            <Button
+              :disabled="isLoopDone"
+              :aria-label="running ? 'Pause' : 'Play'"
+              v-tooltip.top="running ? 'Pause' : 'Play'"
+              @click="toggleDiagramLoop()"
+              class="transition"
+              icon="pi"
+              rounded
+            >
+              <mdi-pause v-if="running" />
+              <mdi-play v-else />
+            </Button>
+          </div>
         </div>
-        <Button
-          :disabled="isLoopDone"
-          :aria-label="running ? 'Pause' : 'Play'"
-          v-tooltip.top="running ? 'Pause' : 'Play'"
-          @click="toggleDiagramLoop()"
-          class="transition"
-          icon="pi"
-        >
-          <mdi-pause v-if="running" />
-          <mdi-play v-else />
-        </Button>
         <Divider layout="vertical" />
         <div class="flex gap-2 items-center">
           Step
-          <Button
-            aria-label="Step Backward"
-            v-tooltip.top="'Step Backward'"
-            @click="() => { pauseDiagramLoop(); stepBack() }"
-          >
-            <mdi-step-backward />
-          </Button>
-          <Button
-            :disabled="isLoopDone"
-            aria-label="Step Forward"
-            v-tooltip.top="'Step Forward'"
-            @click="() => { pauseDiagramLoop(); stepFwd() }"
-          >
-            <mdi-step-forward />
-          </Button>
+          <div class="flex gap-0.5">
+            <Button
+              aria-label="Step Backward"
+              v-tooltip.top="'Step Backward'"
+              @click="() => { pauseDiagramLoop(); stepBack() }"
+              :dt="{
+                root: {
+                  borderRadius: '{form.field.border.radius} 0 0 {form.field.border.radius}'
+                }
+              }"
+            >
+              <mdi-step-backward />
+            </Button>
+            <Button
+              :disabled="isLoopDone"
+              aria-label="Step Forward"
+              v-tooltip.top="'Step Forward'"
+              @click="() => { pauseDiagramLoop(); stepFwd() }"
+              :dt="{
+                root: {
+                  borderRadius: '0 {form.field.border.radius} {form.field.border.radius} 0'
+                }
+              }"
+            >
+              <mdi-step-forward />
+            </Button>
+          </div>
         </div>
         <Divider layout="vertical" />
         <Button
@@ -294,15 +337,34 @@ function activateMacro(key: string) {
         </Button>
         <Button :disabled="wireState.wires.length == 0" @click="resetDiagramLoop()">Reset Wires</Button>
       </div>
-      <div class="control-panel flex-wrap">
-        <Button 
-          size="small"
-          v-for="[key, { label }] in Object.entries(SEQUENCE_DATA)" 
-          @click="activateMacro(key)"
-        >
-          {{ label }}
-        </Button>
-      </div>
+      <Divider />
+      <Menubar
+        :model="Object.entries(SEQUENCE_DATA).map(([key, { label }]) => ({ label, key, command(e) { activateMacro(e.item.key!); } }))"
+        :dt="{
+          // Remove all background effects from menubar,
+          // but keep command shortcuts
+          root: {
+            background: 'transparent',
+            borderColor: 'transparent',
+            borderRadius: '0',
+          }
+        }"
+        class="px-0"
+      >
+        <template #item="{ item, label, props }">
+          <a
+            v-bind="props.action"
+            class="transition-colors rounded text-sm p-1 xl:text-base xl:p-2"
+            :class="{
+              'outline outline-surface-500': wireState.macro != item.key,
+              'bg-primary hover:bg-primary-emphasis text-primary-contrast': wireState.macro == item.key && !isLoopDone,
+              'outline outline-primary-500': wireState.macro == item.key && isLoopDone,
+            }"
+          >
+            {{ label }}
+          </a>
+        </template>
+      </Menubar>
     </div>
   </div>
 </template>

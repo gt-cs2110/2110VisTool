@@ -18,8 +18,11 @@ export default defineConfig({
         PrimeVueResolver(),
         IconsResolver({
           prefix: false,
-          enabledCollections: ['mdi'],
-        })
+          enabledCollections: ['mdi', 'simple-icons'],
+          alias: {
+            'si': 'simple-icons'
+          }
+        }),
       ]
     }),
     Icons({

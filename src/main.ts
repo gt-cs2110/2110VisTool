@@ -14,18 +14,18 @@ createApp(App)
                     colorScheme: {
                         light: {
                             primary: {
-                                0: '{emerald.0}',
-                                50: '{emerald.50}',
-                                100: '{emerald.100}',
-                                200: '{emerald.200}',
-                                300: '{emerald.300}',
-                                400: '{emerald.400}',
-                                500: '{emerald.500}',
-                                600: '{emerald.600}',
-                                700: '{emerald.700}',
-                                800: '{emerald.800}',
-                                900: '{emerald.900}',
-                                950: '{emerald.950}'
+                                0: '{blue.0}',
+                                50: '{blue.50}',
+                                100: '{blue.100}',
+                                200: '{blue.200}',
+                                300: '{blue.300}',
+                                400: '{blue.400}',
+                                500: '{blue.500}',
+                                600: '{blue.600}',
+                                700: '{blue.700}',
+                                800: '{blue.800}',
+                                900: '{blue.900}',
+                                950: '{blue.950}'
                             },
                             surface: {
                                 0: '{stone.0}',
@@ -42,23 +42,24 @@ createApp(App)
                                 950: '{stone.950}'
                             },
                             content: {
-                                background: '{surface.0}'
+                                background: '{surface.0}',
+                                borderColor: '{surface.300}'
                             }
                         },
                         dark: {
                             primary: {
-                                0: '{emerald.0}',
-                                50: '{emerald.50}',
-                                100: '{emerald.100}',
-                                200: '{emerald.200}',
-                                300: '{emerald.300}',
-                                400: '{emerald.400}',
-                                500: '{emerald.500}',
-                                600: '{emerald.600}',
-                                700: '{emerald.700}',
-                                800: '{emerald.800}',
-                                900: '{emerald.900}',
-                                950: '{emerald.950}'
+                                0: '{blue.0}',
+                                50: '{blue.50}',
+                                100: '{blue.100}',
+                                200: '{blue.200}',
+                                300: '{blue.300}',
+                                400: '{blue.400}',
+                                500: '{blue.500}',
+                                600: '{blue.600}',
+                                700: '{blue.700}',
+                                800: '{blue.800}',
+                                900: '{blue.900}',
+                                950: '{blue.950}'
                             },
                             surface: {
                                 0: '{stone.0}',
@@ -75,7 +76,36 @@ createApp(App)
                                 950: '{stone.950}'
                             },
                             content: {
-                                background: '{surface.800}'
+                                background: '{surface.900}'
+                            }
+                        }
+                    },
+                    navigation: {
+                        item: {
+                            padding: "0.5rem 0.5rem"
+                        }
+                    }
+                },
+                components: {
+                    divider: {
+                        vertical: {
+                            margin: "0 0.1rem"
+                        },
+                        horizontal: {
+                            margin: "0.1rem 0"
+                        },
+                    },
+                    menubar: {
+                        colorScheme: {
+                            light: {
+                                item: {
+                                    focusBackground: '{surface.50}'
+                                }
+                            },
+                            dark: {
+                                item: {
+                                    focusBackground: '{surface.700}'
+                                }
                             }
                         }
                     }
