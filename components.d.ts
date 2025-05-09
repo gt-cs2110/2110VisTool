@@ -18,6 +18,7 @@ declare module 'vue' {
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Menubar: typeof import('primevue/menubar')['default']
+    SiGithub: typeof import('~icons/simple-icons/github')['default']
     Slider: typeof import('primevue/slider')['default']
   }
   export interface ComponentCustomProperties {

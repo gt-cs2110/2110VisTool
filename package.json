@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/simple-icons": "^1.2.33",
     "@primevue/auto-import-resolver": "^4.3.4",
     "@types/node": "^22.15.15",
     "@vitejs/plugin-vue": "^5.2.3",

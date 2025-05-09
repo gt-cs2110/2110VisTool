@@ -266,7 +266,15 @@ function activateMacro(key: string) {
     </div>
 
     <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">
-      todo
+      This visualization tool is an interactive guide on how to trace the LC-3 datapath.<br>
+
+      Designed by Huy Nguyen & Henry Bui, maintained by the <a class="text-blue-500 underline" href="https://github.com/gt-cs2110/">GT CS 2110 TA Team</a>.
+
+      <template #footer>
+        <a title="Source Code" aria-label="Source Code" href="https://github.com/gt-cs2110/2110VisTool">
+          <SiGithub />
+        </a>
+      </template>
     </Dialog>
 
     <div class="control-panel">
