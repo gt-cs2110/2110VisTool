@@ -118,13 +118,15 @@ function stepBack() {
     return;
   }
 
+  //Decrement step first to get the correct wire
+  wireState.value.step--;
+
   const wire = wireState.value.wires[wireState.value.step];
   if (wire == CYCLE_BREAK) {
     wireState.value.cycle--;
   } else {
     lc3Diagram.value?.deactivateWire(wire);
   }
-  wireState.value.step--;
 }
 function stepFwd() {
   if (wireState.value.step >= wireState.value.stop) {
@@ -249,7 +251,8 @@ function activateMacro(key: string) {
         </Button>
       </div>
   </header>
-  <div class="flex flex-col gap-3 h-screen">
+  
+   <div class="flex flex-col gap-3 h-screen">
     <!-- <div class="flex justify-center">
       <select v-model="instrDropdownValue">
           <option v-for="value of Object.keys(instrDDStrings)" :value>
