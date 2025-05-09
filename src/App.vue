@@ -13,6 +13,8 @@ const activeWireTime = computed(() => {
 });
 const lc3Diagram = useTemplateRef("lc3");
 
+const infoDialogVisible = ref(false);
+
 const instrDropdownValue = ref("add");
 const instrDDStrings: Record<string, string> = { // TODO: resolve hack
   "add": `\
@@ -224,9 +226,8 @@ function activateMacro(key: string) {
 @reference "@/style.css";
 
 .control-panel {
-  @apply flex items-stretch gap-2 p-2;
-  @apply bg-surface-300 dark:bg-surface-600;
-  @apply border-surface border-2 rounded-md;
+  @apply flex flex-col items-stretch;
+  @apply bg-surface-ui border-surface border-2 rounded-t px-2;
 }
 </style>
 
@@ -242,6 +243,7 @@ function activateMacro(key: string) {
           icon="pi"
           aria-label="About"
           rounded
+          @click="infoDialogVisible = true"
         >
           <MdiInformationOutline />
         </Button>
@@ -263,8 +265,12 @@ function activateMacro(key: string) {
       <!-- <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre> -->
     </div>
 
-    <div>
-      <div class="control-panel">
+    <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">
+      todo
+    </Dialog>
+
+    <div class="control-panel">
+      <div class="flex items-stretch gap-2 py-2">
         <div class="flex items-center gap-2">
           Speed: 
           <Slider v-model="speedScale" class="w-56" />
@@ -323,14 +329,26 @@ function activateMacro(key: string) {
         </Button>
         <Button :disabled="wireState.wires.length == 0" @click="resetDiagramLoop()">Reset Wires</Button>
       </div>
-      <Menubar :model="Object.entries(SEQUENCE_DATA).map(([key, { label }]) => ({ label, key, command(e) { activateMacro(e.item.key!); } }))">
+      <Divider />
+      <Menubar
+        :model="Object.entries(SEQUENCE_DATA).map(([key, { label }]) => ({ label, key, command(e) { activateMacro(e.item.key!); } }))"
+        :dt="{
+          // Remove all background effects from menubar,
+          // but keep command shortcuts
+          root: {
+            background: 'transparent',
+            borderColor: 'transparent',
+            borderRadius: '0',
+          }
+        }"
+      >
         <template #item="{ item, label, props }">
           <a
             v-bind="props.action"
             class="transition-colors rounded"
             :class="{
               'outline outline-surface-500': wireState.macro != item.key,
-              'bg-primary hover:bg-primary-emphasis': wireState.macro == item.key && !isLoopDone,
+              'bg-primary hover:bg-primary-emphasis text-primary-contrast': wireState.macro == item.key && !isLoopDone,
               'outline outline-primary-500': wireState.macro == item.key && isLoopDone,
             }"
           >

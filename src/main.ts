@@ -42,7 +42,8 @@ createApp(App)
                                 950: '{stone.950}'
                             },
                             content: {
-                                background: '{surface.0}'
+                                background: '{surface.0}',
+                                borderColor: '{surface.300}'
                             }
                         },
                         dark: {
@@ -84,6 +85,23 @@ createApp(App)
                     divider: {
                         vertical: {
                             margin: "0 0.1rem"
+                        },
+                        horizontal: {
+                            margin: "0.1rem 0"
+                        },
+                    },
+                    menubar: {
+                        colorScheme: {
+                            light: {
+                                item: {
+                                    focusBackground: '{surface.50}'
+                                }
+                            },
+                            dark: {
+                                item: {
+                                    focusBackground: '{surface.700}'
+                                }
+                            }
                         }
                     }
                 }
