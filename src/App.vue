@@ -140,7 +140,6 @@ function activateMacro(key: string) {
       wireState.value.wires.push(...cycle, CYCLE_BREAK);
     }
     wireState.value.stop = wireState.value.wires.length;
-    startDiagramLoop();
 }
 </script>
 
@@ -195,7 +194,11 @@ function activateMacro(key: string) {
           <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
             <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode</template>
             <template #content>
-              <pre class="justify-self-center">{{ SEQUENCE_DATA[wireState.macro].pseudocode }}</pre>
+              <Pseudocode
+                :pseudocode="{ source: SEQUENCE_DATA[wireState.macro].pseudocode, cycles: [[{start: 14, end: 26}], [{ start: 5, end: 12}], [{ start: 0, end: 13}]] }"
+                :cycle="wireState.cycle"
+                :running
+              />
             </template>
           </Card>
         </div>
