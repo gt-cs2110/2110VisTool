@@ -16,6 +16,7 @@ declare module 'vue' {
     MdiInformationOutline: typeof import('~icons/mdi/information-outline')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
+    MdiSkipNext: typeof import('~icons/mdi/skip-next')['default']
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Menubar: typeof import('primevue/menubar')['default']

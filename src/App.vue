@@ -140,7 +140,6 @@ function activateMacro(key: string) {
       wireState.value.wires.push(...cycle, CYCLE_BREAK);
     }
     wireState.value.stop = wireState.value.wires.length;
-    lc3Diagram.value?.scrollIntoView();
     startDiagramLoop();
 }
 </script>
@@ -155,40 +154,26 @@ function activateMacro(key: string) {
 </style>
 
 <template>
-  <header class="p-4">
-      <div class="flex gap-1 items-center justify-center">
-        <h1 class="text-center text-4xl">
-          LC-3 Visualization Tool
-        </h1>
-        <Button
-          severity="secondary"
-          variant="text"
-          icon="pi"
-          aria-label="About"
-          rounded
-          @click="infoDialogVisible = true"
-        >
-          <MdiInformationOutline />
-        </Button>
-      </div>
-  </header>
-  
-   <div class="flex flex-col gap-3 h-screen">
+  <div class="flex flex-col gap-3 h-screen">
+    <!-- Header -->
+    <header class="p-4">
+        <div class="flex gap-1 items-center justify-center">
+          <h1 class="text-center text-4xl">
+            LC-3 Visualization Tool
+          </h1>
+          <Button
+            severity="secondary"
+            variant="text"
+            icon="pi"
+            aria-label="About"
+            rounded
+            @click="infoDialogVisible = true"
+          >
+            <MdiInformationOutline />
+          </Button>
+        </div>
+    </header>
     
-    <div class="flex flex-1 justify-center gap-3">
-      <!-- The SVG diagram -->
-      <LC3 ref="lc3" />
-      <!-- The pseudocode -->
-       <div class="flex flex-col justify-center">
-         <Card class="bg-surface-ui" v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
-            <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode:</template>
-            <template #content>
-              <pre class="justify-self-center">{{ SEQUENCE_DATA[wireState.macro].pseudocode }}</pre>
-            </template>
-         </Card>
-       </div>
-    </div>
-
     <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">
       This visualization tool is an interactive guide on how to trace the LC-3 datapath.<br>
 
@@ -201,6 +186,22 @@ function activateMacro(key: string) {
       </template>
     </Dialog>
 
+    <!-- SVG + pseudocode -->
+    <div class="flex grow gap-3 px-2">
+      <!-- The SVG diagram -->
+      <LC3 ref="lc3" />
+      <!-- The pseudocode -->
+        <div class="flex grow flex-col items-center justify-center">
+          <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
+            <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode</template>
+            <template #content>
+              <pre class="justify-self-center">{{ SEQUENCE_DATA[wireState.macro].pseudocode }}</pre>
+            </template>
+          </Card>
+        </div>
+    </div>
+
+    <!-- Control panel -->
     <div class="control-panel">
       <div class="flex items-stretch gap-2 py-2">
         <div class="flex items-center gap-2">
@@ -221,6 +222,7 @@ function activateMacro(key: string) {
             </Button>
           </div>
         </div>
+        <Divider layout="vertical" />
         <Divider layout="vertical" />
         <div class="flex gap-2 items-center">
           Step
@@ -257,7 +259,7 @@ function activateMacro(key: string) {
           :disabled="isLoopDone || running"
           @click="startDiagramLoop('cycle')"
         >
-          Play to Next Cycle
+          Next Cycle
         </Button>
         <Button :disabled="wireState.wires.length == 0" @click="resetDiagramLoop()">Reset Wires</Button>
       </div>
