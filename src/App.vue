@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, useTemplateRef } from 'vue';
 import LC3 from './components/LC3.vue';
-import SEQUENCE_DATA from "./sequences.json";
+import SEQUENCE_DATA from "./sequences";
 
 const DEFAULT_ACTIVE_WIRE_TIME = 200;
 const CYCLE_BREAK = "CYCLE_BREAK";
@@ -15,85 +15,6 @@ const lc3Diagram = useTemplateRef("lc3");
 
 const infoDialogVisible = ref(false);
 
-const instrDropdownValue = ref("add");
-const instrDDStrings: Record<string, string> = { // TODO: resolve hack
-  "add": `\
-Operation ADD:
-  if bit[5] == 0:
-     DR = SR1 + SR2;
-  else:
-     DR = SR1 + SEXT(imm5);
-  
-  setCC();`,
-
-  "and": `\
-Operation AND:
-  if bit[5] == 0:
-     DR = SR1 & SR2;
-  else:
-     DR = SR1 & SEXT(imm5);
-  
-  setCC();`,
-
-  "not": `\
-Operation NOT:
-  DR = ~SR1;
-  setCC();`,
-
-  "ld": `\
-Operation LD:
-  DR = mem[PC* + SEXT(PCoffset9)];
-  setCC();`,
-
-  "ldi": `\
-Operation LDI:
-  DR = mem[mem[PC* + SEXT(PCoffset9)]];
-  setCC();`,
-
-  "ldr": `\
-Operation LDR:
-  DR = mem[BaseR* + SEXT(PCoffset6)];
-  setCC();`,
-
-  "st": `\
-Operation ST:
-  mem[PC* + SEXT(PCoffset9)] = SR;`,
-
-  "sti": `\
-Operation STI:
-  mem[mem[PC* + SEXT(PCoffset9)] = SR];`,
-
-  "str": `\
-Operation STR:
-  mem[BaseR + SEXT(offset6)] = SR;`,
-
-  "lea": `\
-Operation LEA:
-  DR = PC* + SEXT(PCoffset9);`,
-
-  "br": `\
-Operation BR:
-  if (n AND N) OR (z AND Z) OR (p AND P):
-      PC = PC* + SEXT(PCoffset9);`,
-
- "jmp": `\
-Operation JMP:
-   PC = BaseR;`,
-
-  "jsr/jsrr": `\
-Operation JSR/JSRR:
-  R7 = PC*;
-  if bit[11] == 0:
-      PC = BaseR;
-  else:
-      PC = PC* + SEXT(PCoffset11)`,
-
-  "trap": `\
-Operation TRAP:
-  R7 = PC*;
-  PC = mem[ZEXT(trapvect8)];`
-
-};
 /**
  * A queue of wires to activate.
  */
@@ -209,7 +130,7 @@ function toggleDiagramLoop() {
 
 function activateMacro(key: string) {
     if (!(key in SEQUENCE_DATA)) return;
-    let { sequence } = SEQUENCE_DATA[key as keyof typeof SEQUENCE_DATA];
+    let { sequence } = SEQUENCE_DATA[key];
 
     resetDiagramLoop();
 
@@ -253,19 +174,19 @@ function activateMacro(key: string) {
   </header>
   
    <div class="flex flex-col gap-3 h-screen">
-    <!-- <div class="flex justify-center">
-      <select v-model="instrDropdownValue">
-          <option v-for="value of Object.keys(instrDDStrings)" :value>
-            {{ value.toUpperCase() }}
-          </option>
-      </select>
-    </div> -->
     
-    <div class="flex flex-1 justify-center">
+    <div class="flex flex-1 justify-center gap-3">
       <!-- The SVG diagram -->
       <LC3 ref="lc3" />
       <!-- The pseudocode -->
-      <!-- <pre class="justify-self-center">{{ instrDDStrings[instrDropdownValue] }}</pre> -->
+       <div class="flex flex-col justify-center">
+         <Card class="bg-surface-ui" v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
+            <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode:</template>
+            <template #content>
+              <pre class="justify-self-center">{{ SEQUENCE_DATA[wireState.macro].pseudocode }}</pre>
+            </template>
+         </Card>
+       </div>
     </div>
 
     <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">

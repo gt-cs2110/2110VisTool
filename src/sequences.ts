@@ -1,6 +1,28 @@
-{
+import dedent from "dedent-js";
+
+interface MacroData {
+    /**
+     * THe text label of the macro.
+     */
+    label: string,
+    /**
+     * The pseudocode of the macro.
+     */
+    pseudocode?: string,
+    /**
+     * The sequence of signals taken in this macro.
+     * Each element consists of a single cycle, 
+     * which consists of an array of signals in the cycle.
+     */
+    sequence: string[][]
+}
+const sequences: Record<string, MacroData> = {
     "FETCH": {
         "label": "Fetch",
+        "pseudocode": dedent(`
+            IR = mem[PC];
+            PC = PC + 1;
+        `),
         "sequence": [
             [
                 "1 (GatePC)",
@@ -69,6 +91,13 @@
     },
     "ADD_REG": {
         "label": "ADD (reg)",
+        "pseudocode": dedent(`
+            if (bit[5] == 0)
+                DR = SR1 + SR2;
+            else
+                DR = SR1 + SEXT(imm5);
+            setcc();
+        `),
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -124,6 +153,13 @@
     },
     "ADD_IMM": {
         "label": "ADD (imm)",
+        "pseudocode": dedent(`
+            if (bit[5] == 0)
+                DR = SR1 + SR2;
+            else
+                DR = SR1 + SEXT(imm5);
+            setcc();
+        `),
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -179,6 +215,10 @@
     },
     "NOT": {
         "label": "NOT",
+        "pseudocode": dedent(`
+            DR = NOT(SR);
+            setcc();
+        `),
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -225,6 +265,10 @@
     },
     "LD": {
         "label": "LD",
+        "pseudocode": dedent(`
+            DR = mem[PC + SEXT(PCoffset9)];
+            setcc();
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -255,7 +299,7 @@
                 "ADDR to MARMUX (3)",
                 "1 (MARMUX selector)",
                 "MARMUX selector",
-                "MARMUX (shape)",               
+                "MARMUX (shape)",
                 "1 (GateMARMUX)",
                 "GateMARMUX selector",
                 "GateMARMUX (shape)",
@@ -316,6 +360,10 @@
     },
     "LDI": {
         "label": "LDI",
+        "pseudocode": dedent(`
+            DR = mem[mem[PC + SEXT(PCoffset9)]];
+            setcc();
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -432,6 +480,10 @@
     },
     "LDR": {
         "label": "LDR",
+        "pseudocode": dedent(`
+            DR = mem[BaseR + SEXT(offset6)];
+            setcc();
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -530,6 +582,9 @@
     },
     "ST": {
         "label": "ST",
+        "pseudocode": dedent(`
+            mem[PC + SEXT(PCoffset9)] = SR;
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -613,6 +668,9 @@
     },
     "STI": {
         "label": "STI",
+        "pseudocode": dedent(`
+            mem[mem[PC + SEXT(PCoffset9)]] = SR;
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -720,6 +778,9 @@
     },
     "STR": {
         "label": "STR",
+        "pseudocode": dedent(`
+            mem[BaseR + SEXT(offset6)] = SR;
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -808,6 +869,9 @@
     },
     "LEA": {
         "label": "LEA",
+        "pseudocode": dedent(`
+            DR = PC + SEXT(PCoffset9);
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -859,7 +923,11 @@
         ]
     },
     "BR": {
-        "label": "BR",
+        "label": "BR (taken)",
+        "pseudocode": dedent(`
+            if ((n AND N) OR (z AND Z) OR (p AND P))
+                PC = PC + SEXT(PCoffset9);
+        `),
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -900,6 +968,9 @@
     },
     "JMP": {
         "label": "JMP",
+        "pseudocode": dedent(`
+            PC = BaseR;
+        `),
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -941,6 +1012,14 @@
     },
     "JSR": {
         "label": "JSR",
+        "pseudocode": dedent(`
+            TEMP = PC;
+            if (bit[11] == 0)
+                PC = BaseR;
+            else
+                PC = PC + SEXT(PCoffset11);
+            R7 = TEMP;
+        `),
         "sequence": [
             [
                 "1 (GatePC)",
@@ -996,6 +1075,14 @@
     },
     "JSRR": {
         "label": "JSRR",
+        "pseudocode": dedent(`
+            TEMP = PC;
+            if (bit[11] == 0)
+                PC = BaseR;
+            else
+                PC = PC + SEXT(PCoffset11);
+            R7 = TEMP;
+        `),
         "sequence": [
             [
                 "1 (GatePC)",
@@ -1054,6 +1141,10 @@
     },
     "TRAP": {
         "label": "TRAP (simplified)",
+        "pseudocode": dedent(`
+            (interrupt logic)
+            PC = mem[ZEXT(trapvect8)];
+        `),
         "sequence": [
             [
                 "1 (GatePC)",
@@ -1132,3 +1223,4 @@
         ]
     }
 }
+export default sequences;

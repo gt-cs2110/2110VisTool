@@ -24,6 +24,7 @@
   "dependencies": {
     "@primevue/themes": "^4.3.4",
     "@tailwindcss/vite": "^4.1.5",
+    "dedent-js": "^1.0.1",
     "primevue": "^4.3.4",
     "tailwindcss": "^4.1.5",
     "tailwindcss-primeui": "^0.6.1",
