@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-
+import { computed } from 'vue';
     interface PseudocodeState {
-        source: string,
-        cycles: { start: number, end: number }[][]
+        cycles: { start: number, end: number }[][],
+        disabled?: boolean
     }
-    const { pseudocode, cycle, running } = defineProps<{
+    const { source, pseudocode, cycle, running } = defineProps<{
+        source: string,
         pseudocode: PseudocodeState,
         cycle: number,
         running: boolean
     }>();
 
+    /**
+     * Creates an assignment of each index to the cycle number it should update.
+     */
     function createRangeMap(ranges: { start: number, end: number }[][]) {
-        let map = Array.from({ length: pseudocode.source.length }, () => -1);
+        let map = Array.from({ length: source.length }, () => -1);
         // Iterate through all ranges in reverse, to ensure previous cycle stays on top
         for (let i = ranges.length - 1; i >= 0; i--) {
             let rs = ranges[i];
@@ -22,6 +25,9 @@ import { computed, watch } from 'vue';
         }
         return map;
     }
+    /**
+     * Converts an array created from `createRangeMap` into a reduced representation.
+     */
     function flatten(map: number[]): { start: number, end: number, cycle: number }[] {
         let flattenedRanges = [];
         let currentRange = { start: 0, end: 0, cycle: 0 };
@@ -37,6 +43,7 @@ import { computed, watch } from 'vue';
                 currentRange = { start: i, end: i, cycle: currentCycle };
             }
         }
+        currentRange.end = map.length;
         if (currentRange.end - currentRange.start > 0) {
             flattenedRanges.push(currentRange);
         }
@@ -44,7 +51,11 @@ import { computed, watch } from 'vue';
         return flattenedRanges;
     }
 
-    function getAllClasses(cycle: number, running: boolean) {
+    /**
+     * Determines which classes should be provided in the pseudocode
+     * based on the current cycle number and running state.
+     */
+    function getAllEnabledClasses(cycle: number, running: boolean) {
         let cls = Array.from({ length: cycle }, (_, i) => `done-${i}`);
         if (running) {
             cls.push(`active-${cycle}`);
@@ -52,7 +63,6 @@ import { computed, watch } from 'vue';
 
         return cls;
     }
-    watch(() => cycle, () => console.log(cycle));
     const ranges = computed(() => flatten(createRangeMap(pseudocode.cycles)));
 </script>
 
@@ -106,12 +116,12 @@ import { computed, watch } from 'vue';
 <template>
     <span
         class="contents"
-        :class="getAllClasses(cycle, running)"
+        :class="getAllEnabledClasses(cycle, running)"
     >
         <span v-for="{start, end, cycle: c} of ranges"
         class="font-mono whitespace-pre-wrap transition-colors"
-        :class="{ ['cycle-' + c] : c >= 0 }">
-            {{ pseudocode.source.slice(start, end) }}
+        :class="{ [`cycle-${c}`] : c >= 0 }">
+            {{ source.slice(start, end) }}
         </span>
     </span>
 </template>

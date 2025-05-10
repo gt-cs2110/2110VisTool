@@ -28,7 +28,7 @@ const wireState = ref({
 const loopId = ref<number>();
 const running = computed(() => typeof loopId.value !== "undefined");
 const isLoopDone = computed(() => wireState.value.step >= wireState.value.wires.length);
-
+const macroCycleLength = computed(() => wireState.value.macro ? SEQUENCE_DATA[wireState.value.macro].sequence.length : undefined);
 /**
  * The last tick when a wire was activated.
  */
@@ -195,7 +195,8 @@ function activateMacro(key: string) {
             <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode</template>
             <template #content>
               <Pseudocode
-                :pseudocode="{ source: SEQUENCE_DATA[wireState.macro].pseudocode, cycles: [[{start: 14, end: 26}], [{ start: 5, end: 12}], [{ start: 0, end: 13}]] }"
+                :source="SEQUENCE_DATA[wireState.macro].pseudocode"
+                :pseudocode="{ cycles: [[{start: 14, end: 26}], [{ start: 5, end: 12}], [{ start: 0, end: 13}]] }"
                 :cycle="wireState.cycle"
                 :running
               />
@@ -225,7 +226,6 @@ function activateMacro(key: string) {
             </Button>
           </div>
         </div>
-        <Divider layout="vertical" />
         <Divider layout="vertical" />
         <div class="flex gap-2 items-center">
           Step
@@ -258,13 +258,27 @@ function activateMacro(key: string) {
           </div>
         </div>
         <Divider layout="vertical" />
+        <div class="flex items-center">
+          Cycle&nbsp;
+          <span class="font-mono" v-if="wireState.macro">{{ Math.min(wireState.cycle + 1, macroCycleLength ?? Infinity) }}</span>
+          <span class="font-mono" v-else>-</span>
+          &nbsp;of&nbsp;
+          <span class="font-mono" v-if="wireState.macro">{{ macroCycleLength ?? '-' }}</span>
+          <span class="font-mono" v-else>-</span>
+        </div>
         <Button
           :disabled="isLoopDone || running"
           @click="startDiagramLoop('cycle')"
         >
           Next Cycle
         </Button>
-        <Button :disabled="wireState.wires.length == 0" @click="resetDiagramLoop()">Reset Wires</Button>
+        <Divider layout="vertical" />
+        <Button
+          :disabled="wireState.wires.length == 0"
+          @click="resetDiagramLoop()"
+        >
+          Reset Wires
+        </Button>
       </div>
       <Divider />
       <Menubar
