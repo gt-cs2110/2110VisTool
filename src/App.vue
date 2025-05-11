@@ -195,8 +195,7 @@ function activateMacro(key: string) {
             <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode</template>
             <template #content>
               <Pseudocode
-                :source="SEQUENCE_DATA[wireState.macro].pseudocode"
-                :pseudocode="{ cycles: [[{start: 14, end: 26}], [{ start: 5, end: 12}], [{ start: 0, end: 13}]] }"
+                :pseudocode="SEQUENCE_DATA[wireState.macro].pseudocode"
                 :cycle="wireState.cycle"
                 :running
               />
