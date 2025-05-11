@@ -57,7 +57,8 @@ const DISABLED = "disabled";
  *     IR = mem[PC];
  *     PC = PC + 1;
  * ```
- * If you wanted to light it up such that the PC line highlights on cycle 0, mem[PC] on cycle 1, and the rest on cycle 2,
+ * If you wanted to light it up such that the PC line and PC text highlights on cycle 0, 
+ *     mem[...] on cycle 1, and the rest on cycle 2,
  * you'd enter:
  * ```
  * pseudocode`
@@ -93,7 +94,7 @@ const sequences: Record<string, MacroData> = {
     "FETCH": {
         "label": "Fetch",
         "pseudocode": pseudocode`
-            ${["IR = ", 2]}${["mem[PC]", 1]}${[";", 2]}
+            ${["IR = ", 2]}${["mem[", 1]}${["PC", 0]}${["]", 1]}${[";", 2]}
             ${["PC = PC + 1;", 0]}
         `,
         "sequence": [
