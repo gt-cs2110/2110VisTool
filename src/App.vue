@@ -28,7 +28,7 @@ const wireState = ref({
 const loopId = ref<number>();
 const running = computed(() => typeof loopId.value !== "undefined");
 const isLoopDone = computed(() => wireState.value.step >= wireState.value.wires.length);
-const macroCycleLength = computed(() => wireState.value.macro ? SEQUENCE_DATA[wireState.value.macro].sequence.length : undefined);
+const macroCycleCount = computed(() => wireState.value.macro ? SEQUENCE_DATA[wireState.value.macro].sequence.length : undefined);
 /**
  * The last tick when a wire was activated.
  */
@@ -261,10 +261,10 @@ function activateMacro(key: string) {
         <Divider layout="vertical" />
         <div class="flex items-center">
           Cycle&nbsp;
-          <span class="font-mono" v-if="wireState.macro">{{ Math.min(wireState.cycle + 1, macroCycleLength ?? Infinity) }}</span>
+          <span class="font-mono" v-if="wireState.macro">{{ Math.min(wireState.cycle + 1, macroCycleCount ?? Infinity) }}</span>
           <span class="font-mono" v-else>-</span>
           &nbsp;of&nbsp;
-          <span class="font-mono" v-if="wireState.macro">{{ macroCycleLength ?? '-' }}</span>
+          <span class="font-mono" v-if="wireState.macro">{{ macroCycleCount ?? '-' }}</span>
           <span class="font-mono" v-else>-</span>
         </div>
         <Button
