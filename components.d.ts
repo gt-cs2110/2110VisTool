@@ -23,6 +23,8 @@ declare module 'vue' {
     Pseudocode: typeof import('./src/components/Pseudocode.vue')['default']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     Slider: typeof import('primevue/slider')['default']
+    SpecialEdge: typeof import('./src/components/SpecialEdge.vue')['default']
+    SpecialNode: typeof import('./src/components/SpecialNode.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']

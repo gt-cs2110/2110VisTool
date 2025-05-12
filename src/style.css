@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
+/* Vue Flow styles */
+@import '@vue-flow/core/dist/style.css';
+@import '@vue-flow/core/dist/theme-default.css';
+
 /* Background for UI related items */
 @utility bg-surface-ui {
     background-color: var(--p-surface-200);
