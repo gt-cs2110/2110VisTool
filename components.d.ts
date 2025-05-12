@@ -26,7 +26,12 @@ declare module 'vue' {
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     SiteNav: typeof import('./src/components/SiteNav.vue')['default']
     Slider: typeof import('primevue/slider')['default']
+<<<<<<< HEAD
     TopNav: typeof import('./src/components/TopNav.vue')['default']
+=======
+    SpecialEdge: typeof import('./src/components/SpecialEdge.vue')['default']
+    SpecialNode: typeof import('./src/components/SpecialNode.vue')['default']
+>>>>>>> 9823990 (Vue Flow skeleton)
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']

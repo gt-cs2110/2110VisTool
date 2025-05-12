@@ -1,5 +1,13 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { useTemplateRef, onMounted, nextTick } from 'vue';
+=======
+    import { ref, useTemplateRef } from 'vue';
+    import { VueFlow } from '@vue-flow/core';
+    import { Background } from '@vue-flow/background';
+    import SpecialNode from './SpecialNode.vue';
+    import SpecialEdge from './SpecialEdge.vue';
+>>>>>>> 9823990 (Vue Flow skeleton)
 
     const top = useTemplateRef<HTMLDivElement>("top");
     const svgEl = useTemplateRef<SVGSVGElement>('lc3Svg');
@@ -52,6 +60,7 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
         }
     })
 
+<<<<<<< HEAD
     // After mount, crop the viewBox to actual drawn content to remove empty top/bottom space
     onMounted(async () => {
         const attemptCrop = (tries = 0) => {
@@ -85,6 +94,85 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
 
 <style scoped>
     /* Replaced Tailwind @apply utilities with raw CSS for compatibility */
+=======
+    const nodes = ref([
+        // an input node, specified by using `type: 'input'`
+        { 
+            id: '1',
+            type: 'input', 
+            position: { x: 250, y: 5 },
+            // all nodes can have a data object containing any data you want to pass to the node
+            // a label can property can be used for default nodes
+            data: { label: 'Node 1' },
+        },
+
+        // default node, you can omit `type: 'default'` as it's the fallback type
+        { 
+            id: '2', 
+            position: { x: 100, y: 100 },
+            data: { label: 'Node 2' },
+        },
+
+        // An output node, specified by using `type: 'output'`
+        { 
+            id: '3', 
+            type: 'output', 
+            position: { x: 400, y: 200 },
+            data: { label: 'Node 3' },
+        },
+
+        // this is a custom node
+        // we set it by using a custom type name we choose, in this example `special`
+        // the name can be freely chosen, there are no restrictions as long as it's a string
+        {
+            id: '4',
+            type: 'special', // <-- this is the custom node type name
+            position: { x: 400, y: 200 },
+            data: {
+            label: 'Node 4',
+            hello: 'world',
+            },
+        },
+    ])
+
+    // these are our edges
+    const edges = ref([
+        // default bezier edge
+        // consists of an edge id, source node id and target node id
+        { 
+            id: 'e1->2',
+            source: '1', 
+            target: '2',
+        },
+
+        // set `animated: true` to create an animated edge path
+        { 
+            id: 'e2->3',
+            source: '2', 
+            target: '3', 
+            animated: true,
+        },
+
+        // a custom edge, specified by using a custom type name
+        // we choose `type: 'special'` for this example
+        {
+            id: 'e3->4',
+            type: 'special',
+            source: '3',
+            target: '4',
+
+            // all edges can have a data object containing any data you want to pass to the edge
+            data: {
+            hello: 'world',
+            }
+        },
+    ]);
+</script>
+
+<style scoped>
+    @reference "@/style.css";
+
+>>>>>>> 9823990 (Vue Flow skeleton)
     .wire.active {
         fill: var(--p-surface-500, #888888);
         stroke: var(--p-surface-500, #888888);
@@ -123,6 +211,7 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
 </style>
 
 <template>
+<<<<<<< HEAD
     <div ref="top" class="bg-surface-1000 lc3-container">
     <svg ref="lc3Svg" class="lc3-svg" width="100%" viewBox="0 0 1650 1671" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Bus">
@@ -576,5 +665,21 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
             </defs>
 </svg>
 
+=======
+    <div class="h-full w-full bg-surface-800 rounded">
+        <VueFlow :nodes="nodes" :edges="edges">
+          <Background pattern-color="var(--color-surface-500)" :gap="16" />
+      
+          <!-- bind your custom node type to a component by using slots, slot names are always `node-<type>` -->
+          <template #node-special="specialNodeProps">
+            <SpecialNode v-bind="specialNodeProps" />
+          </template>
+      
+          <!-- bind your custom edge type to a component by using slots, slot names are always `edge-<type>` -->
+          <template #edge-special="specialEdgeProps">
+            <SpecialEdge v-bind="specialEdgeProps" />
+          </template>
+        </VueFlow>
+>>>>>>> 9823990 (Vue Flow skeleton)
     </div>
 </template>
