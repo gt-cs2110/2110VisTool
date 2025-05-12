@@ -1,5 +1,4 @@
 import dedent from "dedent-js";
-
 interface MacroData {
     /**
      * THe text label of the macro.
@@ -8,7 +7,7 @@ interface MacroData {
     /**
      * The pseudocode of the macro.
      */
-    pseudocode?: string,
+    pseudocode?: PseudocodeState,
     /**
      * The sequence of signals taken in this macro.
      * Each element consists of a single cycle, 
@@ -16,13 +15,88 @@ interface MacroData {
      */
     sequence: string[][]
 }
+export interface HighlightRange {
+    /**
+     * Start of the highlight range.
+     */
+    start: number,
+    /**
+     * End of the highlight range (exclusive).
+     */
+    end: number,
+    /**
+     * Which cycle number (which decides the color) to assign this range.
+     * 
+     * This can also be "disabled", which indicates a different color type.
+     */
+    cycle: number | "disabled"
+}
+export interface PseudocodeState {
+    /**
+     * The pseudocode text.
+     */
+    source: string,
+    /**
+     * Index range to highlight and with which cycle number.
+     * 
+     * Each range in this list must be disjoint and sorted by start index.
+     */
+    highlights: HighlightRange[]
+}
+const DISABLED = "disabled";
+
+/**
+ * Creates a `PseudocodeState` object out of a template string.
+ * 
+ * This function should be called like pseudocode`abc` (yes, without parentheses).
+ * Any formatted items should be formatted by replacing the text with ${["text", 1]},
+ *     where 1 is the cycle number of the text.
+ * 
+ * For example, FETCH's pseudocode looks like:
+ * ```
+ *     IR = mem[PC];
+ *     PC = PC + 1;
+ * ```
+ * If you wanted to light it up such that the PC line and PC text highlights on cycle 0, 
+ *     mem[...] on cycle 1, and the rest on cycle 2,
+ * you'd enter:
+ * ```
+ * pseudocode`
+ *     ${["IR = ", 2]}${["mem[PC]", 1]}${[";", 2]}
+ *     ${["PC = PC + 1;", 0]}
+ * `
+ * ```
+ * 
+ * A text segment should not have the text "{@}" and should not cross lines.
+ */
+function pseudocode(parts: TemplateStringsArray | string, ...subs: [string, HighlightRange["cycle"]][]): PseudocodeState {
+    if (typeof parts === "string") return { source: dedent(parts), highlights: [] };
+    
+    let template = dedent(parts.join("{@}"));
+    let highlights: HighlightRange[] = [];
+
+    for (let [source, cycle] of subs) {
+        let start = template.indexOf("{@}");
+        if (start == -1) {
+            throw new TypeError("Input was not a well-formed template string");
+        }
+        template = template.replace("{@}", source);
+        highlights.push({
+            start, end: start + source.length, cycle
+        });
+    }
+
+    highlights.sort((a, b) => a.start - b.start);
+    return { source: template, highlights };
+}
+
 const sequences: Record<string, MacroData> = {
     "FETCH": {
         "label": "Fetch",
-        "pseudocode": dedent(`
-            IR = mem[PC];
-            PC = PC + 1;
-        `),
+        "pseudocode": pseudocode`
+            ${["IR = ", 2]}${["mem[", 1]}${["PC", 0]}${["]", 1]}${[";", 2]}
+            ${["PC = PC + 1;", 0]}
+        `,
         "sequence": [
             [
                 "1 (GatePC)",
@@ -91,13 +165,13 @@ const sequences: Record<string, MacroData> = {
     },
     "ADD_REG": {
         "label": "ADD (reg)",
-        "pseudocode": dedent(`
+        "pseudocode": pseudocode`
             if (bit[5] == 0)
-                DR = SR1 + SR2;
+                ${["DR = SR1 + SR2;", 0]}
             else
-                DR = SR1 + SEXT(imm5);
-            setcc();
-        `),
+                ${["DR = SR1 + SEXT(imm5);", DISABLED]}
+            ${["setcc();", 0]}
+        `,
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -153,13 +227,13 @@ const sequences: Record<string, MacroData> = {
     },
     "ADD_IMM": {
         "label": "ADD (imm)",
-        "pseudocode": dedent(`
+        "pseudocode": pseudocode`
             if (bit[5] == 0)
-                DR = SR1 + SR2;
+                ${["DR = SR1 + SR2;", DISABLED]}
             else
-                DR = SR1 + SEXT(imm5);
-            setcc();
-        `),
+                ${["DR = SR1 + SEXT(imm5);", 0]}
+            ${["setcc();", 0]}
+        `,
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -215,10 +289,10 @@ const sequences: Record<string, MacroData> = {
     },
     "NOT": {
         "label": "NOT",
-        "pseudocode": dedent(`
-            DR = NOT(SR);
-            setcc();
-        `),
+        "pseudocode": pseudocode`
+            ${["DR = NOT(SR);", 0]}
+            ${["setcc();", 0]}
+        `,
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -265,10 +339,10 @@ const sequences: Record<string, MacroData> = {
     },
     "LD": {
         "label": "LD",
-        "pseudocode": dedent(`
-            DR = mem[PC + SEXT(PCoffset9)];
-            setcc();
-        `),
+        "pseudocode": pseudocode`
+            ${["DR = ", 2]}${["mem[", 1]}${["PC + SEXT(PCoffset9)", 0]}${["]", 1]}${[";", 2]}
+            ${["setcc();", 2]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -360,10 +434,10 @@ const sequences: Record<string, MacroData> = {
     },
     "LDI": {
         "label": "LDI",
-        "pseudocode": dedent(`
-            DR = mem[mem[PC + SEXT(PCoffset9)]];
-            setcc();
-        `),
+        "pseudocode": pseudocode`
+            ${["DR = ", 4]}${["mem[", 3]}${["mem[", 2]}${["PC + SEXT(PCoffset9)", 0]}${["]", 2]}${["]", 3]}${[";", 4]}
+            ${["setcc();", 4]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -480,10 +554,10 @@ const sequences: Record<string, MacroData> = {
     },
     "LDR": {
         "label": "LDR",
-        "pseudocode": dedent(`
-            DR = mem[BaseR + SEXT(offset6)];
-            setcc();
-        `),
+        "pseudocode": pseudocode`
+            ${["DR = ", 2]}${["mem[", 1]}${["BaseR + SEXT(offset6)", 0]}${["]", 1]}${[";", 2]}
+            ${["setcc();", 2]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -582,9 +656,9 @@ const sequences: Record<string, MacroData> = {
     },
     "ST": {
         "label": "ST",
-        "pseudocode": dedent(`
-            mem[PC + SEXT(PCoffset9)] = SR;
-        `),
+        "pseudocode": pseudocode`
+            ${["mem[", 2]}${["PC + SEXT(PCoffset9)", 0]}${["] = ", 2]}${["SR", 1]}${[";", 2]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -668,9 +742,9 @@ const sequences: Record<string, MacroData> = {
     },
     "STI": {
         "label": "STI",
-        "pseudocode": dedent(`
-            mem[mem[PC + SEXT(PCoffset9)]] = SR;
-        `),
+        "pseudocode": pseudocode`
+            ${["mem[", 4]}${["mem[", 2]}${["PC + SEXT(PCoffset9)", 0]}${["]", 2]}${["] = ", 4]}${["SR", 3]}${[";", 4]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -778,9 +852,9 @@ const sequences: Record<string, MacroData> = {
     },
     "STR": {
         "label": "STR",
-        "pseudocode": dedent(`
-            mem[BaseR + SEXT(offset6)] = SR;
-        `),
+        "pseudocode": pseudocode`
+            ${["mem[", 2]}${["BaseR + SEXT(offset6)", 0]}${["] = ", 2]}${["SR", 1]}${[";", 2]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -869,9 +943,9 @@ const sequences: Record<string, MacroData> = {
     },
     "LEA": {
         "label": "LEA",
-        "pseudocode": dedent(`
-            DR = PC + SEXT(PCoffset9);
-        `),
+        "pseudocode": pseudocode`
+            ${["DR = PC + SEXT(PCoffset9);", 0]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -924,10 +998,10 @@ const sequences: Record<string, MacroData> = {
     },
     "BR": {
         "label": "BR (taken)",
-        "pseudocode": dedent(`
+        "pseudocode": pseudocode`
             if ((n AND N) OR (z AND Z) OR (p AND P))
-                PC = PC + SEXT(PCoffset9);
-        `),
+                ${["PC = PC + SEXT(PCoffset9);", 0]}
+        `,
         "sequence": [
             [
                 "IR to ZEXT/SEXT (1)",
@@ -968,9 +1042,9 @@ const sequences: Record<string, MacroData> = {
     },
     "JMP": {
         "label": "JMP",
-        "pseudocode": dedent(`
-            PC = BaseR;
-        `),
+        "pseudocode": pseudocode`
+            ${["PC = BaseR;", 0]}
+        `,
         "sequence": [
             [
                 "1 (SR1MUX selector)",
@@ -1012,14 +1086,9 @@ const sequences: Record<string, MacroData> = {
     },
     "JSR": {
         "label": "JSR",
-        "pseudocode": dedent(`
-            TEMP = PC;
-            if (bit[11] == 0)
-                PC = BaseR;
-            else
-                PC = PC + SEXT(PCoffset11);
-            R7 = TEMP;
-        `),
+        "pseudocode": pseudocode`
+            ${["[R7, PC] = [PC, PC + SEXT(PCOffset11)];", 0]}
+        `,
         "sequence": [
             [
                 "1 (GatePC)",
@@ -1075,14 +1144,9 @@ const sequences: Record<string, MacroData> = {
     },
     "JSRR": {
         "label": "JSRR",
-        "pseudocode": dedent(`
-            TEMP = PC;
-            if (bit[11] == 0)
-                PC = BaseR;
-            else
-                PC = PC + SEXT(PCoffset11);
-            R7 = TEMP;
-        `),
+        "pseudocode": pseudocode`
+            ${["[R7, PC] = [PC, BaseR];", 0]}
+        `,
         "sequence": [
             [
                 "1 (GatePC)",
@@ -1141,10 +1205,10 @@ const sequences: Record<string, MacroData> = {
     },
     "TRAP": {
         "label": "TRAP (simplified)",
-        "pseudocode": dedent(`
+        "pseudocode": pseudocode`
             (interrupt logic)
-            PC = mem[ZEXT(trapvect8)];
-        `),
+            ${["PC = ", 3]}${["mem[", 2]}${["ZEXT(trapvect8)", 1]}${["]", 2]}${[";", 3]}
+        `,
         "sequence": [
             [
                 "1 (GatePC)",
