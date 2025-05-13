@@ -12,3 +12,21 @@
         background-color: var(--p-surface-800);
     }
 }
+
+/* Used for node SVGs. This doesn't need to be a Tailwind utility. */
+:root {
+    --vf-node-color: var(--color-surface-700);
+}
+.node-bg {
+    /* Positioning */
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    /* Coloring */
+    fill: var(--vf-node-bg);
+    stroke-width: 1px;
+    stroke: var(--vf-node-color);
+    /* Overflow */
+    overflow: visible;
+}
