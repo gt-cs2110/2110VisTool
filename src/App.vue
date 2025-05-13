@@ -35,12 +35,22 @@ const macroCycleCount = computed(() => wireState.value.macro ? SEQUENCE_DATA[wir
 let lastWireActivate: number = 0;
 
 function handleKeydown(event: KeyboardEvent) {
-  if (event.key === 'ArrowLeft') {
-    pauseDiagramLoop();
-    stepBack();
-  } else if (event.key === 'ArrowRight') {
-    pauseDiagramLoop();
-    stepFwd();
+  // If escape is pressed, unfocus on whatever
+  if (event.code === "Escape") {
+    (document.activeElement as HTMLElement)?.blur();
+  }
+
+  // If not focused on anything
+  if (document.activeElement == document.body || document.activeElement == document.documentElement) {
+    if (event.code === 'ArrowLeft') {
+      // On left, step back
+      pauseDiagramLoop();
+      stepBack();
+    } else if (event.code === 'ArrowRight') {
+      // On right, step fwd.
+      pauseDiagramLoop();
+      stepFwd();
+    }
   }
 }
 
