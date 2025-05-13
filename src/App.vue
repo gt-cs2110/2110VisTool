@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, ref, useTemplateRef, onMounted, onUnmounted } from 'vue';
 import LC3 from './components/LC3.vue';
 import SEQUENCE_DATA from "./sequences";
 
@@ -33,6 +33,34 @@ const macroCycleCount = computed(() => wireState.value.macro ? SEQUENCE_DATA[wir
  * The last tick when a wire was activated.
  */
 let lastWireActivate: number = 0;
+
+function handleKeydown(event: KeyboardEvent) {
+  // If escape is pressed, unfocus on whatever
+  if (event.code === "Escape") {
+    (document.activeElement as HTMLElement)?.blur();
+  }
+
+  // If not focused on anything
+  if (document.activeElement == document.body || document.activeElement == document.documentElement) {
+    if (event.code === 'ArrowLeft') {
+      // On left, step back
+      pauseDiagramLoop();
+      stepBack();
+    } else if (event.code === 'ArrowRight') {
+      // On right, step fwd.
+      pauseDiagramLoop();
+      stepFwd();
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
 
 function stepBack() {
   if (wireState.value.step <= 0) {
