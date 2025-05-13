@@ -1207,7 +1207,7 @@ const sequences: Record<string, MacroData> = {
         "label": "TRAP (simplified)",
         "pseudocode": pseudocode`
             (interrupt logic)
-            ${["PC = ", 3]}${["mem[", 2]}${["ZEXT(trapvect8)", 1]}${["]", 2]}${[";", 3]}
+            ${["PC = ", 2]}${["mem[", 1]}${["ZEXT(trapvect8)", 0]}${["]", 1]}${[";", 2]}
         `,
         "sequence": [
             [
