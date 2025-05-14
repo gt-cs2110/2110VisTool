@@ -1,0 +1,54 @@
+<!-- The pants-shaped component for all diagram components that are arithmetic operations (e.g., adder/ALU). -->
+
+<script setup lang="ts">
+import { Position, Handle } from '@vue-flow/core';
+import type { HandleType, NodeProps } from '@vue-flow/core';
+import TriState from "./shapes/TriState.vue";
+import { computeHandleOriented, type Orientation } from './shapes';
+import { computed } from 'vue';
+  
+const props = defineProps<NodeProps<{
+    label?: string,
+    orientation?: Orientation
+}>>();
+
+const orientation = computed(() => props.data.orientation ?? 'up');
+
+interface HandleProperties {
+    side: Position,
+    handle: HandleType,
+}
+const handlePositions = computed(() => Array.from<HandleProperties, HandleProperties>([
+    { side: Position.Right, handle: "source" },
+    { side: Position.Left, handle: "target" },
+], p => computeHandleOriented(p, orientation.value)));
+
+</script>
+
+<template>
+  <div>
+    <TriState :dimensions="props.dimensions" :orientation />
+    <div>{{ props.data.label }}</div>
+
+    <Handle 
+      v-for="pos of handlePositions"
+      :position="pos.side"
+      :type="pos.handle"
+    />
+  </div>
+</template>
+
+<style>
+.vue-flow__node-tristate {
+  --vf-handle: var(--vf-node-color);
+
+  padding: 10px;
+  width: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--vf-node-text);
+
+  /* Equilateral triangle */
+  aspect-ratio: 2 / calc(sqrt(3));
+}
+</style>
