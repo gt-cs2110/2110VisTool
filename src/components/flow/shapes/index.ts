@@ -1,3 +1,5 @@
+import { Position } from "@vue-flow/core";
+
 export type VerticalOrientation = "up" | "down";
 export type HorizontalOrientation = "left" | "right";
 export type Orientation = VerticalOrientation | HorizontalOrientation;
@@ -33,4 +35,47 @@ export function drawOriented(
             // If horizontal, [main axis, cross axis] is [x, y].
             return vertical ? [c, m] : [m, c];
         });
+}
+
+// TODO: doc
+function rotatePosition(position: Position, n: number) {
+    switch (((n % 4) + 4) % 4) {
+        case 0: return position;
+        case 1: switch (position) {
+            case Position.Top: return Position.Right;
+            case Position.Right: return Position.Bottom;
+            case Position.Bottom: return Position.Left;
+            case Position.Left: return Position.Top;
+        }
+        case 2: switch (position) {
+            case Position.Top: return Position.Bottom;
+            case Position.Right: return Position.Left;
+            case Position.Bottom: return Position.Top;
+            case Position.Left: return Position.Right;
+        }
+        case 3: switch (position) {
+            case Position.Top: return Position.Left;
+            case Position.Right: return Position.Top;
+            case Position.Bottom: return Position.Right;
+            case Position.Left: return Position.Bottom;
+        }
+    }
+
+    throw new Error("Bad argument");
+}
+function asRotations(orientation: Orientation) {
+    if (orientation === "right") return 0;
+    if (orientation === "down") return 1;
+    if (orientation === "left") return 2;
+    if (orientation === "up") return 3;
+    return 0;
+}
+export function computeHandleOriented<T extends { side: Position }>(
+    properties: T,
+    orientation: Orientation
+): T {
+    return { ...properties, side: rotatePosition(properties.side, asRotations(orientation)) };
+}
+export function getCrossProperty(side: Position): "top" | "left" {
+    return side == Position.Left || side == Position.Right ? "top" : "left";
 }

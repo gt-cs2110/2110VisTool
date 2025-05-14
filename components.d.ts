@@ -8,30 +8,30 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ALU: typeof import('./src/components/flow/shapes/ALU.vue')['default']
+    ALUNode: typeof import('./src/components/flow/ALUNode.vue')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
-    MdiHomeOutline: typeof import('~icons/mdi/home-outline')['default']
+    LogicNode: typeof import('./src/components/flow/LogicNode.vue')['default']
     MdiInformationOutline: typeof import('~icons/mdi/information-outline')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Menubar: typeof import('primevue/menubar')['default']
+    Mux: typeof import('./src/components/flow/shapes/Mux.vue')['default']
+    MuxNode: typeof import('./src/components/flow/MuxNode.vue')['default']
     Pseudocode: typeof import('./src/components/Pseudocode.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     SiteNav: typeof import('./src/components/SiteNav.vue')['default']
     Slider: typeof import('primevue/slider')['default']
-<<<<<<< HEAD
-    TopNav: typeof import('./src/components/TopNav.vue')['default']
-=======
     SpecialEdge: typeof import('./src/components/SpecialEdge.vue')['default']
     SpecialNode: typeof import('./src/components/SpecialNode.vue')['default']
->>>>>>> 9823990 (Vue Flow skeleton)
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']
