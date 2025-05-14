@@ -8,23 +8,27 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ALU: typeof import('./src/components/flow/shapes/ALU.vue')['default']
+    ALUNode: typeof import('./src/components/flow/ALUNode.vue')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
+    LogicNode: typeof import('./src/components/flow/LogicNode.vue')['default']
     MdiInformationOutline: typeof import('~icons/mdi/information-outline')['default']
     MdiPause: typeof import('~icons/mdi/pause')['default']
     MdiPlay: typeof import('~icons/mdi/play')['default']
-    MdiSkipNext: typeof import('~icons/mdi/skip-next')['default']
     MdiStepBackward: typeof import('~icons/mdi/step-backward')['default']
     MdiStepForward: typeof import('~icons/mdi/step-forward')['default']
     Menubar: typeof import('primevue/menubar')['default']
+    Mux: typeof import('./src/components/flow/shapes/Mux.vue')['default']
+    MuxNode: typeof import('./src/components/flow/MuxNode.vue')['default']
     Pseudocode: typeof import('./src/components/Pseudocode.vue')['default']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     Slider: typeof import('primevue/slider')['default']
-    SpecialEdge: typeof import('./src/components/SpecialEdge.vue')['default']
-    SpecialNode: typeof import('./src/components/SpecialNode.vue')['default']
+    TriState: typeof import('./src/components/flow/shapes/TriState.vue')['default']
+    TriStateNode: typeof import('./src/components/flow/TriStateNode.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']

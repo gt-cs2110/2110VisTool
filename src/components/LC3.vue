@@ -1,9 +1,7 @@
 <script setup lang="ts">
     import { ref, useTemplateRef } from 'vue';
-    import { VueFlow } from '@vue-flow/core';
+    import { VueFlow, type Edge, type Node } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
-    import SpecialNode from './SpecialNode.vue';
-    import SpecialEdge from './SpecialEdge.vue';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -55,76 +53,60 @@
         }
     })
 
-    const nodes = ref([
-        // an input node, specified by using `type: 'input'`
+    const nodes = ref<Node[]>([
         { 
             id: '1',
             type: 'input', 
             position: { x: 250, y: 5 },
-            // all nodes can have a data object containing any data you want to pass to the node
-            // a label can property can be used for default nodes
             data: { label: 'Node 1' },
         },
-
-        // default node, you can omit `type: 'default'` as it's the fallback type
         { 
             id: '2', 
             position: { x: 100, y: 100 },
             data: { label: 'Node 2' },
         },
-
-        // An output node, specified by using `type: 'output'`
         { 
             id: '3', 
-            type: 'output', 
+            type: 'alu', 
             position: { x: 400, y: 200 },
-            data: { label: 'Node 3' },
+            data: { label: 'ALU', orientation: "up" },
         },
-
-        // this is a custom node
-        // we set it by using a custom type name we choose, in this example `special`
-        // the name can be freely chosen, there are no restrictions as long as it's a string
-        {
-            id: '4',
-            type: 'special', // <-- this is the custom node type name
+        { 
+            id: '4', 
+            type: 'mux', 
             position: { x: 400, y: 200 },
-            data: {
-            label: 'Node 4',
-            hello: 'world',
-            },
+            data: { label: 'Mux' },
+        },
+        { 
+            id: '5', 
+            type: 'tristate', 
+            position: { x: 400, y: 200 },
+        },
+        { 
+            id: '6', 
+            type: 'logic', 
+            position: { x: 400, y: 200 },
+            data: { label: 'Register' },
         },
     ])
 
     // these are our edges
-    const edges = ref([
-        // default bezier edge
-        // consists of an edge id, source node id and target node id
+    const edges = ref<Edge[]>([
         { 
             id: 'e1->2',
             source: '1', 
             target: '2',
         },
-
-        // set `animated: true` to create an animated edge path
         { 
             id: 'e2->3',
             source: '2', 
             target: '3', 
             animated: true,
         },
-
-        // a custom edge, specified by using a custom type name
-        // we choose `type: 'special'` for this example
         {
             id: 'e3->4',
-            type: 'special',
             source: '3',
             target: '4',
-
-            // all edges can have a data object containing any data you want to pass to the edge
-            data: {
-            hello: 'world',
-            }
         },
     ]);
 </script>
@@ -170,14 +152,20 @@
         <VueFlow :nodes="nodes" :edges="edges">
           <Background pattern-color="var(--color-surface-500)" :gap="16" />
       
-          <!-- bind your custom node type to a component by using slots, slot names are always `node-<type>` -->
-          <template #node-special="specialNodeProps">
-            <SpecialNode v-bind="specialNodeProps" />
+          <template #node-alu="props">
+            <ALUNode v-bind="props" />
           </template>
-      
-          <!-- bind your custom edge type to a component by using slots, slot names are always `edge-<type>` -->
-          <template #edge-special="specialEdgeProps">
-            <SpecialEdge v-bind="specialEdgeProps" />
+
+          <template #node-mux="props">
+            <MuxNode v-bind="props" />
+          </template>
+
+          <template #node-logic="props">
+            <LogicNode v-bind="props" />
+          </template>
+
+          <template #node-tristate="props">
+            <TriStateNode v-bind="props" />
           </template>
         </VueFlow>
     </div>
