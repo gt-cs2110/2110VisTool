@@ -1,9 +1,13 @@
 <script setup lang="ts">
     import { ref, useTemplateRef } from 'vue';
-    import { VueFlow, type Edge, type Node } from '@vue-flow/core';
+    import { VueFlow } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
+<<<<<<< HEAD
     import SpecialNode from './SpecialNode.vue';
     import SpecialEdge from './SpecialEdge.vue';
+=======
+    import type { LC3Node } from './flow/types';
+>>>>>>> 9596c6f (add components to LC3, add types)
 
     const top = useTemplateRef<HTMLDivElement>("top");
     const svgEl = useTemplateRef<SVGSVGElement>('lc3Svg');
@@ -56,6 +60,7 @@
         }
     })
 
+<<<<<<< HEAD
     const nodes = ref([
         // an input node, specified by using `type: 'input'`
         { 
@@ -63,56 +68,193 @@
             type: 'input', 
             position: { x: 250, y: 5 },
             data: { label: 'Node 1' },
+=======
+    const nodes = ref<LC3Node[]>([
+        {
+            id: "marMux",
+            type: "mux",
+            position: { x: 0, y: 0 },
+            data: { label: "Mux" }
+        },
+        {
+            id: "gateMarMux",
+            type: "tristate",
+            position: { x: 0, y: -100 },
+            data: { label: "GateMARMUX" },
+        },
+        {
+            id: "gatePc",
+            type: "tristate",
+            position: { x: 200, y: -100 },
+            data: { label: "GatePC" }
+>>>>>>> 9596c6f (add components to LC3, add types)
         },
         { 
-            id: '2', 
-            position: { x: 100, y: 100 },
-            data: { label: 'Node 2' },
+            id: "pc",
+            type: "logic",
+            position: { x: 200, y: 0 },
+            data: { label: "Program Counter" },
         },
         { 
-            id: '3', 
-            type: 'alu', 
+            id: "pcMux",
+            type: "mux",
+            position: { x: 200, y: 100 },
+            data: { label: "PCMUX" },
+        },
+        { 
+            id: "pcAdder",
+            type: "logic",
+            position: { x: 200, y: 200 },
+            data: { label: "+1" },
+        },
+        { 
+            id: 'regFile',
+            type: "logic",
+            position: { x: 400, y: 0 },
+            data: { label: 'Register File' },
+        },
+        {
+            id: 'zext8',
+            type: "logic",
+            position: { x: 0, y: 100 },
+            data: { label: 'ZEXT' },
+        },
+        {
+            id: 'sext5',
+            type: "logic",
+            position: { x: 0, y: 200 },
+            data: { label: 'SEXT' },
+        },
+        {
+            id: 'sext6',
+            type: "logic",
+            position: { x: 0, y: 300 },
+            data: { label: 'SEXT' },
+        },
+        {
+            id: 'sext9',
+            type: "logic",
+            position: { x: 0, y: 400 },
+            data: { label: 'SEXT' },
+        },
+        {
+            id: 'sext11',
+            type: "logic",
+            position: { x: 0, y: 500 },
+            data: { label: 'SEXT' },
+        },
+        {
+            id: 'marAdder',
+            type: "alu",
+            position: { x: 200, y: 300 },
+            data: { label: '+' },
+        },
+        {
+            id: 'addr1Mux',
+            type: "mux",
+            position: { x: 200, y: 400 },
+            data: { label: 'ADDR1MUX' },
+        },
+        {
+            id: 'addr2Mux',
+            type: "mux",
+            position: { x: 200, y: 500 },
+            data: { label: 'ADDR2MUX' },
+        },
+        {
+            id: 'fsm',
+            type: "logic",
+            position: { x: 400, y: 0 },
+            data: { label: "Finite State Machine" },
+        },
+        {
+            id: 'sr2mux',
+            type: "mux",
+            position: { x: 400, y: 100 },
+            data: { label: "SR2MUX" },
+        },
+        {
+            id: 'alu',
+            type: "alu",
             position: { x: 400, y: 200 },
-            data: { label: 'ALU', orientation: "up" },
+            data: { label: "ALU" },
         },
-        { 
-            id: '4', 
-            type: 'mux', 
-            position: { x: 400, y: 200 },
-            data: { label: 'Mux' },
+        {
+            id: 'gateAlu',
+            type: 'tristate',
+            position: { x: 400, y: 300 },
+            data: { label: "GateALU" },
         },
-        { 
-            id: '5', 
-            type: 'tristate', 
-            position: { x: 400, y: 200 },
+        {
+            id: 'logic',
+            type: "logic",
+            position: { x: 200, y: 600 },
+            data: { label: "Logic" }
         },
-        { 
-            id: '6', 
-            type: 'logic', 
-            position: { x: 400, y: 200 },
-            data: { label: 'Register' },
+        {
+            id: 'nzp',
+            type: "logic",
+            position: { x: 200, y: 700 },
+            data: { label: "NZP" },
+        },
+        {
+            id: 'ioInput',
+            type: "logic",
+            position: { x: 400, y: 700 },
+            data: { label: "Input" },
+        },
+        {
+            id: 'ioOutput',
+            type: "logic",
+            position: { x: 400, y: 800 },
+            data: { label: "Output" },
+        },
+        {
+            id: 'sr1Mux',
+            type: "mux",
+            position: { x: 600, y: 700 },
+            data: { label: "SR1MUX" },
+        },
+        {
+            id: 'sr2Mux',
+            type: "mux",
+            position: { x: 600, y: 800 },
+            data: { label: "SR2MUX" },
+        },
+        {
+            id: "memory",
+            type: "logic",
+            position: { x: 400, y: 400 },
+            data: { label: "Memory" }
+        },
+        {
+            id: "mar",
+            type: "logic",
+            position: { x: 400, y: 500 },
+            data: { label: "Memory Address Register" }
+        },
+        {
+            id: "mdr",
+            type: "logic",
+            position: { x: 400, y: 600 },
+            data: { label: "Memory Data Register" }
+        },
+        {
+            id: "mdrMux",
+            type: "mux",
+            position: { x: 600, y: 600 },
+            data: { label: "MDRMUX" }
+        },
+        {
+            id: "gateMdr",
+            type: "tristate",
+            position: { x: 600, y: 400 },
+            data: { label: "GateMDR" }
         },
     ])
 
     // these are our edges
-    const edges = ref<Edge[]>([
-        { 
-            id: 'e1->2',
-            source: '1', 
-            target: '2',
-        },
-        { 
-            id: 'e2->3',
-            source: '2', 
-            target: '3', 
-            animated: true,
-        },
-        {
-            id: 'e3->4',
-            source: '3',
-            target: '4',
-        },
-    ]);
+    const edges = ref([]);
 </script>
 
 <style scoped>
