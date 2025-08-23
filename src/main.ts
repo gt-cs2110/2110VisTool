@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import router from './router';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import './style.css';
@@ -7,6 +8,7 @@ import { definePreset } from '@primevue/themes';
 import type { PrimeVueConfiguration } from 'primevue';
 
 createApp(App)
+    .use(router)
     .use(PrimeVue, {
         theme: {
             preset: definePreset(Aura, {

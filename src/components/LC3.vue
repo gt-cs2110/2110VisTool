@@ -12,8 +12,7 @@ import { useTemplateRef } from 'vue';
             const wire = document.getElementById(wireId);
             if (wire) {
                 wire.classList.remove(
-                    ...Array.from(wire.classList.values())
-                        .filter(cls => cls.startsWith("active-"))
+                    ...Array.from(wire.classList).filter((cls: string) => cls.startsWith("active-"))
                 );
                 wire.classList.add("active", `active-${cycle}`);
             } else {
@@ -29,8 +28,7 @@ import { useTemplateRef } from 'vue';
             if (wire) {
                 wire.classList.remove(
                     'active',
-                    ...Array.from(wire.classList.values())
-                        .filter(cls => cls.startsWith("active-"))
+                    ...Array.from(wire.classList).filter((cls: string) => cls.startsWith("active-"))
                 );
             } else {
                 console.warn("Failed to deactivate missing wire:", wireId);
@@ -53,32 +51,38 @@ import { useTemplateRef } from 'vue';
 </script>
 
 <style scoped>
-    @reference "@/style.css";
-    
     .wire.active {
-        @apply fill-surface-500 stroke-surface-500;
+        fill: rgb(120 113 108);
+        stroke: rgb(120 113 108);
         animation: wire-pulse 1s infinite;
     }
     .wire.active.active-0 {
-        @apply fill-red-500 stroke-red-500;
+        fill: rgb(239 68 68);
+        stroke: rgb(239 68 68);
     }
     .wire.active.active-1 {
-        @apply fill-orange-500 stroke-orange-500;
+        fill: rgb(249 115 22);
+        stroke: rgb(249 115 22);
     }
     .wire.active.active-2 {
-        @apply fill-yellow-500 stroke-yellow-500;
+        fill: rgb(234 179 8);
+        stroke: rgb(234 179 8);
     }
     .wire.active.active-3 {
-        @apply fill-green-500 stroke-green-500;
+        fill: rgb(34 197 94);
+        stroke: rgb(34 197 94);
     }
     .wire.active.active-4 {
-        @apply fill-blue-500 stroke-blue-500;
+        fill: rgb(59 130 246);
+        stroke: rgb(59 130 246);
     }
     .wire.active.active-5 {
-        @apply fill-purple-500 stroke-purple-500;
+        fill: rgb(147 51 234);
+        stroke: rgb(147 51 234);
     }
     .wire.active.active-6 {
-        @apply fill-pink-500 stroke-pink-500;
+        fill: rgb(236 72 153);
+        stroke: rgb(236 72 153);
     }
 
     @keyframes wire-pulse {
