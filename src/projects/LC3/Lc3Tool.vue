@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue';
-import LC3 from '../components/LC3.vue';
-import Pseudocode from '../components/Pseudocode.vue';
-import SEQUENCE_DATA from '../sequences';
+// Adjusted paths: all LC3 tool resources are now siblings inside projects/LC3
+import LC3 from './LC3.vue';
+import Pseudocode from './Pseudocode.vue';
+import SEQUENCE_DATA from './sequences';
 
 const DEFAULT_ACTIVE_WIRE_TIME = 200;
 const CYCLE_BREAK = 'CYCLE_BREAK';
@@ -124,7 +125,7 @@ function activateMacro(key: string) {
     </Dialog>
     <div class="grid grid-cols-2 grow gap-3 px-2">
       <div class="flex justify-end">
-        <LC3 ref="lc3" />
+  <LC3 ref="lc3Diagram" />
       </div>
       <div class="flex grow flex-col items-center 2xl:items-start justify-center">
         <Card v-if="currentSequence?.pseudocode">

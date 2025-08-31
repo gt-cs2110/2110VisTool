@@ -886,7 +886,6 @@ export default {
           return;
         }
         
-        // Additional validation for binary input
         if (char === '.') {
           // Only allow one decimal point
           if (currentValue.includes('.')) {
@@ -934,14 +933,13 @@ export default {
     }
     
     const handleInput = (event) => {
-      // Clean up the input value after each input event
       let value = event.target.value;
       
       if (inputMode.value === 'binary') {
-        // Remove any characters that shouldn't be in binary input
+        // Remove non-binary input
         value = value.replace(/[^01.\-infan]/gi, '');
       } else {
-        // Remove any characters that shouldn't be in decimal input
+        // Remove non-decimal input
         value = value.replace(/[^0-9.\-einfan]/gi, '');
       }
       

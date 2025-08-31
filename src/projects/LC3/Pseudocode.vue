@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { HighlightRange, PseudocodeState } from '../sequences';
+import type { HighlightRange, PseudocodeState } from './sequences';
     const { pseudocode, cycle, running } = defineProps<{
         pseudocode: PseudocodeState,
         cycle: number,

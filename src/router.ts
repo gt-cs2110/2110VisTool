@@ -3,7 +3,8 @@ import type { RouteRecordRaw, RouteLocationNormalized } from 'vue-router';
 
 // Lazy pages
 const Home = () => import('./pages/Home.vue');
-const Lc3Tool = () => import('./pages/Lc3Tool.vue');
+// LC3 tool moved under projects/LC3
+const Lc3Tool = () => import('./projects/LC3/Lc3Tool.vue');
 const IeeeApp = () => import('./projects/IEEE/App.vue');
 const KmapApp = () => import('./projects/Kmap/App.vue');
 
