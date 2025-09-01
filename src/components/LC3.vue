@@ -63,12 +63,15 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
                     requestAnimationFrame(() => attemptCrop(tries + 1));
                     return;
                 }
-                const padX = 10; // more horizontal space
-                const padY = 0; // eliminate vertical padding
-                const x = bbox.x - padX;
-                const y = bbox.y - padY;
-                const w = bbox.width + padX * 2;
-                const h = bbox.height + padY * 2;
+                // Use asymmetric padding so we trim tight on the right while keeping a tiny left gutter
+                const padLeft = 2;   // minimal breathing room
+                const padRight = 0;  // trim flush on the right per user request
+                const padTop = 0;
+                const padBottom = 0;
+                const x = bbox.x - padLeft;
+                const y = bbox.y - padTop;
+                const w = bbox.width + padLeft + padRight;
+                const h = bbox.height + padTop + padBottom;
                 svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
                 svg.removeAttribute('height'); // allow responsive height
             } catch (e) {
@@ -116,7 +119,7 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
     }
         */
     .lc3-container { padding:0; line-height:0; display:flex; align-items:stretch; justify-content:stretch; }
-    .lc3-svg { display:block; height:80%; width:80%; }
+    .lc3-svg { display:block; width:100%; height:auto; }
 </style>
 
 <template>

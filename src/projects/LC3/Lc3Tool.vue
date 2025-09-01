@@ -33,13 +33,30 @@ const currentSequence = computed(() => wireState.value.macro ? (SEQUENCE_DATA as
 let lastWireActivate = 0;
 function handleKeydown(event: KeyboardEvent) {
   if (event.code === 'Escape') (document.activeElement as HTMLElement)?.blur();
-  if (document.activeElement == document.body || document.activeElement == document.documentElement) {
-    if (event.code === 'ArrowLeft') { pauseDiagramLoop(); stepBack(); }
-    else if (event.code === 'ArrowRight') { pauseDiagramLoop(); stepFwd(); }
+  const isArrow = event.code === 'ArrowLeft' || event.code === 'ArrowRight';
+  if (!isArrow) return; // only care about horizontal arrows
+
+  const target = event.target as HTMLElement | null;
+  // If target is a slider/input we let it handle arrows (range adjustment / caret move)
+  if (target && (target.closest('.p-slider') || ['INPUT','TEXTAREA','SELECT'].includes(target.tagName))) return;
+
+  // Stop Menubar (or any other widget) from performing its own arrow navigation
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation?.();
+
+  // If focus is currently on a menubar item, blur it so it doesn't re-enter nav mode
+  if (target && target.closest('.p-menubar')) (target as HTMLElement).blur();
+
+  // Only step if a macro is active
+  if (wireState.value.macro) {
+    pauseDiagramLoop();
+    if (event.code === 'ArrowLeft') stepBack(); else stepFwd();
   }
 }
-onMounted(() => window.addEventListener('keydown', handleKeydown));
-onUnmounted(() => window.removeEventListener('keydown', handleKeydown));
+// Use capture phase so we intercept before PrimeVue Menubar key handlers
+onMounted(() => window.addEventListener('keydown', handleKeydown, true));
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown, true));
 function stepBack() {
   if (wireState.value.step <= 0) return;
   wireState.value.step--;
@@ -103,6 +120,8 @@ function activateMacro(key: string) {
   wireState.value.macro = key;
   for (const cycle of sequence) wireState.value.wires.push(...cycle, CYCLE_BREAK);
   wireState.value.stop = wireState.value.wires.length;
+  // Remove focus from the menu item so global arrow key listener handles stepping
+  (document.activeElement as HTMLElement | null)?.blur();
 }
 </script>
 <template>
@@ -128,7 +147,7 @@ function activateMacro(key: string) {
       <div class="diagram-col">
         <LC3 ref="lc3Diagram" />
       </div>
-      <div class="side-col flex grow flex-col items-center 2xl:items-start justify-start pt-6">
+  <div class="side-col flex grow flex-col items-center justify-center">
         <Card v-if="currentSequence?.pseudocode">
           <template #title>{{ currentSequence.label }} Pseudocode</template>
           <template #content>
@@ -177,7 +196,7 @@ function activateMacro(key: string) {
       <Divider />
   <Menubar :model="(Object.entries(SEQUENCE_DATA) as [string, any][]).map(([key, val]) => ({ label: val.label, key, command: (e: any) => activateMacro(e.item.key!) }))" :dt="{ root: { background: 'transparent', borderColor: 'transparent', borderRadius: '0' } }" class="px-0">
         <template #item="{ item, label, props }">
-          <a v-bind="props.action" class="transition-colors rounded text-sm p-1 xl:text-base xl:p-2" :class="{ 'outline outline-surface-500': wireState.macro != item.key, 'bg-primary hover:bg-primary-emphasis text-primary-contrast': wireState.macro == item.key && !isLoopDone, 'outline outline-primary-500': wireState.macro == item.key && isLoopDone }">
+          <a v-bind="props.action" class="transition-colors rounded text-sm p-1 xl:text-base xl:p-2 inline-flex items-center border border-transparent" :class="{ 'outline outline-surface-500': wireState.macro != item.key, 'bg-primary hover:bg-primary-emphasis text-primary-contrast': wireState.macro == item.key && !isLoopDone, 'outline outline-primary-500': wireState.macro == item.key && isLoopDone }">
             {{ label }}
           </a>
         </template>
@@ -191,9 +210,10 @@ function activateMacro(key: string) {
   font-size: 1.05rem;
   overflow-x: auto;
 }
-.lc3-grid { display:grid; grid-template-columns: minmax(960px, 1fr) 460px; gap:2rem; align-items:start; }
-@media (max-width: 1500px) { .lc3-grid { grid-template-columns: minmax(860px, 1fr) 420px; } }
-@media (max-width: 1300px) { .lc3-grid { grid-template-columns: 1fr; } .side-col { order:2; } }
+.lc3-grid { display:grid; grid-template-columns: minmax(960px, 1fr) 460px; gap:0; align-items:center; }
+@media (max-width: 1500px) { .lc3-grid { grid-template-columns: minmax(860px, 1fr) 420px; gap:0; } }
+@media (max-width: 1300px) { .lc3-grid { grid-template-columns: 1fr; align-items:start; } .side-col { order:2; } }
+.side-col { align-self:center; }
 .diagram-col { overflow:auto; }
 .control-panel {
   display: flex;
@@ -215,9 +235,12 @@ function activateMacro(key: string) {
   overflow-x: auto;
   scrollbar-width: thin;
 }
+.control-panel :deep(.p-menubar-root-list) { padding-left: .4rem; }
 .control-panel :deep(.p-menubar)::-webkit-scrollbar { height: 6px; }
 .control-panel :deep(.p-menubar)::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
 /* Make PrimeVue buttons / slider a bit larger */
 .control-panel :deep(button.p-button) { padding: 0.9rem; }
 .control-panel :deep(.p-slider) { height: 0.6rem; }
+/* Enlarge mdi icon (play/pause) */
+.control-panel :deep(button svg) { width: 1.35rem; height: 1.35rem; }
 </style>
