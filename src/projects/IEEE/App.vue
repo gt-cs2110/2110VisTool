@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-    <h1>
-      IEEE 754 Floating Point Visualizer
-    </h1>
+  <div class="ieee-root">
+    <div class="container">
+      <h1>
+        IEEE 754 Floating Point Visualizer
+      </h1>
     
     <div class="input-section">
       <div class="input-group">
@@ -83,7 +84,8 @@
       </div>
     </div>
 
-    <div class="visualization" v-html="visualizationHtml"></div>
+      <div class="visualization" v-html="visualizationHtml"></div>
+    </div>
   </div>
 </template>
 
@@ -232,7 +234,7 @@ export default {
       
       const biasedExponent = exponent
       const actualExponent = exponent - 127
-      const mantissaValue = 1 + mantissa / Math.pow(2, 23)
+  const mantissaValue = 1 + mantissa / (2 ** 23)
       
       const bitLabels = Array.from({length: 32}, (_, i) => 31 - i)
       
@@ -288,7 +290,7 @@ export default {
           <div class="calc-section">
             <div class="calc-title">Mantissa Analysis</div>
             <div class="calc-step">Bits: ${mantissaBits}</div>
-            <div class="calc-step">Value: 1 + ${mantissa}/2²³</div>
+            <div class="calc-step">Value: 1 + ${mantissa}/2<sup>23</sup></div>
             <div class="calc-step">Result: ${mantissaValue.toFixed(10)}</div>
           </div>
         </div>

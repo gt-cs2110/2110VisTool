@@ -24,6 +24,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
+    SiteNav: typeof import('./src/components/SiteNav.vue')['default']
     Slider: typeof import('primevue/slider')['default']
     TopNav: typeof import('./src/components/TopNav.vue')['default']
   }

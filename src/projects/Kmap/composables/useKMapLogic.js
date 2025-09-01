@@ -2,32 +2,78 @@ export function useKMapLogic() {
   
   const findGroups = (ones, variables) => {
     if (ones.length === 0) return []
-
-    const onesAsNumbers = ones.map(term => parseInt(term, 2))
-    const allPossibleGroups = findAllPossibleGroups(onesAsNumbers, variables)
-    allPossibleGroups.sort((a, b) => b.length - a.length)
-
-    // Filter out groups that are subsets of larger groups
-    let maximalGroups = allPossibleGroups.filter((group, i, arr) => {
-      return !arr.some((other, j) =>
-        j !== i &&
-        other.length > group.length &&
-        group.every(x => other.includes(x))
-      )
+    const oneNums = ones.map(t => parseInt(t, 2))
+    // Generate all power-of-two sized groups (prime implicant candidates)
+    const candidateGroups = findAllPossibleGroups(oneNums, variables)
+    // Keep only groups that are not contained within a larger candidate with identical expression (prime implicants)
+    const withExpr = candidateGroups.map(g => ({ cells: g, expr: groupToExpression(g, variables) }))
+    const primes = withExpr.filter((g, i, arr) => {
+      return !arr.some(other => other !== g && other.cells.length > g.cells.length && g.cells.every(c => other.cells.includes(c)) && other.expr === g.expr)
     })
 
-    // Remove duplicate groups
-    maximalGroups = maximalGroups.filter((group, i, arr) => {
-      return arr.findIndex(other =>
-        other.length === group.length &&
-        other.every(x => group.includes(x))
-      ) === i
-    })
+    // Build coverage table: which primes cover which minterms
+    const minterms = [...new Set(oneNums)].sort((a,b)=>a-b)
+    const coverage = primes.map(p => new Set(p.cells))
 
-    return maximalGroups.map(group => ({
-      terms: group.map(num => num.toString(2).padStart(variables, '0')),
-      size: group.length,
-      expression: groupToExpression(group, variables)
+    const chosen = []
+    const uncovered = new Set(minterms)
+
+    // 1. Essential prime implicants: minterms covered by only one prime
+    const markEssentials = () => {
+      let added = false
+      minterms.forEach(m => {
+        if (!uncovered.has(m)) return
+        const covering = primes.filter((p, idx) => coverage[idx].has(m))
+        if (covering.length === 1) {
+          const pi = covering[0]
+          if (!chosen.includes(pi)) {
+            chosen.push(pi)
+            // remove all cells it covers
+            pi.cells.forEach(c => uncovered.delete(c))
+            added = true
+          }
+        }
+      })
+      return added
+    }
+    while (markEssentials()) {/* repeat until stable */}
+
+    // 2. If uncovered remain, choose primes that cover most uncovered (heuristic set cover)
+    while (uncovered.size > 0) {
+      let best = null
+      let bestCover = 0
+      primes.forEach(p => {
+        if (chosen.includes(p)) return
+        const coverCount = p.cells.filter(c => uncovered.has(c)).length
+        if (coverCount > bestCover || (coverCount === bestCover && p.cells.length > (best?.cells.length||0))) {
+          best = p
+          bestCover = coverCount
+        }
+      })
+      if (!best || bestCover === 0) break
+      chosen.push(best)
+      best.cells.forEach(c => uncovered.delete(c))
+    }
+
+    // 3. Remove any chosen implicant whose expression is duplicate and whose cells are fully covered by others
+    for (let i = chosen.length -1; i >=0; i--) {
+      const pi = chosen[i]
+      const otherCells = new Set()
+      chosen.forEach((o,j)=> { if (j!==i) o.cells.forEach(c=>otherCells.add(c)) })
+      if (pi.cells.every(c => otherCells.has(c))) {
+        // ensure its expression not unique to final expression set
+        const exprCount = chosen.filter(o=>o.expr===pi.expr).length
+        if (exprCount>1) chosen.splice(i,1)
+      }
+    }
+
+    // Sort by descending size then expression for stable UI
+    chosen.sort((a,b)=> b.cells.length - a.cells.length || a.expr.localeCompare(b.expr))
+
+    return chosen.map(p => ({
+      terms: p.cells.map(num => num.toString(2).padStart(variables, '0')),
+      size: p.cells.length,
+      expression: p.expr
     }))
   }
 

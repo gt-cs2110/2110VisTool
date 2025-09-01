@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-* {
+.ieee-root * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
+.ieee-root :root, .ieee-root {
     --gt-navy: #003057;
     --gt-gold: #B3A369;
     --gt-light-gold: #E8D5A3;
@@ -20,7 +20,7 @@
     --shadow: rgba(0, 26, 51, 0.4);
 }
 
-body {
+.ieee-root body, .ieee-root {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(135deg, var(--gt-dark-navy) 0%, var(--gt-navy) 50%, #002244 100%);
     background-attachment: fixed;
@@ -30,7 +30,7 @@ body {
     position: relative;
 }
 
-body::before {
+.ieee-root body::before, .ieee-root::before {
     content: '';
     position: fixed;
     top: 0;
@@ -43,7 +43,7 @@ body::before {
     z-index: -1;
 }
 
-.container {
+.ieee-root .container {
     max-width: 1300px;
     margin: 0 auto;
     background: var(--surface);
@@ -58,7 +58,7 @@ body::before {
     overflow: hidden;
 }
 
-.container::before {
+.ieee-root .container::before {
     content: '';
     position: absolute;
     top: 0;
@@ -74,7 +74,7 @@ body::before {
     50% { opacity: 1; }
 }
 
-h1 {
+.ieee-root h1 {
     text-align: center;
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
@@ -100,7 +100,7 @@ h1 {
     50% { background-position: 100% 50%; }
 }
 
-h1 .gt-badge {
+.ieee-root h1 .gt-badge {
     display: inline-block;
     font-size: 0.4em;
     background: var(--gt-gold);
@@ -112,7 +112,7 @@ h1 .gt-badge {
     vertical-align: super;
 }
 
-.input-section {
+.ieee-root .input-section {
     background: var(--surface-light);
     backdrop-filter: blur(10px);
     padding: 32px;
@@ -125,7 +125,7 @@ h1 .gt-badge {
     position: relative;
 }
 
-.input-section::before {
+.ieee-root .input-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -136,14 +136,14 @@ h1 .gt-badge {
     border-radius: 18px 18px 0 0;
 }
 
-.input-group {
+.ieee-root .input-group {
     display: flex;
     gap: 20px;
     align-items: flex-end;
     flex-wrap: wrap;
 }
 
-.input-label {
+.ieee-root .input-label {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -151,7 +151,7 @@ h1 .gt-badge {
     min-width: 300px;
 }
 
-label {
+.ieee-root label {
     font-weight: 600;
     color: var(--gt-light-gold);
     font-size: 0.9rem;
@@ -162,13 +162,13 @@ label {
     gap: 8px;
 }
 
-label::before {
+.ieee-root label::before {
     content: '▶';
     color: var(--gt-gold);
     font-size: 0.7em;
 }
 
-input[type="number"], input[type="text"] {
+.ieee-root input[type="number"], .ieee-root input[type="text"] {
     flex: 1;
     padding: 16px 20px;
     border: 2px solid var(--border-color);
@@ -182,7 +182,7 @@ input[type="number"], input[type="text"] {
     backdrop-filter: blur(10px);
 }
 
-input:focus {
+.ieee-root input:focus {
     outline: none;
     border-color: var(--gt-gold);
     box-shadow: 
@@ -191,12 +191,12 @@ input:focus {
     transform: translateY(-1px);
 }
 
-input::placeholder {
+.ieee-root input::placeholder {
     color: var(--text-secondary);
     opacity: 0.7;
 }
 
-.format-btn {
+.ieee-root .format-btn {
     padding: 8px 16px;
     border: 2px solid #7f53ac;
     background: #23243a;
@@ -207,21 +207,21 @@ input::placeholder {
     font-weight: 500;
 }
 
-.format-btn.active {
+.ieee-root .format-btn.active {
     background: #7f53ac;
     color: #fff;
 }
 
-.format-btn:hover {
+.ieee-root .format-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(127, 83, 172, 0.3);
 }
 
-.visualization {
+.ieee-root .visualization {
     margin-top: 30px;
 }
 
-.ieee-representation {
+.ieee-root .ieee-representation {
     background: linear-gradient(135deg, var(--gt-navy) 0%, var(--gt-dark-navy) 100%);
     padding: 36px;
     border-radius: 20px;
@@ -236,7 +236,7 @@ input::placeholder {
     overflow: hidden;
 }
 
-.ieee-representation::before {
+.ieee-root .ieee-representation::before {
     content: '';
     position: absolute;
     top: 0;
@@ -247,7 +247,7 @@ input::placeholder {
     pointer-events: none;
 }
 
-.ieee-representation h3 {
+.ieee-root .ieee-representation h3 {
     color: var(--gt-light-gold);
     font-weight: 600;
     text-transform: uppercase;
@@ -256,7 +256,26 @@ input::placeholder {
     z-index: 1;
 }
 
-.bit-display {
+/* Bit labels row aligned with bit boxes */
+.ieee-root .bit-labels {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 32px; /* match .bit width */
+    gap: 3px;
+    padding: 0 20px 4px 10px; /* mirror bit-display horizontal padding */
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-align: center;
+    color: var(--gt-light-gold);
+    user-select: none;
+}
+.ieee-root .bit-labels .bit-label { line-height: 1; opacity: 0.85; }
+.ieee-root .bit-labels::-webkit-scrollbar { height: 6px; }
+.ieee-root .bit-labels::-webkit-scrollbar-thumb { background: rgba(179,163,105,0.4); border-radius: 4px; }
+.ieee-root .bit-labels::-webkit-scrollbar-track { background: rgba(255,255,255,0.08); }
+
+.ieee-root .bit-display {
     display: flex;
     flex-wrap: nowrap;
     gap: 3px;
@@ -268,10 +287,10 @@ input::placeholder {
     border: 1px solid var(--border-color);
     overflow-x: auto;
     min-width: 0;
-    width: 1157px;
+    /* Remove fixed width so it can scroll and match labels grid */
 }
 
-.bit {
+.ieee-root .bit {
     width: 32px;
     height: 32px;
     display: flex;
@@ -287,38 +306,38 @@ input::placeholder {
     cursor: pointer;
 }
 
-.bit:hover {
+.ieee-root .bit:hover {
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.sign-bit {
+.ieee-root .sign-bit {
     background: linear-gradient(135deg, #DC2626, #B91C1C);
     color: white;
     border-color: #EF4444;
 }
 
-.exponent-bit {
+.ieee-root .exponent-bit {
     background: linear-gradient(135deg, var(--gt-gold), #B8860B);
     color: var(--gt-navy);
     border-color: var(--gt-light-gold);
     font-weight: 700;
 }
 
-.mantissa-bit {
+.ieee-root .mantissa-bit {
     background: linear-gradient(135deg, #1E40AF, #1D4ED8);
     color: white;
     border-color: #3B82F6;
 }
 
-.calculations {
+.ieee-root .calculations {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 24px;
     margin-top: 32px;
 }
 
-.calc-section {
+.ieee-root .calc-section {
     background: var(--surface-light);
     backdrop-filter: blur(10px);
     padding: 28px;
@@ -331,11 +350,11 @@ input::placeholder {
     transition: transform 0.3s ease;
 }
 
-.calc-section:hover {
+.ieee-root .calc-section:hover {
     transform: translateY(-4px);
 }
 
-.calc-section::before {
+.ieee-root .calc-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -346,7 +365,7 @@ input::placeholder {
     border-radius: 16px 0 0 16px;
 }
 
-.calc-title {
+.ieee-root .calc-title {
     font-weight: 700;
     color: var(--gt-light-gold);
     margin-bottom: 20px;
@@ -358,13 +377,13 @@ input::placeholder {
     gap: 8px;
 }
 
-.calc-title::before {
+.ieee-root .calc-title::before {
     content: '■';
     color: var(--gt-gold);
     font-size: 0.8em;
 }
 
-.calc-step {
+.ieee-root .calc-step {
     margin: 12px 0;
     padding: 14px 16px;
     background: rgba(0, 48, 87, 0.3);
@@ -376,7 +395,7 @@ input::placeholder {
     transition: all 0.3s ease;
 }
 
-.calc-step:hover {
+.ieee-root .calc-step:hover {
     background: rgba(0, 48, 87, 0.5);
     transform: translateX(4px);
 }

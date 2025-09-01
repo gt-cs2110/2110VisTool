@@ -108,14 +108,15 @@ import { useTemplateRef, onMounted, nextTick } from 'vue';
     .wire.active.active-6 { /* pink-500 */
         fill: #ec4899; stroke: #ec4899;
     }
-
+/*
     @keyframes wire-pulse {
         0% { stroke-opacity: 1; }
         50% { stroke-opacity: 0.5; }
         100% { stroke-opacity: 1; }
     }
+        */
     .lc3-container { padding:0; line-height:0; display:flex; align-items:stretch; justify-content:stretch; }
-    .lc3-svg { display:block; height:100%; width:100%; }
+    .lc3-svg { display:block; height:80%; width:80%; }
 </style>
 
 <template>

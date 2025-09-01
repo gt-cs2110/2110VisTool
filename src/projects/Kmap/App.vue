@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="kmap-root">
+    <div class="container">
     <header>
       <h1>Boolean Logic Simplifier</h1>
       <p class="subtitle">Advanced Karnaugh Map Visualization & Analysis Tool</p>
@@ -80,6 +81,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -168,6 +170,6 @@ export default {
 </script>
 
 <style>
-/* Import the original ProjectB styles */
+/* Import Kmap styles (scoped via kmap-root wrapper) */
 @import url('./style.css');
 </style>

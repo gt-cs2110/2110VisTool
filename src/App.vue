@@ -3,10 +3,19 @@
 </script>
 
 <template>
-  <router-view />
+  <SiteNav />
+  <main id="main" class="app-main">
+    <router-view />
+  </main>
 </template>
 
 <style scoped>
-/* Minimal shell */
+/* Shell layout */
 :host { display:block; min-height:100%; }
+.app-main { min-height: calc(100dvh - 56px); }
+</style>
+
+<style>
+/* Global utility (not scoped) */
+html, body, #app { height: 100%; }
 </style>
