@@ -237,6 +237,55 @@ export default {
   const mantissaValue = 1 + mantissa / (2 ** 23)
       
       const bitLabels = Array.from({length: 32}, (_, i) => 31 - i)
+
+      // Build normalized scientific notation (binary) from input or from components
+      let normalizedBinary = ''
+      let normalizedExponent = actualExponent
+      let sourceForNormalization = ''
+      const isSpecial = (biasedExponent === 0xFF) || (biasedExponent === 0 && mantissa === 0) // NaN/Inf or zero will still show limited breakdown
+      if (typeof binaryInput === 'string' && /^[+-]?[01]+(\.[01]+)?$/.test(binaryInput.trim())) {
+        sourceForNormalization = binaryInput.trim()
+      } else {
+        // Synthesize from bits (normal numbers: implicit leading 1)
+        if (biasedExponent !== 0) {
+          sourceForNormalization = '1.' + mantissaBits
+        } else {
+          // subnormal: leading 0.
+          sourceForNormalization = '0.' + mantissaBits
+        }
+      }
+
+      const normalizeBinaryString = (binStr) => {
+        let s = binStr.replace(/^([+\-])/, '')
+        const signPrefix = binStr.startsWith('-') ? '-' : ''
+        if (!s.includes('.')) s = s + '.0'
+        // Remove leading zeros on integer part except keep one if all zeros
+        let [intPart, fracPart] = s.split('.')
+        if (/^0+$/.test(intPart)) {
+          // find first 1 in fractional
+            const idx = fracPart.indexOf('1')
+            if (idx === -1) {
+              return { norm: signPrefix + '0', exponent: 0, mantissaDisplay: '0', from: binStr }
+            }
+            const exponent = - (idx + 1)
+            const mantissaTail = fracPart.slice(idx + 1)
+            return { norm: signPrefix + '1.' + mantissaTail, exponent, mantissaDisplay: '1.' + mantissaTail, from: binStr }
+        } else {
+          // integer part has a 1; shift so first 1 is left of decimal
+          const firstOne = intPart.indexOf('1')
+          const shift = intPart.length - firstOne - 1
+          const significand = intPart.slice(firstOne + 1) + fracPart
+          return { norm: signPrefix + '1.' + significand, exponent: shift, mantissaDisplay: '1.' + significand, from: binStr }
+        }
+      }
+
+      let normalized = normalizeBinaryString(sourceForNormalization)
+      if (biasedExponent === 0xFF) {
+        normalized = { norm: 'Special', exponent: NaN, mantissaDisplay: 'Special', from: sourceForNormalization }
+      }
+      if (number === 0) {
+        normalized = { norm: '0', exponent: 0, mantissaDisplay: '0', from: sourceForNormalization }
+      }
       
       return `
         <div class="ieee-representation">
@@ -255,6 +304,15 @@ export default {
             <div class="bit sign-bit" title="Sign Bit: ${sign === 0 ? 'Positive' : 'Negative'}">${signBit}</div>
             ${exponentBits.split('').map((bit, index) => `<div class="bit exponent-bit" title="Exponent Bit ${7-index}">${bit}</div>`).join('')}
             ${mantissaBits.split('').map((bit, index) => `<div class="bit mantissa-bit" title="Mantissa Bit ${22-index}">${bit}</div>`).join('')}
+          </div>
+          <div class="bit-brackets">
+            <div class="bracket-segment sign" style="width:3.125%">Sign<br><small>${sign}</small></div>
+            <div class="bracket-segment exponent" style="width:25%">Exponent<br><small>${biasedExponent} (biased)</small></div>
+            <div class="bracket-segment mantissa" style="width:71.875%">Mantissa<br><small>${mantissaBits.slice(0,8)}…</small></div>
+          </div>
+          <div class="normalized-breakdown">
+            <div><span class="piece-label">Normalized:</span> <code>${normalized.norm}</code> × 2<sup>${normalized.exponent}</sup></div>
+            <div><span class="piece-label">IEEE Interpretation:</span> (<code>${sign === 1 ? '-' : '+'}</code>) × <code>${biasedExponent === 0 ? '0.' + mantissaBits : '1.' + mantissaBits}</code> × 2<sup>${actualExponent}</sup></div>
           </div>
           
           <div class="legend">
@@ -275,23 +333,83 @@ export default {
         
         <div class="calculations">
           <div class="calc-section">
-            <div class="calc-title">Sign Analysis</div>
+            <div class="calc-title">Sign</div>
             <div class="calc-step">Bit: ${sign}</div>
             <div class="calc-step">Value: ${sign === 0 ? 'Positive (+)' : 'Negative (-)'}</div>
           </div>
           
           <div class="calc-section">
-            <div class="calc-title">Exponent Analysis</div>
+            <div class="calc-title">Exponent
+              <button type="button" class="help-btn bias-info-btn" title="Why bias is 127?" onclick="const p=this.parentElement.parentElement.querySelector('.bias-popup'); p.classList.toggle('open'); event.stopPropagation();">?</button>
+            </div>
+            <div class="bias-popup">
+              <div><strong>Why 127?</strong> 8 bits can hold numbers <code>[0, 255]</code></div><br>
+              <div><strong>We want both negative & positive powers around 0:</strong> use bias of 2<sup>7</sup>-1 = <code>127</code> which is in between -126 and +127.</div><br>
+              <div><strong>Why not 2's complement:</strong> Easier to read. With biased exponents, larger exponents always mean larger magnitudes when comparing floating point numbers (ignoring sign). </div>
+
+            </div>
             <div class="calc-step">Bits: ${exponentBits}</div>
             <div class="calc-step">Biased: ${biasedExponent}</div>
             <div class="calc-step">Actual: ${biasedExponent} - 127 = ${actualExponent}</div>
+            ${(() => {
+              if (biasedExponent === 0xFF) {
+                return `<div class=\"calc-step exp-algebra\"><span class=\"exp-label\">Algebra:</span> <span class=\"exp-bits\">255</span> indicates special (Inf/NaN) – no k derivation.</div>`
+              }
+              if (biasedExponent === 0) {
+                // Subnormal or zero: actual exponent = 1 - bias = -126
+                return `<div class=\"calc-step exp-algebra\">` +
+                  `<div><span class=\"exp-label\">Pattern:</span> exponent field all zeros → subnormal/zero handling</div>` +
+                  `<div><span class=\"exp-label\">Algebra:</span> <span class=\"exp-bits\">0</span> = (k + <span class=\"exp-bias\">127</span>) (reserved) → k = 1 - 127 = <span class=\"exp-actual\">-126</span></div>` +
+                  `<div><span class=\"exp-label\">Note:</span> leading significand is <span class=\"exp-implied\">0.</span> not 1.</div>` +
+                `</div>`
+              }
+                // Contextual explanation if original input was a binary literal
+                let contextual = ''
+                if (binaryInput && /^[+\-]?[01]+(\.[01]+)?$/.test(binaryInput)) {
+                  const userNorm = normalizeBinaryString(binaryInput)
+                  if (userNorm && userNorm.norm !== '0' && !Number.isNaN(userNorm.exponent)) {
+                    const k = userNorm.exponent
+                    const stored = k + 127
+                    const shiftPhrase = k > 0 ? `${k} place(s) left` : (k < 0 ? `moved ${-k} place(s) right` : 'no shift needed')
+                    contextual = `<div class=\"exp-context\">` +
+                      `<div><span class=\"exp-label\">From input:</span> <code class=\"exp-binary\">${binaryInput}</code> = <code class=\"exp-binary\">${userNorm.norm}</code> × 2<sup><span class=\"exp-origin\">${k}</span></sup></div>` +
+                      `<div><span class=\"exp-label\">k (shift count):</span>${shiftPhrase}</div>` +
+                      `<div><span class=\"exp-label\">Stored exponent:</span> k + bias = <span class=\"exp-origin\">${k}</span> + <span class=\"exp-bias\">127</span> = <span class=\"exp-bits\">${stored}</span> = <code class=\"exp-bits\">${exponentBits}</code></div>` +
+                    `</div>`
+                  }
+                }
+                  if (contextual) {
+                    return `<div class=\"calc-step exp-algebra\">${contextual}</div>`
+                  }
+                  return ''
+            })()}
           </div>
           
           <div class="calc-section">
-            <div class="calc-title">Mantissa Analysis</div>
+            <div class="calc-title">Mantissa</div>
             <div class="calc-step">Bits: ${mantissaBits}</div>
             <div class="calc-step">Value: 1 + ${mantissa}/2<sup>23</sup></div>
             <div class="calc-step">Result: ${mantissaValue.toFixed(10)}</div>
+            ${(() => {
+              // Provide contextual derivation for mantissa from normalized form
+              if (binaryInput && /^[+\\-]?[01]+(\.[01]+)?$/.test(binaryInput) && biasedExponent !== 0xFF) {
+                const userNorm = normalizeBinaryString(binaryInput)
+                if (userNorm && userNorm.norm.startsWith('1.') || (biasedExponent===0 && userNorm.norm.startsWith('1.'))) {
+                  const fraction = userNorm.norm.split('.')[1] || ''
+                  const taken = fraction.slice(0,23)
+                  const padded = taken.padEnd(23,'0')
+                  let extra = ''
+                  if (fraction.length < 23) extra = ` (padded with ${23 - fraction.length} zero${23-fraction.length===1?'':'s'})`
+                  if (fraction.length > 23) extra = ` (truncated after 23 bits)`
+                  return `<div class=\"mantissa-context\">` +
+                    `<div><span style=\"color:var(--gt-gold); font-weight:600;\">Normalized:</span> <code>${userNorm.norm}</code></div>` +
+                    `<div>Take first 23 bits after decimal: <code>${taken || '0'.repeat(23)}</code>${extra}</div>` +
+                    `<div>Stored mantissa field = <code>${padded}</code></div>` +
+                  `</div>`
+                }
+              }
+              return ''
+            })()}
           </div>
         </div>
         
@@ -305,13 +423,12 @@ export default {
       // Allow control keys (backspace, delete, arrow keys, etc.)
       if (event.ctrlKey || event.metaKey || 
           ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab', 'Enter'].includes(event.key)) {
-        return;
+        return
       }
-      
-      const char = event.key;
-      const currentValue = event.target.value;
-      const cursorPosition = event.target.selectionStart;
-      
+
+      const char = event.key
+      const currentValue = event.target.value
+      const cursorPosition = event.target.selectionStart
       if (inputMode.value === 'binary') {
         // For binary mode, allow only 0, 1, ., -, and special value characters
         const allowedBinaryChars = /^[01.\-infan]$/i;
