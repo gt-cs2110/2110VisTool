@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+const router = useRouter();
+</script>
+
 <template>
-  <div class="p-8 text-center">
-    <h1 class="text-4xl mb-4">404 - Not Found</h1>
-    <p class="mb-4">The page you're looking for doesn't exist.</p>
-    <RouterLink to="/" class="text-blue-500 underline">Go Home</RouterLink>
-  </div>
+	<div class="p-8 text-center flex flex-col gap-4 items-center">
+		<h1 class="text-3xl font-bold">Page Not Found</h1>
+		<Button @click="router.push('/')">Return Home</Button>
+	</div>
 </template>

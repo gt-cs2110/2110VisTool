@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUnmounted } from 'vue';
 // Adjusted paths: all LC3 tool resources are now siblings inside projects/LC3
-import LC3 from './LC3.vue';
+// Use the canonical LC3 diagram component from the shared components directory
+import LC3 from '../../components/LC3.vue';
 import Pseudocode from './Pseudocode.vue';
 import SEQUENCE_DATA from './sequences';
 
@@ -105,7 +106,7 @@ function activateMacro(key: string) {
 }
 </script>
 <template>
-  <div class="flex flex-col gap-3 h-full">
+  <div class="flex flex-col gap-3 h-full lc3-tool-root">
     <header class="p-4">
       <div class="flex gap-1 items-center justify-center">
         <h1 class="text-center text-4xl">LC-3 Visualization Tool</h1>
@@ -123,11 +124,11 @@ function activateMacro(key: string) {
         </a>
       </template>
     </Dialog>
-    <div class="grid grid-cols-2 grow gap-3 px-2">
-      <div class="flex justify-end">
-  <LC3 ref="lc3Diagram" />
+    <div class="lc3-grid grow px-4">
+      <div class="diagram-col">
+        <LC3 ref="lc3Diagram" />
       </div>
-      <div class="flex grow flex-col items-center 2xl:items-start justify-center">
+      <div class="side-col flex grow flex-col items-center 2xl:items-start justify-start pt-6">
         <Card v-if="currentSequence?.pseudocode">
           <template #title>{{ currentSequence.label }} Pseudocode</template>
           <template #content>
@@ -136,7 +137,7 @@ function activateMacro(key: string) {
         </Card>
       </div>
     </div>
-    <div class="control-panel">
+  <div class="control-panel">
       <div class="flex items-stretch gap-2 py-2">
         <div class="flex items-center gap-2">
           Speed:
@@ -185,5 +186,38 @@ function activateMacro(key: string) {
   </div>
 </template>
 <style scoped>
-.control-panel { display: flex; flex-direction: column; align-items: stretch; }
+.lc3-tool-root { /* leave space for fixed control panel */
+  padding-bottom: 170px; /* >= control panel height */
+  font-size: 1.05rem;
+  overflow-x: auto;
+}
+.lc3-grid { display:grid; grid-template-columns: minmax(960px, 1fr) 460px; gap:2rem; align-items:start; }
+@media (max-width: 1500px) { .lc3-grid { grid-template-columns: minmax(860px, 1fr) 420px; } }
+@media (max-width: 1300px) { .lc3-grid { grid-template-columns: 1fr; } .side-col { order:2; } }
+.diagram-col { overflow:auto; }
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(30,30,35,0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 -4px 16px -4px rgba(0,0,0,0.4);
+  padding: 0 1.25rem 0.35rem;
+  z-index: 40;
+}
+.control-panel :deep(.p-menubar) { /* ensure menubar fits */
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.control-panel :deep(.p-menubar)::-webkit-scrollbar { height: 6px; }
+.control-panel :deep(.p-menubar)::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+/* Make PrimeVue buttons / slider a bit larger */
+.control-panel :deep(button.p-button) { padding: 0.9rem; }
+.control-panel :deep(.p-slider) { height: 0.6rem; }
 </style>
