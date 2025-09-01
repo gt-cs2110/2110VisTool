@@ -44,6 +44,15 @@
             Decimal
           </button>
         </div>
+        <div style="display:flex; gap:8px; align-items:flex-end;">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="margin:0;">Sign</label>
+            <div style="display:flex; gap:4px;">
+              <button type="button" class="format-btn" :class="{ active: inputValue.startsWith('-')===false }" @click="setSign('+')">+</button>
+              <button type="button" class="format-btn" :class="{ active: inputValue.startsWith('-') }" @click="setSign('-')">-</button>
+            </div>
+          </div>
+        </div>
       </div>
       
       <!-- Help Popup -->
@@ -92,7 +101,7 @@
 <style src="./style.css"></style>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 
 export default {
   name: 'App',
@@ -101,7 +110,9 @@ export default {
     const visualizationHtml = ref('')
     const currentFormat = ref(32)
     const showHelp = ref(false)
-    const inputMode = ref('binary') // 'binary' or 'decimal'
+  const inputMode = ref('binary') // 'binary' or 'decimal'
+  const signToggle = ref('+')
+  const currentBits = ref(0)
 
     const parseSpecialInput = (str) => {
       const s = str.trim().toLowerCase()
@@ -218,11 +229,57 @@ export default {
       }
     }
 
+    const buildPlainBinaryFromFields = (sign, actualExp, mantissaBits, isSubnormal) => {
+      if (Number.isNaN(actualExp)) return 'NaN'
+      if (isSubnormal) {
+        // value = 0.fraction * 2^-126 ; produce leading 0.
+        const frac = mantissaBits.replace(/0+$/,'') || '0'
+        return (sign ? '-' : '') + '0.' + (('0'.repeat(0)) + frac)
+      }
+      const significand = '1' + mantissaBits
+      if (actualExp === 0) {
+        const frac = mantissaBits.replace(/0+$/,'') || '0'
+        return (sign ? '-' : '') + '1.' + frac
+      }
+      if (actualExp > 0) {
+        if (actualExp >= significand.length - 1) {
+          const zeros = '0'.repeat(actualExp - (significand.length - 1))
+            return (sign ? '-' : '') + significand + zeros + '.0'
+        } else {
+          const intPart = significand.slice(0, actualExp + 1)
+          const fracPart = significand.slice(actualExp + 1).replace(/0+$/,'')
+          return (sign ? '-' : '') + intPart + (fracPart ? '.' + fracPart : '.0')
+        }
+      }
+      // negative exponent: shift point left
+      const shift = -actualExp - 1
+      const zeros = '0'.repeat(shift)
+      const frac = zeros + significand
+      const trimmed = frac.replace(/0+$/,'')
+      return (sign ? '-' : '') + '0.' + (trimmed || '0')
+    }
+
+    // Ensure a binary literal always contains a point, trim trailing zeros after the point, keep the point if no fraction remains.
+    const formatBinaryLiteral = (s) => {
+      if (!s) return s
+      const neg = s.startsWith('-')
+      let core = s.replace(/^[+-]/,'')
+      // Guarantee a point exists
+      if (!core.includes('.')) core += '.'
+      // Remove trailing zeros in fraction but preserve point
+      core = core.replace(/\.([01]*)$/, (_, frac) => {
+        const trimmed = frac.replace(/0+$/,'')
+        return trimmed.length ? '.' + trimmed : '.'
+      })
+      return (neg ? '-' : '+') + core
+    }
+
     const generateFloat32Visualization = (number, binaryInput) => {
       const buffer = new ArrayBuffer(4)
       const view = new DataView(buffer)
       view.setFloat32(0, number)
       const bits = view.getUint32(0)
+      currentBits.value = bits
       
       const sign = (bits >>> 31) & 1
       const exponent = (bits >>> 23) & 0xFF
@@ -292,7 +349,7 @@ export default {
           
           <div style="margin-bottom: 24px; text-align: center;">
             <div style="font-size: 1.1rem; color: var(--gt-light-gold); margin-bottom: 8px;">
-              <strong>Input:</strong> ${binaryInput} → <strong>Decimal:</strong> ${number}
+              <strong>Input:</strong> ${( () => { const bi = String(binaryInput||''); if (/^[+-]?[01]+(\.[01]+)?$/.test(bi)) { const signChr = bi.startsWith('-') ? '-' : '+'; const mag = bi.replace(/^[+-]/,''); return '('+signChr+') '+mag } return binaryInput })()} → <strong>Decimal:</strong> ${number}
             </div>
           </div>
           
@@ -300,10 +357,10 @@ export default {
             ${bitLabels.map(label => `<div class="bit-label">${label}</div>`).join('')}
           </div>
           
-          <div class="bit-display">
-            <div class="bit sign-bit" title="Sign Bit: ${sign === 0 ? 'Positive' : 'Negative'}">${signBit}</div>
-            ${exponentBits.split('').map((bit, index) => `<div class="bit exponent-bit" title="Exponent Bit ${7-index}">${bit}</div>`).join('')}
-            ${mantissaBits.split('').map((bit, index) => `<div class="bit mantissa-bit" title="Mantissa Bit ${22-index}">${bit}</div>`).join('')}
+          <div class="bit-display" data-role="bit-display">
+            <div class="bit sign-bit" data-index="31" title="Sign Bit: ${sign === 0 ? 'Positive' : 'Negative'}">${signBit}</div>
+            ${exponentBits.split('').map((bit, index) => `<div class="bit exponent-bit" data-index="${30-index}" title="Exponent Bit ${7-index}">${bit}</div>`).join('')}
+            ${mantissaBits.split('').map((bit, index) => `<div class="bit mantissa-bit" data-index="${22-index}" title="Mantissa Bit ${22-index}">${bit}</div>`).join('')}
           </div>
           <div class="bit-brackets">
             <div class="bracket-segment sign" style="width:3.125%">Sign<br><small>${sign}</small></div>
@@ -312,7 +369,7 @@ export default {
           </div>
           <div class="normalized-breakdown">
             <div><span class="piece-label">Normalized:</span> <code>${normalized.norm}</code> × 2<sup>${normalized.exponent}</sup></div>
-            <div><span class="piece-label">IEEE Interpretation:</span> (<code>${sign === 1 ? '-' : '+'}</code>) × <code>${biasedExponent === 0 ? '0.' + mantissaBits : '1.' + mantissaBits}</code> × 2<sup>${actualExponent}</sup></div>
+            <div><span class="piece-label">IEEE Interpretation:</span> (<code>${sign === 1 ? '-1' : '1'}</code>) × <code>${biasedExponent === 0 ? '0.' + mantissaBits : '1.' + mantissaBits}</code> × 2<sup>${actualExponent}</sup></div>
           </div>
           
           <div class="legend">
@@ -336,6 +393,7 @@ export default {
             <div class="calc-title">Sign</div>
             <div class="calc-step">Bit: ${sign}</div>
             <div class="calc-step">Value: ${sign === 0 ? 'Positive (+)' : 'Negative (-)'}</div>
+            <div class="calc-step">Toggle using + / - buttons or by clicking sign bit.</div>
           </div>
           
           <div class="calc-section">
@@ -542,13 +600,18 @@ export default {
           return
         }
       } else {
-        // In binary mode, parse as binary
-        const binaryString = inputValue.value.replace(/[^01.]/g, '')
+        // In binary mode, allow leading sign
+        const raw = inputValue.value.trim()
+        const neg = raw.startsWith('-')
+        const core = raw.replace(/^[+-]/,'')
+        const binaryString = core.replace(/[^01.]/g, '')
         if (binaryString && isValidBinary(binaryString)) {
-          const number = binaryToDecimal(binaryString)
-          visualizationHtml.value = generateFloat32Visualization(number, binaryString)
+          let number = binaryToDecimal(binaryString)
+          if (neg) number = -number
+          visualizationHtml.value = generateFloat32Visualization(number, (neg?'-':'+') + binaryString)
+          nextTick(() => attachBitHandlers())
           return
-        } else if (inputValue.value.trim() !== '') {
+        } else if (raw !== '') {
           // Invalid binary input
           visualizationHtml.value = `
             <div class="calc-section" style="text-align: center; background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(185, 28, 28, 0.1)); border: 1px solid rgba(220, 38, 38, 0.3);">
@@ -566,12 +629,75 @@ export default {
       // Empty input
       if (inputValue.value.trim() === '') {
         visualizationHtml.value = ''
+      } else {
+        // Have a visualization; attach handlers
+        nextTick(() => attachBitHandlers())
       }
     }
 
     onMounted(() => {
       updateVisualization()
     })
+
+    const setSign = (s) => {
+      signToggle.value = s
+      // Flip sign bit in currentBits
+      let bits = currentBits.value >>> 0
+      bits = s === '-' ? (bits | 0x80000000) >>> 0 : (bits & 0x7FFFFFFF) >>> 0
+      currentBits.value = bits
+      const buf = new ArrayBuffer(4)
+      const dv = new DataView(buf)
+      dv.setUint32(0, bits)
+      const val = dv.getFloat32(0)
+      if (inputMode.value === 'decimal') {
+        inputValue.value = String(val)
+      } else {
+        const exp = (bits >>> 23) & 0xFF
+        const man = bits & 0x7FFFFF
+        const actual = exp - 127
+        const manStr = man.toString(2).padStart(23,'0')
+        const sub = exp === 0 && man !== 0
+        const plain = buildPlainBinaryFromFields(bits >>> 31, actual, manStr, sub)
+  inputValue.value = formatBinaryLiteral(plain)
+      }
+      updateVisualization()
+    }
+
+    const attachBitHandlers = () => {
+      const container = document.querySelector('.ieee-root .bit-display[data-role="bit-display"]')
+      if (!container) return
+      // Delegate to container to survive re-renders
+      if (!container.__attached) {
+        container.addEventListener('click', (e) => {
+          const el = e.target.closest('.bit')
+          if (!el) return
+          const idx = parseInt(el.getAttribute('data-index'))
+          if (isNaN(idx)) return
+          let bits = currentBits.value >>> 0
+          const mask = 1 << idx
+          bits = (bits ^ mask) >>> 0
+          currentBits.value = bits
+          const buf = new ArrayBuffer(4)
+          const dv = new DataView(buf)
+          dv.setUint32(0, bits)
+          const val = dv.getFloat32(0)
+          if (inputMode.value === 'decimal') {
+            inputValue.value = String(val)
+          } else {
+            const sign = (bits >>> 31) & 1
+            const exp = (bits >>> 23) & 0xFF
+            const man = bits & 0x7FFFFF
+            const actual = exp - 127
+            const manStr = man.toString(2).padStart(23,'0')
+            const sub = exp === 0 && man !== 0
+            const plain = buildPlainBinaryFromFields(sign, actual, manStr, sub)
+            inputValue.value = formatBinaryLiteral(plain)
+          }
+          updateVisualization()
+        })
+        container.__attached = true
+      }
+    }
 
     return {
       inputValue,
@@ -581,7 +707,8 @@ export default {
       inputMode,
       setInputMode,
       handleKeypress,
-      handleInput
+  handleInput,
+  setSign
     }
   }
 }
