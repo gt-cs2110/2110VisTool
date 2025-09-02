@@ -125,8 +125,8 @@ function activateMacro(key: string) {
 }
 </script>
 <template>
-  <div class="flex flex-col gap-3 h-full lc3-tool-root">
-    <header class="p-4">
+  <div class="flex flex-col h-full lc3-tool-root">
+    <header class="px-4 pt-2 pb-0">
       <div class="flex gap-1 items-center justify-center">
         <h1 class="text-center text-4xl">LC-3 Visualization Tool</h1>
         <Button severity="secondary" variant="text" icon="pi" aria-label="About" rounded @click="infoDialogVisible = true">
@@ -143,11 +143,11 @@ function activateMacro(key: string) {
         </a>
       </template>
     </Dialog>
-    <div class="lc3-grid grow px-4">
+  <div class="lc3-grid grow px-4" style="margin-top:0;">
       <div class="diagram-col">
-        <LC3 ref="lc3Diagram" />
+        <LC3 ref="lc3Diagram" class="lc3-resized" />
       </div>
-  <div class="side-col flex grow flex-col items-center justify-center">
+  <div class="side-col flex grow flex-col items-start justify-center">
         <Card v-if="currentSequence?.pseudocode">
           <template #title>{{ currentSequence.label }} Pseudocode</template>
           <template #content>
@@ -210,11 +210,23 @@ function activateMacro(key: string) {
   font-size: 1.05rem;
   overflow-x: auto;
 }
-.lc3-grid { display:grid; grid-template-columns: minmax(960px, 1fr) 460px; gap:0; align-items:center; }
-@media (max-width: 1500px) { .lc3-grid { grid-template-columns: minmax(860px, 1fr) 420px; gap:0; } }
+.lc3-grid { display:grid; grid-template-columns: minmax(960px, 1fr) 460px; column-gap:0; align-items:center; }
+h1 { margin:0; line-height:1.1; }
+@media (max-width: 1500px) { .lc3-grid { grid-template-columns: minmax(860px, 1fr) 420px; column-gap:0; } }
 @media (max-width: 1300px) { .lc3-grid { grid-template-columns: 1fr; align-items:start; } .side-col { order:2; } }
 .side-col { align-self:center; }
+.side-col :deep(.p-card) { margin-left:0; }
+.side-col :deep(.p-card-body) { padding-left:0.75rem; padding-right:0.75rem; }
 .diagram-col { overflow:auto; }
+.lc3-resized { 
+  width:60%;
+  max-width:1150px;
+  display:block;
+  /* align diagram flush to pseudocode column by pushing it to the right edge */
+  margin-left:auto;
+  margin-right:1rem;
+  padding-top:0.5rem;
+}
 .control-panel {
   display: flex;
   flex-direction: column;
