@@ -2,15 +2,13 @@
     import { ref, useTemplateRef } from 'vue';
     import { VueFlow } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
-<<<<<<< HEAD
-    import SpecialNode from './SpecialNode.vue';
-    import SpecialEdge from './SpecialEdge.vue';
-=======
-    import type { LC3Node } from './flow/types';
->>>>>>> 9596c6f (add components to LC3, add types)
+    import type { LC3Node } from './flow/types.d';
+    import ALUNode from './flow/ALUNode.vue';
+    import MuxNode from './flow/MuxNode.vue';
+    import LogicNode from './flow/LogicNode.vue';
+    import TriStateNode from './flow/TriStateNode.vue';
 
     const top = useTemplateRef<HTMLDivElement>("top");
-    const svgEl = useTemplateRef<SVGSVGElement>('lc3Svg');
     defineExpose({
         /**
          * Activates the wire with the given ID, causing it to light up.
@@ -60,15 +58,6 @@
         }
     })
 
-<<<<<<< HEAD
-    const nodes = ref([
-        // an input node, specified by using `type: 'input'`
-        { 
-            id: '1',
-            type: 'input', 
-            position: { x: 250, y: 5 },
-            data: { label: 'Node 1' },
-=======
     const nodes = ref<LC3Node[]>([
         {
             id: "marMux",
@@ -87,7 +76,6 @@
             type: "tristate",
             position: { x: 200, y: -100 },
             data: { label: "GatePC" }
->>>>>>> 9596c6f (add components to LC3, add types)
         },
         { 
             id: "pc",
@@ -258,7 +246,7 @@
 </script>
 
 <style scoped>
-    @reference "@/style.css";
+    @import "@/style.css";
 
     .wire.active {
         fill: var(--p-surface-500, #888888);
@@ -295,11 +283,16 @@
         */
     .lc3-container { padding:0; line-height:0; display:flex; align-items:stretch; justify-content:stretch; }
     .lc3-svg { display:block; width:100%; height:auto; }
+    
+    .vue-flow-container {
+        height: 100%;
+        width: 100%;
+    }
 </style>
 
 <template>
-    <div class="h-full w-full bg-surface-800 rounded">
-        <VueFlow :nodes="nodes" :edges="edges">
+    <div ref="top" class="h-full w-full bg-surface-800 rounded">
+        <VueFlow :nodes="nodes" :edges="edges" class="vue-flow-container">
           <Background pattern-color="var(--color-surface-500)" :gap="16" />
       
           <template #node-alu="props">

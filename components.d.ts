@@ -24,14 +24,13 @@ declare module 'vue' {
     Menubar: typeof import('primevue/menubar')['default']
     Mux: typeof import('./src/components/flow/shapes/Mux.vue')['default']
     MuxNode: typeof import('./src/components/flow/MuxNode.vue')['default']
-    Pseudocode: typeof import('./src/components/Pseudocode.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     SiteNav: typeof import('./src/components/SiteNav.vue')['default']
     Slider: typeof import('primevue/slider')['default']
-    SpecialEdge: typeof import('./src/components/SpecialEdge.vue')['default']
-    SpecialNode: typeof import('./src/components/SpecialNode.vue')['default']
+    TriState: typeof import('./src/components/flow/shapes/TriState.vue')['default']
+    TriStateNode: typeof import('./src/components/flow/TriStateNode.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']

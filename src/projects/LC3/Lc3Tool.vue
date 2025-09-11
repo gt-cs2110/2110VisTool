@@ -220,6 +220,7 @@ h1 { margin:0; line-height:1.1; }
 .diagram-col { overflow:auto; }
 .lc3-resized { 
   width:60%;
+  height:600px;
   max-width:1150px;
   display:block;
   /* align diagram flush to pseudocode column by pushing it to the right edge */

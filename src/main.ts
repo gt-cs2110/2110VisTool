@@ -4,6 +4,8 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import './style.css';
+import '@vue-flow/core/dist/style.css';
+import '@vue-flow/core/dist/theme-default.css';
 import { definePreset } from '@primevue/themes';
 import type { PrimeVueConfiguration } from 'primevue';
 
