@@ -30,3 +30,8 @@
     /* Overflow */
     overflow: visible;
 }
+
+.size-full {
+    width: 100%;
+    height: 100%;
+}

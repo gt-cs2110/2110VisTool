@@ -35,9 +35,12 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="size-full">
     <ALU :dimensions="props.dimensions" :orientation />
-    <div>{{ props.data.label }}</div>
+    <div
+      class="alu-label" 
+      :class="`alu-label-${orientation}`"
+    >{{ props.data.label }}</div>
 
     <Handle
         v-for="pos of handlePositions"
@@ -53,10 +56,31 @@ const handlePositions = computed(() => {
 .vue-flow__node-alu {
   --vf-handle: var(--vf-node-color);
 
-  padding: 10px;
   width: 150px;
+  height: 38px;
   font-size: 12px;
   text-align: center;
   color: var(--vf-node-text);
 }
+</style>
+<style lang="css" scoped>
+  .alu-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  .alu-label-up {
+    align-items: start;
+  }
+  .alu-label-down {
+    align-items: end;
+  }
+  .alu-label-left {
+    justify-content: start;
+  }
+  .alu-label-right {
+    justify-content: end;
+  }
 </style>

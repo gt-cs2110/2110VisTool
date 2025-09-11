@@ -94,8 +94,8 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div>
-    <div>{{ props.data.label }}</div>
+  <div class="size-full">
+    <div class="logic-label">{{ props.data.label }}</div>
 
     <Handle
         v-for="pos of handlePositions"
@@ -119,4 +119,14 @@ const handlePositions = computed(() => {
   border: 1px solid var(--vf-node-color);
   border-radius: 3px;
 }
+</style>
+
+<style lang="css" scoped>
+    /* Center label */
+    .logic-label {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
