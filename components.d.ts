@@ -10,10 +10,13 @@ declare module 'vue' {
   export interface GlobalComponents {
     ALU: typeof import('./src/components/flow/shapes/ALU.vue')['default']
     ALUNode: typeof import('./src/components/flow/ALUNode.vue')['default']
+    BusNode: typeof import('./src/components/flow/BusNode.vue')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
+    copy: typeof import('./src/components/flow/LogicNode copy.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
+    ExtenderNode: typeof import('./src/components/flow/ExtenderNode.vue')['default']
     LC3: typeof import('./src/components/LC3.vue')['default']
     LogicNode: typeof import('./src/components/flow/LogicNode.vue')['default']
     MdiInformationOutline: typeof import('~icons/mdi/information-outline')['default']
