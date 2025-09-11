@@ -8,8 +8,6 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
-    width?: number,
-    height?: number,
     orientation?: Orientation,
     handles?: HandleConfig[],
     componentType?: LogicComponentType
@@ -96,10 +94,7 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div :style="{
-    width: props.data.width ? `${props.data.width}px` : '150px',
-    height: props.data.height ? `${props.data.height}px` : 'auto',
-  }">
+  <div>
     <div>{{ props.data.label }}</div>
 
     <Handle

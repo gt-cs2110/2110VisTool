@@ -26,10 +26,10 @@ export const initialNodes: LC3Node[] = [
         id: "pc",
         type: "logic",
         position: { x: 200, y: 100 },
+        width: 120,
+        height: 40,
         data: { 
             label: "PC",
-            width: 120,
-            height: 40,
             componentType: 'register'
         }
     },
@@ -46,10 +46,10 @@ export const initialNodes: LC3Node[] = [
         id: "pcAdder",
         type: "logic",
         position: { x: 400, y: 150 },
+        width: 50,
+        height: 50, 
         data: { 
             label: "+1",
-            width: 50,
-            height: 50, 
             orientation: 'up',
             componentType: 'extender'
         }
@@ -58,10 +58,10 @@ export const initialNodes: LC3Node[] = [
         id: 'regFile',
         type: "logic",
         position: { x: 600, y: 100 },
+        width: 120,
+        height: 180,
         data: {
             label: 'Register File',
-            width: 120,
-            height: 180,
             componentType: "regfile"
         }
     },
@@ -69,10 +69,10 @@ export const initialNodes: LC3Node[] = [
         id: 'zext8',
         type: "logic",
         position: { x: -250, y: 300 },
+        width: 80,
+        height: 35,
         data: { 
             label: 'ZEXT',
-            width: 80,
-            height: 35,
             orientation: 'up',
             componentType: 'extender'
         }
@@ -81,10 +81,10 @@ export const initialNodes: LC3Node[] = [
         id: 'sext5',
         type: "logic",
         position: { x: 200, y: 500 },
+        width: 80,
+        height: 35,
         data: {
             label: 'SEXT',
-            width: 80,
-            height: 35,
             componentType: 'extender'
         }
     },
@@ -92,10 +92,10 @@ export const initialNodes: LC3Node[] = [
         id: 'sext6',
         type: "logic",
         position: { x: -150, y: 500 },
+        width: 80,
+        height: 35,
         data: {
             label: 'SEXT',
-            width: 80,
-            height: 35,
             componentType: 'extender'
         }
     },
@@ -103,10 +103,10 @@ export const initialNodes: LC3Node[] = [
         id: 'sext9',
         type: "logic",
         position: { x: -150, y: 550 },
+        width: 80,
+        height: 35,
         data: {
             label: 'SEXT',
-            width: 80,
-            height: 35,
             componentType: 'extender'
         }
     },
@@ -114,10 +114,10 @@ export const initialNodes: LC3Node[] = [
         id: 'sext11',
         type: "logic",
         position: { x: -150, y: 600 },
+        width: 80,
+        height: 35,
         data: {
             label: 'SEXT',
-            width: 80,
-            height: 35,
             componentType: 'extender'
         }
     },
@@ -125,10 +125,10 @@ export const initialNodes: LC3Node[] = [
         id: 'ir',
         type: "logic",
         position: { x: -150, y: 700 },
+        width: 120,
+        height: 40,
         data: {
             label: 'IR',
-            width: 120,
-            height: 40,
             componentType: "register"
         }
     },
@@ -157,10 +157,10 @@ export const initialNodes: LC3Node[] = [
         id: 'fsm',
         type: "logic",
         position: { x: 300, y: 500 },
+        width: 100,
+        height: 200,
         data: { 
             label: "Finite State Machine",
-            width: 100,
-            height: 200,
             componentType: "fsm"
         }
     },
@@ -196,10 +196,10 @@ export const initialNodes: LC3Node[] = [
         id: 'logic',
         type: "logic",
         position: { x: 100, y: 700},
+        width: 80,
+        height: 35,
         data: { 
             label: "Logic",
-            width: 80,
-            height: 35,
             orientation: 'up',
             componentType: 'extender'
          }
@@ -208,10 +208,10 @@ export const initialNodes: LC3Node[] = [
         id: 'nzp',
         type: "logic",
         position: { x: 100, y: 650 },
+        width: 80,
+        height: 35,
         data: { 
             label: "NZP",
-            width: 80,
-            height: 35,
             orientation: "left",
             componentType: "register"
         }
@@ -220,10 +220,10 @@ export const initialNodes: LC3Node[] = [
         id: 'ioInput',
         type: "logic",
         position: { x: 350, y: 800 },
+        width: 100,
+        height: 50, 
         data: {
             label: 'Input',
-            width: 100,
-            height: 50, 
             orientation: 'left'
         }
     },
@@ -231,10 +231,10 @@ export const initialNodes: LC3Node[] = [
         id: 'ioOutput',
         type: "logic",
         position: { x: 500, y: 800 },
+        width: 100,
+        height: 50,
         data: {
             label: 'Output',
-            width: 100,
-            height: 50,
             orientation: 'left'
         }
     },
@@ -260,10 +260,10 @@ export const initialNodes: LC3Node[] = [
         id: "memory",
         type: "logic",
         position: { x: -100, y: 800 },
+        width: 150,
+        height: 100,
         data: {
             label: 'Memory',
-            width: 150,
-            height: 100,
             componentType: 'memory'
         },
     },
@@ -271,10 +271,10 @@ export const initialNodes: LC3Node[] = [
         id: "mar",
         type: "logic",
         position: { x: 100, y: 750 },
+        width: 120,
+        height: 40,
         data: { 
             label: "MAR",
-            width: 120,
-            height: 40,
             orientation: 'left',
             componentType: 'register'
         }
@@ -283,10 +283,10 @@ export const initialNodes: LC3Node[] = [
         id: "mdr",
         type: "logic",
         position: { x: -300, y: 750 },
+        width: 120,
+        height: 40, 
         data: { 
             label: "MDR",
-            width: 120,
-            height: 40, 
             componentType: 'mdr'
         }
     },
@@ -307,9 +307,9 @@ export const initialNodes: LC3Node[] = [
         type: "bus",
         position: { x: -150, y: 0 },
         data: {
-        label: "Bus",
-        width: 900,
-        height: 750
+            label: "Bus",
+            width: 900,
+            height: 750,
         }
     }
 ];
