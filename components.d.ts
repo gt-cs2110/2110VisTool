@@ -28,6 +28,8 @@ declare module 'vue' {
     Mux: typeof import('./src/components/flow/shapes/Mux.vue')['default']
     MuxNode: typeof import('./src/components/flow/MuxNode.vue')['default']
     Pseudocode: typeof import('./src/components/Pseudocode.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     SiGithub: typeof import('~icons/simple-icons/github')['default']
     Slider: typeof import('primevue/slider')['default']
     TriState: typeof import('./src/components/flow/shapes/TriState.vue')['default']
