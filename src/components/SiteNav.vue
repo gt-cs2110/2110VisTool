@@ -6,7 +6,6 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/lc3', label: 'LC-3' },
   { to: '/ieee', label: 'IEEE 754' },
-  { to: '/kmap', label: 'K-Map' }
 ];
 </script>
 
