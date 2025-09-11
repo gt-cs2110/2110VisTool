@@ -2,7 +2,12 @@
     import { ref, useTemplateRef } from 'vue';
     import { VueFlow } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
-    import type { LC3Node } from './flow/types';
+    import type { LC3Node } from './flow/types.d';
+    import ALUNode from './flow/ALUNode.vue';
+    import MuxNode from './flow/MuxNode.vue';
+    import LogicNode from './flow/LogicNode.vue';
+    import TriStateNode from './flow/TriStateNode.vue';
+import BusNode from './flow/BusNode.vue';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -58,183 +63,267 @@
         {
             id: "marMux",
             type: "mux",
-            position: { x: 0, y: 0 },
-            data: { label: "Mux" }
+            position: { x: -100, y: 100 },
+            data: { label: "MARMUX" }
         },
         {
             id: "gateMarMux",
             type: "tristate",
-            position: { x: 0, y: -100 },
-            data: { label: "GateMARMUX" },
+            position: { x: -25, y: 0 },
+            data: { label: "GateMARMUX" }
         },
         {
             id: "gatePc",
             type: "tristate",
-            position: { x: 200, y: -100 },
+            position: { x: 250, y: 0 },
             data: { label: "GatePC" }
         },
         { 
             id: "pc",
             type: "logic",
-            position: { x: 200, y: 0 },
-            data: { label: "Program Counter" },
+            position: { x: 200, y: 100 },
+            data: { 
+                label: "PC",
+                width: 120,
+                height: 40
+            }
         },
         { 
             id: "pcMux",
             type: "mux",
-            position: { x: 200, y: 100 },
-            data: { label: "PCMUX" },
+            position: { x: 200, y: 200 },
+            data: { label: "PCMUX" }
         },
         { 
             id: "pcAdder",
             type: "logic",
-            position: { x: 200, y: 200 },
-            data: { label: "+1" },
+            position: { x: 400, y: 150 },
+            data: { 
+                label: "+1",
+                width: 50,
+                height: 50 
+            }
         },
         { 
             id: 'regFile',
             type: "logic",
-            position: { x: 400, y: 0 },
-            data: { label: 'Register File' },
+            position: { x: 600, y: 100 },
+            data: {
+                label: 'Register File',
+                width: 120,
+                height: 180
+            }
         },
         {
             id: 'zext8',
             type: "logic",
-            position: { x: 0, y: 100 },
-            data: { label: 'ZEXT' },
+            position: { x: -250, y: 300 },
+            data: { 
+                label: 'ZEXT',
+                width: 80,
+                height: 35
+            }
         },
         {
             id: 'sext5',
             type: "logic",
-            position: { x: 0, y: 200 },
-            data: { label: 'SEXT' },
+            position: { x: 200, y: 500 },
+            data: {
+                label: 'SEXT',
+                width: 80,
+                height: 35 
+            }
         },
         {
             id: 'sext6',
             type: "logic",
-            position: { x: 0, y: 300 },
-            data: { label: 'SEXT' },
+            position: { x: -150, y: 500 },
+            data: {
+                label: 'SEXT',
+                width: 80,
+                height: 35 
+            }
         },
         {
             id: 'sext9',
             type: "logic",
-            position: { x: 0, y: 400 },
-            data: { label: 'SEXT' },
+            position: { x: -150, y: 550 },
+            data: {
+                label: 'SEXT',
+                width: 80,
+                height: 35 
+            }
         },
         {
             id: 'sext11',
             type: "logic",
-            position: { x: 0, y: 500 },
-            data: { label: 'SEXT' },
+            position: { x: -150, y: 600 },
+            data: {
+                label: 'SEXT',
+                width: 80,
+                height: 35 
+            }
+        },
+        {
+            id: 'ir',
+            type: "logic",
+            position: { x: -150, y: 700 },
+            data: {
+                label: 'IR',
+                width: 120,
+                height: 40  
+            }
         },
         {
             id: 'marAdder',
             type: "alu",
-            position: { x: 200, y: 300 },
-            data: { label: '+' },
+            position: { x: 0, y: 300 },
+            data: {label: '+'}
         },
         {
             id: 'addr1Mux',
             type: "mux",
-            position: { x: 200, y: 400 },
-            data: { label: 'ADDR1MUX' },
+            position: { x: 100, y: 400 },
+            data: { label: 'ADDR1MUX' }
         },
         {
             id: 'addr2Mux',
             type: "mux",
-            position: { x: 200, y: 500 },
-            data: { label: 'ADDR2MUX' },
+            position: { x: -100, y: 400 },
+            data: { label: 'ADDR2MUX' }
         },
         {
             id: 'fsm',
             type: "logic",
-            position: { x: 400, y: 0 },
-            data: { label: "Finite State Machine" },
+            position: { x: 300, y: 500 },
+            data: { 
+                label: "Finite State Machine",
+                width: 100,
+                height: 200,
+                padding: 15
+            }
         },
         {
             id: 'sr2mux',
             type: "mux",
-            position: { x: 400, y: 100 },
-            data: { label: "SR2MUX" },
+            position: { x: 550, y: 500 },
+            data: { label: "SR2MUX" }
         },
         {
             id: 'alu',
             type: "alu",
-            position: { x: 400, y: 200 },
-            data: { label: "ALU" },
+            position: { x: 600, y: 600  },
+            data: { label: "ALU" }
         },
         {
             id: 'gateAlu',
             type: 'tristate',
-            position: { x: 400, y: 300 },
-            data: { label: "GateALU" },
+            position: { x: 600, y: 700 },
+            data: { label: "GateALU" }
         },
         {
             id: 'logic',
             type: "logic",
-            position: { x: 200, y: 600 },
-            data: { label: "Logic" }
+            position: { x: 100, y: 700},
+            data: { 
+                label: "Logic",
+                width: 80,
+                height: 35 
+             }
         },
         {
             id: 'nzp',
             type: "logic",
-            position: { x: 200, y: 700 },
-            data: { label: "NZP" },
+            position: { x: 100, y: 650 },
+            data: { 
+                label: "NZP",
+                width: 80,
+                height: 35 
+            }
         },
         {
             id: 'ioInput',
             type: "logic",
-            position: { x: 400, y: 700 },
-            data: { label: "Input" },
+            position: { x: 350, y: 800 },
+            data: {
+                label: 'Input',
+                width: 100,
+                height: 50
+            }
         },
         {
             id: 'ioOutput',
             type: "logic",
-            position: { x: 400, y: 800 },
-            data: { label: "Output" },
+            position: { x: 500, y: 800 },
+            data: {
+                label: 'Output',
+                width: 100,
+                height: 50
+            }
         },
         {
             id: 'sr1Mux',
             type: "mux",
-            position: { x: 600, y: 700 },
-            data: { label: "SR1MUX" },
+            position: { x: 300, y: 900 },
+            data: { label: "SR1MUX" }
         },
         {
-            id: 'sr2Mux',
+            id: 'drmux',
             type: "mux",
-            position: { x: 600, y: 800 },
-            data: { label: "SR2MUX" },
+            position: { x: 500, y: 900 },
+            data: { label: "DRMUX" }
         },
         {
             id: "memory",
             type: "logic",
-            position: { x: 400, y: 400 },
-            data: { label: "Memory" }
+            position: { x: -100, y: 800 },
+            data: {
+                label: 'Memory',
+                width: 150,
+                height: 100},
         },
         {
             id: "mar",
             type: "logic",
-            position: { x: 400, y: 500 },
-            data: { label: "Memory Address Register" }
+            position: { x: 100, y: 750 },
+            data: { 
+                label: "MAR",
+                width: 120,
+                height: 40
+            }
         },
         {
             id: "mdr",
             type: "logic",
-            position: { x: 400, y: 600 },
-            data: { label: "Memory Data Register" }
+            position: { x: -300, y: 750 },
+            data: { 
+                label: "MDR",
+                width: 120,
+                height: 40
+            }
         },
         {
             id: "mdrMux",
             type: "mux",
-            position: { x: 600, y: 600 },
+            position: {x: -300, y: 825 },
             data: { label: "MDRMUX" }
         },
         {
             id: "gateMdr",
             type: "tristate",
-            position: { x: 600, y: 400 },
+            position: { x: -250, y: 700 },
             data: { label: "GateMDR" }
         },
+        {
+            id: "bus",
+            type: "bus",
+            position: { x: -150, y: 0 },
+            data: {
+            label: "Bus",
+            width: 900,
+            height: 750
+            }
+        }
     ])
 
     // these are our edges
@@ -278,8 +367,8 @@
 </style>
 
 <template>
-    <div class="h-full w-full bg-surface-800 rounded">
-        <VueFlow :nodes="nodes" :edges="edges">
+    <div ref="top" class="h-full w-full bg-surface-800 rounded">
+        <VueFlow :nodes="nodes" :edges="edges" :nodesDraggable="false" class="vue-flow-container">
           <Background pattern-color="var(--color-surface-500)" :gap="16" />
       
           <template #node-alu="props">
@@ -292,6 +381,10 @@
 
           <template #node-logic="props">
             <LogicNode v-bind="props" />
+          </template>
+          
+          <template #node-bus="props">
+            <BusNode v-bind="props" />
           </template>
 
           <template #node-tristate="props">

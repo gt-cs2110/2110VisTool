@@ -5,14 +5,23 @@ import { Position, Handle } from '@vue-flow/core';
 import type { NodeProps } from '@vue-flow/core';
   
 const props = defineProps<NodeProps<{
-    label?: string
+    label?: string,
+    width?: number,
+    height?: number,
+    padding?: number,
+    fontSize?: number
 }>>();
 
 // TODO: ports
 </script>
 
 <template>
-  <div>
+  <div :style="{
+    width: props.data.width ? `${props.data.width}px` : '150px',
+    height: props.data.height ? `${props.data.height}px` : 'auto',
+    padding: props.data.padding ? `${props.data.padding}px` : '10px',
+    fontSize: props.data.fontSize ? `${props.data.fontSize}px` : '12px'
+  }">
     <div>{{ props.data.label }}</div>
 
     <Handle type="source" :position="Position.Bottom" />
@@ -23,9 +32,6 @@ const props = defineProps<NodeProps<{
 .vue-flow__node-logic {
   --vf-handle: var(--vf-node-color);
 
-  padding: 10px;
-  width: 150px;
-  font-size: 12px;
   text-align: center;
   color: var(--vf-node-text);
 
