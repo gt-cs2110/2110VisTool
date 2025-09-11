@@ -30,13 +30,18 @@ function computeDistance(i: number, nInputs: number) {
   // return 100 * (1/2n + i / n);
   return (50 + 100 * i) / nInputs;
 }
-const handlePositions = computed(() => Array.from<HandleProperties, HandleProperties>([
-  { side: Position.Right, handle: "source" },
-  ...Array.from<unknown, HandleProperties>({ length: nInputs.value }, (_, i) => (
-    { id: `input-${i}`, side: Position.Left, handle: "target", distance: `${computeDistance(i, nInputs.value)}%` }
-  )),
-  // TODO: selector port
-], p => computeHandleOriented(p, orientation.value)));
+const handlePositions = computed(() => {
+  const selectorSide = leftUp.value ? Position.Top : Position.Bottom;
+  const selectorDistance = "50%";
+  
+  return Array.from<HandleProperties, HandleProperties>([
+    { id: 'output', side: Position.Right, handle: "source" },
+    ...Array.from<unknown, HandleProperties>({ length: nInputs.value }, (_, i) => (
+      { id: `input-${i}`, side: Position.Left, handle: "target", distance: `${computeDistance(i, nInputs.value)}%` }
+    )),
+    { id: "selector", side: selectorSide, handle: "target", distance: selectorDistance }
+  ], p => computeHandleOriented(p, orientation.value));
+});
 </script>
 
 <template>
