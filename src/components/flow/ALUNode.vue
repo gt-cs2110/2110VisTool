@@ -9,7 +9,8 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
-    orientation?: Orientation
+    orientation?: Orientation,
+    selector?: boolean
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
@@ -20,11 +21,17 @@ interface HandleProperties {
     distance?: string,
     handle: HandleType,
 }
-const handlePositions = computed(() => Array.from<HandleProperties, HandleProperties>([
-    { side: Position.Right, distance: "50%", handle: "source" },
-    { side: Position.Left, distance: "25%", handle: "target", id: "input-a" },
-    { side: Position.Left, distance: "75%", handle: "target", id: "input-b" },
-], p => computeHandleOriented(p, orientation.value)));
+const handlePositions = computed(() => {
+    const handles: HandleProperties[] = [
+        { side: Position.Right, distance: "50%", handle: "source" },
+        { side: Position.Left, distance: "25%", handle: "target", id: "input-a" },
+        { side: Position.Left, distance: "75%", handle: "target", id: "input-b" },
+    ];    
+    if (props.data.selector) {
+        handles.push({ side: Position.Bottom, distance: "50%", handle: "target", id: "selector" });
+    }
+    return Array.from(handles, p => computeHandleOriented(p, orientation.value));
+});
 </script>
 
 <template>
