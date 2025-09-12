@@ -66,11 +66,10 @@ const componentHandleConfigs: Record<LogicComponentType, HandleConfig[]> = {
         { side: Position.Right, distance: "70%", type: "source", id: "source6" },
     ],
     mdr: [
-      { side: Position.Top, distance: "40%", type: "target", id: "bus-input" },
-      { side: Position.Top, distance: "60%", type: "source", id: "gate-mdr" },
+      { side: Position.Top, distance: "50%", type: "source", id: "gate-mdr" },
       { side: Position.Left, distance: "50%", type: "target", id: "ld-mdr" },
-      { side: Position.Bottom, distance: "60%", type: "source", id: "output" },
-      { side: Position.Bottom, distance: "40%", type: "target", id: "mem-input" }
+      { side: Position.Right, distance: "50%", type: "source", id: "mem-output" },
+      { side: Position.Bottom, distance: "50%", type: "target", id: "input" }
     ],
     extender: [
         { side: Position.Left, distance: "50%", type: "target", id: "input" },

@@ -15,12 +15,13 @@ const props = defineProps<NodeProps<{
 const orientation = computed(() => props.data.orientation ?? 'up');
 
 interface HandleProperties {
+    id?: string,
     side: Position,
     handle: HandleType,
 }
 const handlePositions = computed(() => Array.from<HandleProperties, HandleProperties>([
-    { side: Position.Right, handle: "source" },
-    { side: Position.Left, handle: "target" },
+    { id: "output", side: Position.Right, handle: "source" },
+    { id: "input", side: Position.Left, handle: "target" },
 ], p => computeHandleOriented(p, orientation.value)));
 
 </script>
@@ -32,6 +33,7 @@ const handlePositions = computed(() => Array.from<HandleProperties, HandleProper
 
     <Handle 
       v-for="pos of handlePositions"
+      :id="pos.id"
       :position="pos.side"
       :type="pos.handle"
     />

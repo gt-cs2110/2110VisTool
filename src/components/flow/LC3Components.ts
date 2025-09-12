@@ -165,7 +165,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sr2mux',
+        id: 'sr2Mux',
         type: "mux",
         position: { x: 550, y: 500 },
         data: { 
@@ -314,11 +314,77 @@ export const initialNodes: LC3Node[] = [
     }
 ];
 
+/**
+ * Initial edges that connect LC3 Components together.
+ * 
+ * Edges are grouped by type of component. An edge is listed
+ * under a specific component if it is a source.
+ * 
+ * id: sourceIdTargetId
+ */
+
 export const initialEdges: Edge[] = [
-    //TODO: create all edges
-    // example edge
+    /**
+     * MUX EDGES 
+     */
+
+    // MARMUX
     {
-        id: 'e1',
+        id: 'marMuxgateMarMux',
+        source: 'marMux',
+        target: 'gateMarMux',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+
+    // MDRMUX
+    {
+        id: 'mdrMuxmdr',
+        source: 'mdrMux',
+        target: 'mdr',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+
+    // PCMUX
+    {
+        id: 'pcMuxPc',
+        source: 'pcMux',
+        target: 'pc',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+
+    // SR1MUX
+    // TODO: Needs text labels
+
+    // SR2MUX
+    {
+        id: 'sr2MuxAlu',
+        source: 'sr2Mux',
+        target: 'alu',
+        sourceHandle: 'output',
+        targetHandle:  'input-b',
+        type: 'step',
+        animated: true
+    },
+
+    // DR MUX
+    // TODO: Needs text labels
+
+    /**
+     * EXTENDER EDGES  
+     */
+
+    //ZEXT
+    {
+        id: 'e',
         source: 'zext8',
         target: 'marMux',
         sourceHandle: 'output',
@@ -326,4 +392,84 @@ export const initialEdges: Edge[] = [
         type: 'step',
         animated: true
     },
+
+    //SEXT [10:0]
+    
+
+    //SEXT [8:0]
+
+    //SEXT [5:0]
+
+    //SEXT [4:0]
+
+    /**
+     * ALU EDGES  
+     */
+
+    //ALU
+
+    //MAR ADDER
+
+    // PC ADDER
+
+    /**
+     * REGISTER EDGES  
+     */
+
+    // MAR
+
+    // MDR
+
+    // IR
+
+    // PC 
+
+    // NZP
+
+    // REG FILE
+
+    /**
+     * GATE EDGES  
+     */
+
+    // MAR
+
+    // MDR
+
+    // 
+
+    /**
+     * GATE EDGES  
+     */
+
+    // Gate ALU
+
+    // Gate PC
+
+    // Gate MARMUX
+
+    // Gate MDR
+
+    /**
+     * LOGIC EDGES
+     */
+
+    // FSM
+
+    // LOGIC
+
+    /**
+     * MEMORY EDGES
+     */
+
+    // Memory
+
+    /**
+     * I/O EDGES
+     */
+
+    // Input
+
+    // Output
+
 ];
