@@ -1207,27 +1207,10 @@ const sequences: Record<string, MacroData> = {
         "label": "TRAP (simplified)",
         "pseudocode": pseudocode`
             (interrupt logic)
-            ${["PC = ", 3]}${["mem[", 2]}${["ZEXT(trapvect8)", 1]}${["]", 2]}${[";", 3]}
+            ${["PC = ", 2]}${["mem[", 1]}${["ZEXT(trapvect8)", 0]}${["]", 1]}${[";", 2]}
         `,
         "sequence": [
             [
-                "1 (GatePC)",
-                "GatePC selector",
-                "GatePC (shape)",
-                "PC to BUS",      
-                "Top Arrow",
-                "Bus to Register",
-                "01 (DRMUX selector)",
-                "DRMUX selector",
-                "Reg 7 (DRMUX text)",
-                "Reg 7 (DRMUX selector)",
-                "DRMUX (shape)",
-                "DRMUX (output)",
-                "DR selector",
-                "1 (LD.REG)",
-                "LD.REG selector",
-                "Register File (shape)"
-            ], [
                 "IR to ZEXT/SEXT (1)",
                 "IR to ZEXT/SEXT (2)",
                 "ZEXT shape",
