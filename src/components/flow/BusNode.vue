@@ -48,6 +48,15 @@ const handlePositions = computed(() => (props.data.handles ?? []).map<HandleProp
   id: h.id,
   distance: `${h.distance}px`
 })));
+
+const STROKE_WIDTH = 10;
+// 3 sides of a square, with full bus fitting within SVG bounds
+const points = computed(() => [
+  [0, STROKE_WIDTH / 2],
+  [width.value - STROKE_WIDTH / 2, STROKE_WIDTH / 2],
+  [width.value - STROKE_WIDTH / 2, height.value - STROKE_WIDTH / 2],
+  [0, height.value - STROKE_WIDTH / 2],
+])
 </script>
 
 <template>
@@ -57,16 +66,14 @@ const handlePositions = computed(() => (props.data.handles ?? []).map<HandleProp
   }">
     <!-- Square outline with one missing side -->
     <svg
-      :width="width"
-      :height="height"
+      :width
+      :height
       class="bus-outline"
       :style="{ position: 'absolute', top: 0, left: 0, zIndex: 0 }"
     >
       <!-- 3 sides of square -->
-      <g stroke="#fff" stroke-width="10" fill="none">
-        <line x1="2" y1="2" :x2="width - 2" y2="2" />
-        <line :x1="width - 2" y1="2" :x2="width - 2" :y2="height - 2" />
-        <line :x1="width - 2" :y1="height - 2" x2="2" :y2="height - 2" />
+      <g stroke="#fff" :stroke-width="STROKE_WIDTH" fill="none">
+        <polyline :points="points.join(' ')"/>
       </g>
     </svg>
 
