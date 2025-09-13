@@ -112,7 +112,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "bus",
         type: "bus",
-        position: { x: -400, y: -25 },
+        position: { x: 0, y: 0 },
         ...Consts.BUS_DIMS,
         draggable: false,
         data: {
@@ -138,7 +138,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "marMux",
         type: "mux",
-        position: { x: -100, y: 100 },
+        position: { x: 300, y: 100 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: "MARMUX",
@@ -147,21 +147,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: "gateMarMux",
         type: "tristate",
-        position: { x: -25, y: 0 },
+        position: { x: 375, y: 0 },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMARMUX" }
     },
     {
         id: "gatePc",
         type: "tristate",
-        position: { x: 250, y: 0 },
+        position: { x: 650, y: 0 },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GatePC" }
     },
     { 
         id: "pc",
         type: "logic",
-        position: { x: 200, y: 100 },
+        position: { x: 600, y: 100 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PC",
@@ -171,7 +171,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: "pcMux",
         type: "mux",
-        position: { x: 200, y: 200 },
+        position: { x: 600, y: 200 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PCMUX",
@@ -181,7 +181,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: "pcAdder",
         type: "logic",
-        position: { x: 400, y: 150 },
+        position: { x: 800, y: 150 },
         ...Consts.PC_ADDER_DIMS,
         data: { 
             label: "+1",
@@ -192,7 +192,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: 'regFile',
         type: "logic",
-        position: { x: 600, y: 100 },
+        position: { x: 1000, y: 100 },
         ...Consts.REG_FILE_DIMS,
         data: {
             label: 'Register File',
@@ -202,7 +202,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'zext8',
         type: "logic",
-        position: { x: -250, y: 300 },
+        position: { x: 150, y: 300 },
         ...Consts.SEXT_NODE_DIMS,
         data: { 
             label: 'ZEXT',
@@ -213,7 +213,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext5',
         type: "logic",
-        position: { x: 200, y: 500 },
+        position: { x: 600, y: 500 },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -223,7 +223,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext6',
         type: "logic",
-        position: { x: -150, y: 600 },
+        position: { x: 250, y: 600 },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -233,7 +233,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext9',
         type: "logic",
-        position: { x: -150, y: 550 },
+        position: { x: 250, y: 550 },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -243,7 +243,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext11',
         type: "logic",
-        position: { x: -150, y: 500 },
+        position: { x: 250, y: 500 },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -253,7 +253,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ir',
         type: "logic",
-        position: { x: -150, y: 700 },
+        position: { x: 250, y: 700 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'IR',
@@ -263,21 +263,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'marAdder',
         type: "alu",
-        position: { x: 0, y: 300 },
+        position: { x: 400, y: 300 },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
         id: 'addr1Mux',
         type: "mux",
-        position: { x: 100, y: 400 },
+        position: { x: 500, y: 400 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
         id: 'addr2Mux',
         type: "mux",
-        position: { x: -100, y: 400 },
+        position: { x: 300, y: 400 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
@@ -287,7 +287,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'fsm',
         type: "logic",
-        position: { x: 300, y: 500 },
+        position: { x: 700, y: 500 },
         ...Consts.FSM_DIMS,
         data: { 
             label: "Finite State Machine",
@@ -297,7 +297,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr2Mux',
         type: "mux",
-        position: { x: 550, y: 500 },
+        position: { x: 950, y: 500 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "SR2MUX",
@@ -307,7 +307,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'alu',
         type: "alu",
-        position: { x: 600, y: 600  },
+        position: { x: 1000, y: 600  },
         ...Consts.ALU_DIMS,
         data: {
             label: "ALU",
@@ -318,7 +318,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'gateAlu',
         type: 'tristate',
-        position: { x: 600, y: 700 },
+        position: { x: 1000, y: 700 },
         ...Consts.TRISTATE_DIMS,
         data: { 
             label: "GateALU",
@@ -328,7 +328,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ccLogic',
         type: "logic",
-        position: { x: 100, y: 700},
+        position: { x: 500, y: 700},
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "CC Logic",
@@ -339,7 +339,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'nzp',
         type: "logic",
-        position: { x: 100, y: 650 },
+        position: { x: 500, y: 650 },
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "NZP",
@@ -350,7 +350,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ioInput',
         type: "logic",
-        position: { x: 350, y: 900 },
+        position: { x: 750, y: 900 },
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Input',
@@ -360,7 +360,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ioOutput',
         type: "logic",
-        position: { x: 500, y: 900 },
+        position: { x: 900, y: 900 },
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Output',
@@ -370,7 +370,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr1Mux',
         type: "mux",
-        position: { x: 300, y: 1000 },
+        position: { x: 700, y: 1000 },
         // Inverted because rotated 90
         width: Consts.DEFAULT_NODE_DIMS.height,
         height: Consts.DEFAULT_NODE_DIMS.width,
@@ -382,7 +382,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'drmux',
         type: "mux",
-        position: { x: 500, y: 1000 },
+        position: { x: 900, y: 1000 },
         // Inverted because rotated 90
         width: Consts.DEFAULT_NODE_DIMS.height,
         height: Consts.DEFAULT_NODE_DIMS.width,
@@ -394,7 +394,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "memory",
         type: "logic",
-        position: { x: -100, y: 900 },
+        position: { x: 300, y: 900 },
         ...Consts.MEMORY_DIMS,
         data: {
             label: 'Memory',
@@ -404,7 +404,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mar",
         type: "logic",
-        position: { x: 100, y: 900 },
+        position: { x: 500, y: 900 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MAR",
@@ -415,7 +415,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdr",
         type: "logic",
-        position: { x: -300, y: 925 },
+        position: { x: 100, y: 925 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MDR",
@@ -425,14 +425,14 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdrMux",
         type: "mux",
-        position: {x: -300, y: 1000 },
+        position: {x: 100, y: 1000 },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: "MDRMUX" }
     },
     {
         id: "gateMdr",
         type: "tristate",
-        position: { x: -200, y: 850 },
+        position: { x: 200, y: 850 },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMDR" }
     }
