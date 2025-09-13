@@ -20,8 +20,8 @@ const orientation = computed(() => props.data.orientation ?? 'up');
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [
         { side: Position.Right, distance: "50%", handle: "source", id: "output" },
-        { side: Position.Left, distance: "25%", handle: "target", id: "input-b" },
-        { side: Position.Left, distance: "75%", handle: "target", id: "input-a" },
+        { side: Position.Left, distance: "calc(100% * 2 / 9)", handle: "target", id: "input-b" },
+        { side: Position.Left, distance: "calc(100% * 7 / 9)", handle: "target", id: "input-a" },
     ];    
     if (props.data.selector) {
         handles.push({

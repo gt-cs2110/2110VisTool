@@ -101,8 +101,8 @@
 
 <template>
     <div ref="top" class="h-full w-full bg-surface-800 rounded">
-        <VueFlow :nodes="nodes" :edges="edges" :nodesDraggable="false" class="vue-flow-container">
-          <Background pattern-color="var(--color-surface-500)" :gap="Consts.GRID_GAP_SIZE" />
+        <VueFlow :nodes="nodes" :edges="edges" :nodesDraggable="false" @node-click="(e) => console.log(e.node.id, {...e.node.position})" class="vue-flow-container" snap-to-grid :snap-grid="[Consts.GRID_GAP_SIZE / 2, Consts.GRID_GAP_SIZE / 2]">
+          <Background pattern-color="var(--color-surface-500)" :gap="Consts.GRID_GAP_SIZE" :offset="-Consts.GRID_GAP_SIZE / 2" />
       
           <template #node-alu="props">
             <ALUNode v-bind="props" />

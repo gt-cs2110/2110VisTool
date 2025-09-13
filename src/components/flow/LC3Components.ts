@@ -13,7 +13,7 @@ export namespace Consts {
     export const ALU_SLANT = 0.8;
 
     export const BUS_DIMS = {
-        width: 60 * GRID_GAP_SIZE,
+        width: 55 * GRID_GAP_SIZE,
         height: 40 * GRID_GAP_SIZE,
     }
     
@@ -70,10 +70,7 @@ export namespace Consts {
      * For muxes, the width is the long side 
      *     and the height is the short side.
      */
-    export const IO_NODE_DIMS = {
-        width:  DEFAULT_NODE_DIMS.width,
-        height: 2.5 * GRID_GAP_SIZE,
-    }
+    export const IO_NODE_DIMS = DEFAULT_NODE_DIMS;
 
     /**
      * Dimensions for CC/NZP nodes.
@@ -103,7 +100,7 @@ export namespace Consts {
      * Dimensions for memory.
      */
     export const MEMORY_DIMS = {
-        width: 7.5 * GRID_GAP_SIZE,
+        width: 8 * GRID_GAP_SIZE,
         height: 5 * GRID_GAP_SIZE
     }
 }
@@ -119,26 +116,26 @@ export const initialNodes: LC3Node[] = [
             label: "Bus",
             handles: [
                 // Top handles
-                { side: Position.Top, lineSide: Position.Bottom, distance: 240, handle: "target", id: "gateMarMux" },
-                { side: Position.Top, lineSide: Position.Bottom, distance: 480, handle: "source", id: "pcMux" },
-                { side: Position.Top, lineSide: Position.Bottom, distance: 720, handle: "target", id: "gatePc" },
-                { side: Position.Top, lineSide: Position.Bottom, distance: 960, handle: "source", id: "regFile" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 13 * Consts.GRID_GAP_SIZE, handle: "target", id: "gateMarMux" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 24 * Consts.GRID_GAP_SIZE, handle: "source", id: "pcMux" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 32 * Consts.GRID_GAP_SIZE, handle: "target", id: "gatePc" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 48 * Consts.GRID_GAP_SIZE, handle: "source", id: "regFile" },
                 // Bottom handles
-                { side: Position.Bottom, lineSide: Position.Bottom, distance: 60, handle: "target", id: "mdrMux" },
-                { side: Position.Bottom, lineSide: Position.Bottom, distance: 240, handle: "source", id: "gateMdr" },
-                { side: Position.Bottom, lineSide: Position.Top, distance: 360, handle: "source", id: "ir" },
-                { side: Position.Bottom, lineSide: Position.Top, distance: 480, handle: "source", id: "logic" },
-                { side: Position.Bottom, lineSide: Position.Bottom, distance: 600, handle: "source", id: "mar" },
-                { side: Position.Bottom, lineSide: Position.Bottom, distance: 720, handle: "target", id: "input" },
-                { side: Position.Bottom, lineSide: Position.Top, distance: 960, handle: "target", id: "gateAlu" },
-                { side: Position.Bottom, lineSide: Position.Bottom, distance: 1080, handle: "source", id: "output" }
+                { side: Position.Bottom, lineSide: Position.Top, distance: 4 * Consts.GRID_GAP_SIZE, handle: "source", id: "ir" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 6 * Consts.GRID_GAP_SIZE, handle: "target", id: "mdrMux" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 12 * Consts.GRID_GAP_SIZE, handle: "source", id: "gateMdr" },
+                { side: Position.Bottom, lineSide: Position.Top, distance: 24 * Consts.GRID_GAP_SIZE, handle: "source", id: "ccLogic" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 32 * Consts.GRID_GAP_SIZE, handle: "source", id: "mar" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 45 * Consts.GRID_GAP_SIZE, handle: "target", id: "ioInput" },
+                { side: Position.Bottom, lineSide: Position.Top, distance: 46.5 * Consts.GRID_GAP_SIZE, handle: "target", id: "gateAlu" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 52 * Consts.GRID_GAP_SIZE, handle: "source", id: "ioOutput" }
             ]
         }
     },
     {
         id: "marMux",
         type: "mux",
-        position: { x: 300, y: 100 },
+        position: { x: 10 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: "MARMUX",
@@ -147,21 +144,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: "gateMarMux",
         type: "tristate",
-        position: { x: 375, y: 0 },
+        position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMARMUX" }
     },
     {
         id: "gatePc",
         type: "tristate",
-        position: { x: 650, y: 0 },
+        position: { x: 31.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GatePC" }
     },
     { 
         id: "pc",
         type: "logic",
-        position: { x: 600, y: 100 },
+        position: { x: 29 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PC",
@@ -171,7 +168,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: "pcMux",
         type: "mux",
-        position: { x: 600, y: 200 },
+        position: { x: 29 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PCMUX",
@@ -181,7 +178,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: "pcAdder",
         type: "logic",
-        position: { x: 800, y: 150 },
+        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.PC_ADDER_DIMS,
         data: { 
             label: "+1",
@@ -192,7 +189,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: 'regFile',
         type: "logic",
-        position: { x: 1000, y: 100 },
+        position: { x: 45 * Consts.GRID_GAP_SIZE, y: 4 * Consts.GRID_GAP_SIZE },
         ...Consts.REG_FILE_DIMS,
         data: {
             label: 'Register File',
@@ -202,7 +199,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'zext8',
         type: "logic",
-        position: { x: 150, y: 300 },
+        position: { x: 2 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: { 
             label: 'ZEXT',
@@ -213,7 +210,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext5',
         type: "logic",
-        position: { x: 600, y: 500 },
+        position: { x: 16 * Consts.GRID_GAP_SIZE, y: 29 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -223,7 +220,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext6',
         type: "logic",
-        position: { x: 250, y: 600 },
+        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 26 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -233,7 +230,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext9',
         type: "logic",
-        position: { x: 250, y: 550 },
+        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -243,7 +240,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext11',
         type: "logic",
-        position: { x: 250, y: 500 },
+        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 22 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -253,7 +250,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ir',
         type: "logic",
-        position: { x: 250, y: 700 },
+        position: { x: 1 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'IR',
@@ -263,21 +260,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'marAdder',
         type: "alu",
-        position: { x: 400, y: 300 },
+        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
         id: 'addr1Mux',
         type: "mux",
-        position: { x: 500, y: 400 },
+        position: { x: 20 * Consts.GRID_GAP_SIZE, y: 19.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
         id: 'addr2Mux',
         type: "mux",
-        position: { x: 300, y: 400 },
+        position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 19.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
@@ -287,7 +284,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'fsm',
         type: "logic",
-        position: { x: 700, y: 500 },
+        position: { x: 30 * Consts.GRID_GAP_SIZE, y: 29 * Consts.GRID_GAP_SIZE },
         ...Consts.FSM_DIMS,
         data: { 
             label: "Finite State Machine",
@@ -297,7 +294,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr2Mux',
         type: "mux",
-        position: { x: 950, y: 500 },
+        position: { x: 41 * Consts.GRID_GAP_SIZE, y: 27.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "SR2MUX",
@@ -307,7 +304,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'alu',
         type: "alu",
-        position: { x: 1000, y: 600  },
+        position: { x: 42 * Consts.GRID_GAP_SIZE, y: 31 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: {
             label: "ALU",
@@ -318,7 +315,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'gateAlu',
         type: 'tristate',
-        position: { x: 1000, y: 700 },
+        position: { x: 46 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { 
             label: "GateALU",
@@ -328,7 +325,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ccLogic',
         type: "logic",
-        position: { x: 500, y: 700},
+        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 36 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "CC Logic",
@@ -339,18 +336,18 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'nzp',
         type: "logic",
-        position: { x: 500, y: 650 },
+        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 33.5 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "NZP",
-            orientation: "left",
+            orientation: "right",
             componentType: "register"
         }
     },
     {
         id: 'ioInput',
         type: "logic",
-        position: { x: 750, y: 900 },
+        position: { x: 42 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Input',
@@ -360,7 +357,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ioOutput',
         type: "logic",
-        position: { x: 900, y: 900 },
+        position: { x: 49 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Output',
@@ -370,7 +367,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr1Mux',
         type: "mux",
-        position: { x: 700, y: 1000 },
+        position: { x: 42 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         // Inverted because rotated 90
         width: Consts.DEFAULT_NODE_DIMS.height,
         height: Consts.DEFAULT_NODE_DIMS.width,
@@ -382,7 +379,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'drmux',
         type: "mux",
-        position: { x: 900, y: 1000 },
+        position: { x: 49 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         // Inverted because rotated 90
         width: Consts.DEFAULT_NODE_DIMS.height,
         height: Consts.DEFAULT_NODE_DIMS.width,
@@ -394,7 +391,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "memory",
         type: "logic",
-        position: { x: 300, y: 900 },
+        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.MEMORY_DIMS,
         data: {
             label: 'Memory',
@@ -404,7 +401,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mar",
         type: "logic",
-        position: { x: 500, y: 900 },
+        position: { x: 29 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MAR",
@@ -415,7 +412,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdr",
         type: "logic",
-        position: { x: 100, y: 925 },
+        position: { x: 9 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MDR",
@@ -425,14 +422,14 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdrMux",
         type: "mux",
-        position: {x: 100, y: 1000 },
+        position: { x: 9 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: "MDRMUX" }
     },
     {
         id: "gateMdr",
         type: "tristate",
-        position: { x: 200, y: 850 },
+        position: { x: 11.5 * Consts.GRID_GAP_SIZE, y: 42 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMDR" }
     }
@@ -763,7 +760,7 @@ export const initialEdges: Edge[] = [
         id: 'nzp',
         source: 'nzp',
         target: 'fsm',
-        sourceHandle: 'input',
+        sourceHandle: 'output',
         targetHandle:  'nzp',
         type: 'step',
         animated: true
@@ -898,7 +895,7 @@ export const initialEdges: Edge[] = [
         source: 'ioInput',
         target: 'bus',
         sourceHandle: 'input',
-        targetHandle:  'input',
+        targetHandle:  'ioInput',
         type: 'step',
         animated: true
     },
@@ -909,7 +906,7 @@ export const initialEdges: Edge[] = [
         source: 'ioOutput',
         target: 'bus',
         sourceHandle: 'input',
-        targetHandle:  'output',
+        targetHandle:  'ioOutput',
         type: 'step',
         animated: true
     },
@@ -958,7 +955,7 @@ export const initialEdges: Edge[] = [
         id: 'busLogic',
         source: 'bus',
         target: 'ccLogic',
-        sourceHandle: 'logic',
+        sourceHandle: 'ccLogic',
         targetHandle:  'input',
         type: 'step',
         animated: true
