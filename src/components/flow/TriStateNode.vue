@@ -2,9 +2,10 @@
 
 <script setup lang="ts">
 import { Position, Handle } from '@vue-flow/core';
-import type { HandleType, NodeProps } from '@vue-flow/core';
+import type { NodeProps } from '@vue-flow/core';
 import TriState from "./shapes/TriState.vue";
 import { computeHandleOriented, type Orientation } from './shapes';
+import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
@@ -14,11 +15,6 @@ const props = defineProps<NodeProps<{
 
 const orientation = computed(() => props.data.orientation ?? 'up');
 
-interface HandleProperties {
-    id?: string,
-    side: Position,
-    handle: HandleType,
-}
 const handlePositions = computed(() => Array.from<HandleProperties, HandleProperties>([
     { id: "output", side: Position.Right, handle: "source" },
     { id: "input", side: Position.Left, handle: "target" },

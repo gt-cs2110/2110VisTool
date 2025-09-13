@@ -2,8 +2,9 @@
 
 <script setup lang="ts">
 import { Position, Handle } from '@vue-flow/core';
-import type { HandleType, NodeProps } from '@vue-flow/core';
+import type { NodeProps } from '@vue-flow/core';
 import { getCrossProperty } from './shapes/index';
+import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
@@ -13,12 +14,6 @@ const props = defineProps<NodeProps<{
 const width = computed(() => props.dimensions.width ?? 900);
 const height = computed(() => props.dimensions.height ?? 750);
 
-interface HandleProperties {
-    id?: string,
-    side: Position,
-    distance?: string,
-    handle: HandleType,
-}
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [
         { side: Position.Top, distance: "20%", handle: "target", id: "gateMarMux" },

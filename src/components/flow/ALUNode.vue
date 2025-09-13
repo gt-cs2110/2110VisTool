@@ -2,9 +2,10 @@
 
 <script setup lang="ts">
 import { Position, Handle } from '@vue-flow/core';
-import type { HandleType, NodeProps } from '@vue-flow/core';
+import type { NodeProps } from '@vue-flow/core';
 import ALU from "./shapes/ALU.vue";
 import { computeHandleOriented, getCrossProperty, type Orientation } from './shapes';
+import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
@@ -15,12 +16,6 @@ const props = defineProps<NodeProps<{
 
 const orientation = computed(() => props.data.orientation ?? 'up');
 
-interface HandleProperties {
-    id?: string,
-    side: Position,
-    distance?: string,
-    handle: HandleType,
-}
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [
         { side: Position.Right, distance: "50%", handle: "source", id: "output" },
@@ -47,7 +42,7 @@ const handlePositions = computed(() => {
         :id="pos.id"
         :type="pos.handle"
         :position="pos.side"
-        :style="pos.distance ? { [getCrossProperty(pos.side)]: pos.distance } : {}"
+        :style="{ [getCrossProperty(pos.side)]: pos.distance }"
     />
   </div>
 </template>

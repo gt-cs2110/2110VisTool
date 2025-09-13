@@ -2,9 +2,10 @@
 
 <script setup lang="ts">
 import { Position, Handle } from '@vue-flow/core';
-import type { HandleType, NodeProps } from '@vue-flow/core';
+import type { NodeProps } from '@vue-flow/core';
 import Mux from "./shapes/Mux.vue";
 import { computeHandleOriented, getCrossProperty, type Orientation } from './shapes';
+import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
@@ -17,13 +18,6 @@ const props = defineProps<NodeProps<{
 const orientation = computed(() => props.data.orientation ?? 'up');
 const nInputs = computed(() => props.data.inputSize ?? 2);
 const leftUp = computed(() => !!props.data.selectorLeftUp);
-
-interface HandleProperties {
-    id?: string,
-    side: Position,
-    distance?: string,
-    handle: HandleType,
-}
 
 function computeDistance(i: number, nInputs: number) {
   // 1/2n distance around the edges, and 1/n between ports
@@ -54,7 +48,7 @@ const handlePositions = computed(() => {
         :id="pos.id"
         :type="pos.handle"
         :position="pos.side"
-        :style="pos.distance ? { [getCrossProperty(pos.side)]: pos.distance } : {}"
+        :style="{ [getCrossProperty(pos.side)]: pos.distance }"
     />
   </div>
 </template>

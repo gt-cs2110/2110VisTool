@@ -1,5 +1,5 @@
 import type { Component } from "vue";
-import type { Node, NodeProps } from '@vue-flow/core';
+import type { Node, NodeProps, HandleType } from '@vue-flow/core';
 
 import type ALUNode from "./ALUNode.vue";
 import type LogicNode from "./LogicNode.vue";
@@ -18,3 +18,27 @@ export type LC3Node =
     | NodeTypeOf<"mux", typeof MuxNode>
     | NodeTypeOf<"tristate", typeof TriStateNode>
     | NodeTypeOf<"bus", typeof BusNode>;
+
+/**
+ * A list of all special properties used for positioning + identifying handles
+ * in LC3 nodes.
+ */
+export interface HandleProperties {
+    /**
+     * ID of the handle
+     */
+    id?: string,
+    /**
+     * Which side this handle is placed on
+     */
+    side: Position,
+    /**
+     * Whether the handle is an input (source) or an output (target)
+     */
+    handle: HandleType,
+    /**
+     * CSS value which details how far along the node edge the handle is from the top or left edge.
+     * If not specified, this is assumed to be halfway along the node edge.
+     */
+    distance?: string
+}
