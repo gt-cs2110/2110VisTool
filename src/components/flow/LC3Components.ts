@@ -1,5 +1,5 @@
 import type { LC3Node } from './types.d';
-import type { Edge } from '@vue-flow/core';
+import { Position, type Edge } from '@vue-flow/core';
 
 export namespace Consts {
     /**
@@ -45,6 +45,22 @@ export const initialNodes: LC3Node[] = [
         height: 850,
         data: {
             label: "Bus",
+            handles: [
+                // Top handles
+                { side: Position.Top, lineSide: Position.Bottom, distance: 240, handle: "target", id: "gateMarMux" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 480, handle: "source", id: "pcMux" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 720, handle: "target", id: "gatePc" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 960, handle: "source", id: "regFile" },
+                // Bottom handles
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 60, handle: "target", id: "mdrMux" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 240, handle: "source", id: "gateMdr" },
+                { side: Position.Bottom, lineSide: Position.Top, distance: 360, handle: "source", id: "ir" },
+                { side: Position.Bottom, lineSide: Position.Top, distance: 480, handle: "source", id: "logic" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 600, handle: "source", id: "mar" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 720, handle: "target", id: "input" },
+                { side: Position.Bottom, lineSide: Position.Top, distance: 960, handle: "target", id: "gateAlu" },
+                { side: Position.Bottom, lineSide: Position.Bottom, distance: 1080, handle: "source", id: "output" }
+            ]
         }
     },
     {

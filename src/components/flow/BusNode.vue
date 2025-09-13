@@ -2,38 +2,52 @@
 
 <script setup lang="ts">
 import { Position, Handle } from '@vue-flow/core';
-import type { NodeProps } from '@vue-flow/core';
+import type { HandleType, NodeProps } from '@vue-flow/core';
 import { getPositionStyles } from './shapes/index';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
+interface BusHandle {
+  /**
+   * ID for bus handle
+   */
+  id: string,
+  /**
+   * Sources are inputs into registers.
+   * Targets are outputs from gates.
+   */
+  handle: HandleType,
+  /**
+   * Which side this handle is on
+   */
+  side: Position.Top | Position.Bottom,
+  /**
+   * The direction edges come from
+   */
+  lineSide: Position.Top | Position.Bottom,
+  /**
+   * Distance along the line.
+   */
+  distance: number,
+}
 const props = defineProps<NodeProps<{
     label?: string,
+    handles?: BusHandle[]
 }>>();
 
 const width = computed(() => props.dimensions.width ?? 900);
 const height = computed(() => props.dimensions.height ?? 750);
 
-const handlePositions = computed(() => {
-    const handles: HandleProperties[] = [
-      // Top edges
-      { side: Position.Bottom, distance: "20%", depth: "100%", handle: "target", id: "gateMarMux" },
-      { side: Position.Bottom, distance: "40%", depth: "100%", handle: "source", id: "pcMux" },
-      { side: Position.Bottom, distance: "60%", depth: "100%", handle: "target", id: "gatePc" },
-      { side: Position.Bottom, distance: "80%", depth: "100%", handle: "source", id: "regFile" },
-      // Bottom edges
-      { side: Position.Bottom, distance: "5%", handle: "target", id: "mdrMux" },
-      { side: Position.Bottom, distance: "20%", handle: "source", id: "gateMdr" },
-      { side: Position.Top, distance: "30%", depth: "100%", handle: "source", id: "ir" },
-      { side: Position.Top, distance: "40%", depth: "100%", handle: "source", id: "logic" },
-      { side: Position.Bottom, distance: "50%", handle: "source", id: "mar" },
-      { side: Position.Bottom, distance: "60%", handle: "target", id: "input" },
-      { side: Position.Top, distance: "80%", depth: "100%", handle: "target", id: "gateAlu" },
-      { side: Position.Bottom, distance: "90%", handle: "source", id: "output" }
-    ];
-    return handles;
-});
-
+const handlePositions = computed(() => (props.data.handles ?? []).map<HandleProperties>(h => ({
+  // Handle side decides which direction edges come from,
+  // So pick the line side and manually move to the correct side if the side is wrong
+  side: h.lineSide,
+  depth: h.side == h.lineSide ? "0%" : "100%",
+  // Other handle properties
+  handle: h.handle,
+  id: h.id,
+  distance: `${h.distance}px`
+})));
 </script>
 
 <template>
