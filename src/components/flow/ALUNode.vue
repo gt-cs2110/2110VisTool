@@ -4,7 +4,7 @@
 import { Position, Handle } from '@vue-flow/core';
 import type { NodeProps } from '@vue-flow/core';
 import ALU from "./shapes/ALU.vue";
-import { computeHandleOriented, getCrossProperty, type Orientation } from './shapes';
+import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
   
@@ -42,7 +42,7 @@ const handlePositions = computed(() => {
         :id="pos.id"
         :type="pos.handle"
         :position="pos.side"
-        :style="{ [getCrossProperty(pos.side)]: pos.distance }"
+        :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
     />
   </div>
 </template>

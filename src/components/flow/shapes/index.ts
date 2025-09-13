@@ -76,6 +76,29 @@ export function computeHandleOriented<T extends { side: Position }>(
 ): T {
     return { ...properties, side: rotatePosition(properties.side, asRotations(orientation)) };
 }
-export function getCrossProperty(side: Position): "top" | "left" {
-    return side == Position.Left || side == Position.Right ? "top" : "left";
+
+/**
+ * Gets position styles for the handle given the provided properties.
+ * @param side Which side the handle is on
+ * @param distance The distance along the edge
+ * @param depth How far into the node the handle should be
+ */
+export function getPositionStyles(side: Position, distance?: string, depth?: string) {
+    const isHorizontal = side == Position.Left || side == Position.Right;
+    const crossProperty = isHorizontal ? "top" : "left";
+    const mainProperty = isHorizontal ? "left" : "top";
+
+    let properties: { top?: string, left?: string } = {};
+    if (distance) {
+        properties[crossProperty] = distance;
+    }
+    if (depth) {
+        if (side == Position.Top || side == Position.Left) {
+            properties[mainProperty] = depth;
+        } else {
+            // If bottom or right, we need to calculate distance from the other side.
+            properties[mainProperty] = `calc(100% - ${depth})`;
+        }
+    }
+    return properties;
 }

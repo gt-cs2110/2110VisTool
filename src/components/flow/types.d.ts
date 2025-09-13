@@ -40,5 +40,10 @@ export interface HandleProperties {
      * CSS value which details how far along the node edge the handle is from the top or left edge.
      * If not specified, this is assumed to be halfway along the node edge.
      */
-    distance?: string
+    distance?: string,
+    /**
+     * CSS value which details how far into the node the handle should be.
+     * If not specified, this is assumed to be along the edge.
+     */
+    depth?: string
 }
