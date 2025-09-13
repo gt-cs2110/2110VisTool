@@ -42,7 +42,7 @@ const handlePositions = computed(() => (props.data.handles ?? []).map<HandleProp
   // Handle side decides which direction edges come from,
   // So pick the line side and manually move to the correct side if the side is wrong
   side: h.lineSide,
-  depth: h.side == h.lineSide ? "0%" : "100%",
+  depth: h.side == h.lineSide ? "0%" : `calc(100% - ${STROKE_WIDTH}px)`,
   // Other handle properties
   handle: h.handle,
   id: h.id,
