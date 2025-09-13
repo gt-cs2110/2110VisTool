@@ -1,6 +1,13 @@
 import type { LC3Node } from './types.d';
 import type { Edge } from '@vue-flow/core';
 
+export namespace Consts {
+    /**
+     * Slant for the diagonal edge of ALU/Mux.
+     */
+    export const ALU_SLANT = 0.8;
+}
+
 export const initialNodes: LC3Node[] = [
     {
         id: "marMux",

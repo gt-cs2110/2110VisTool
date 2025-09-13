@@ -7,6 +7,7 @@ import Mux from "./shapes/Mux.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
+import { Consts } from './LC3Components';
   
 const props = defineProps<NodeProps<{
     label?: string,
@@ -26,14 +27,16 @@ function computeDistance(i: number, nInputs: number) {
 }
 const handlePositions = computed(() => {
   const selectorSide = leftUp.value ? Position.Top : Position.Bottom;
+  
   const selectorDistance = "50%";
+  const selectorDepth = `${Math.round((1 - Consts.ALU_SLANT) * 100 / 2)}%`;
   
   return Array.from<HandleProperties, HandleProperties>([
     { id: 'output', side: Position.Right, handle: "source" },
     ...Array.from<unknown, HandleProperties>({ length: nInputs.value }, (_, i) => (
       { id: `input-${i}`, side: Position.Left, handle: "target", distance: `${computeDistance(i, nInputs.value)}%` }
     )),
-    { id: "selector", side: selectorSide, handle: "target", distance: selectorDistance }
+    { id: "selector", side: selectorSide, handle: "target", distance: selectorDistance, depth: selectorDepth }
   ], p => computeHandleOriented(p, orientation.value));
 });
 </script>

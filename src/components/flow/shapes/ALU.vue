@@ -4,8 +4,9 @@
 import type { Dimensions } from '@vue-flow/core';
 import { computed } from 'vue';
 import { drawOriented, type Orientation } from '.';
+import { Consts } from '../LC3Components';
 
-    const { dimensions, orientation, slant = 0.8 } = defineProps<{
+    const { dimensions, orientation, slant = Consts.ALU_SLANT } = defineProps<{
         /**
          * Dimensions of the bounding box.
          */

@@ -7,6 +7,7 @@ import ALU from "./shapes/ALU.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
+import { Consts } from './LC3Components';
   
 const props = defineProps<NodeProps<{
     label?: string,
@@ -23,7 +24,13 @@ const handlePositions = computed(() => {
         { side: Position.Left, distance: "75%", handle: "target", id: "input-a" },
     ];    
     if (props.data.selector) {
-        handles.push({ side: Position.Bottom, distance: "50%", handle: "target", id: "selector" });
+        handles.push({
+          side: Position.Bottom,
+          distance: "50%",
+          depth: `${Math.round((1 - Consts.ALU_SLANT) * 100 / 2)}%`,
+          handle: "target",
+          id: "selector"
+        });
     }
     return Array.from(handles, p => computeHandleOriented(p, orientation.value));
 });
