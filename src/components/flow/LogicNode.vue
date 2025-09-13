@@ -43,13 +43,13 @@ const componentHandleConfigs: Record<LogicComponentType, HandleConfig[]> = {
         { side: Position.Left, distance: "50%", type: "target", id: "ld-reg" },
         { side: Position.Left, distance: "70%", type: "target", id: "sr2" },
         { side: Position.Right, distance: "70%", type: "target", id: "sr1" },
-        { side: Position.Bottom, distance: "40%", type: "source", id: "sr1mux" },
+        { side: Position.Bottom, distance: "40%", type: "source", id: "sr2mux" },
         { side: Position.Bottom, distance: "60%", type: "source", id: "alu" }
     ],
     memory: [
         { side: Position.Right, distance: "25%", type: "target", id: "mar-in" },
-        { side: Position.Left, distance: "75%", type: "target", id: "mdr-in" },
-        { side: Position.Left, distance: "50%", type: "source", id: "mdr-out" },
+        { side: Position.Left, distance: "50%", type: "target", id: "mdr-in" },
+        { side: Position.Bottom, distance: "10%", type: "source", id: "mdr-out" },
         { side: Position.Bottom, distance: "25%", type: "target", id: "rw" },
         { side: Position.Bottom, distance: "75%", type: "target", id: "mem-en" }
     ],
@@ -76,7 +76,7 @@ const componentHandleConfigs: Record<LogicComponentType, HandleConfig[]> = {
         { side: Position.Right, distance: "50%", type: "source", id: "output" }
     ],
     default: [
-        { side: Position.Bottom, distance: "50%", type: "source" }
+        { side: Position.Bottom, distance: "50%", type: "source", id: "input" }
     ]
 };
 

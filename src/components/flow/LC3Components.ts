@@ -50,7 +50,7 @@ export const initialNodes: LC3Node[] = [
         height: 50, 
         data: { 
             label: "+1",
-            orientation: 'up',
+            orientation: 'down',
             componentType: 'extender'
         }
     },
@@ -91,7 +91,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext6',
         type: "logic",
-        position: { x: -150, y: 500 },
+        position: { x: -150, y: 600 },
         width: 80,
         height: 35,
         data: {
@@ -113,7 +113,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext11',
         type: "logic",
-        position: { x: -150, y: 600 },
+        position: { x: -150, y: 500 },
         width: 80,
         height: 35,
         data: {
@@ -219,7 +219,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ioInput',
         type: "logic",
-        position: { x: 350, y: 800 },
+        position: { x: 350, y: 900 },
         width: 100,
         height: 50, 
         data: {
@@ -230,7 +230,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ioOutput',
         type: "logic",
-        position: { x: 500, y: 800 },
+        position: { x: 500, y: 900 },
         width: 100,
         height: 50,
         data: {
@@ -241,7 +241,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr1Mux',
         type: "mux",
-        position: { x: 300, y: 900 },
+        position: { x: 300, y: 1000 },
         data: { 
             label: "SR1MUX",
             orientation: "right",
@@ -250,7 +250,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'drmux',
         type: "mux",
-        position: { x: 500, y: 900 },
+        position: { x: 500, y: 1000 },
         data: {
             label: "DRMUX",
             orientation: "right",
@@ -259,7 +259,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "memory",
         type: "logic",
-        position: { x: -100, y: 800 },
+        position: { x: -100, y: 900 },
         width: 150,
         height: 100,
         data: {
@@ -270,7 +270,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mar",
         type: "logic",
-        position: { x: 100, y: 750 },
+        position: { x: 100, y: 900 },
         width: 120,
         height: 40,
         data: { 
@@ -282,7 +282,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdr",
         type: "logic",
-        position: { x: -300, y: 750 },
+        position: { x: -300, y: 925 },
         width: 120,
         height: 40, 
         data: { 
@@ -293,23 +293,23 @@ export const initialNodes: LC3Node[] = [
     {
         id: "mdrMux",
         type: "mux",
-        position: {x: -300, y: 825 },
+        position: {x: -300, y: 1000 },
         data: { label: "MDRMUX" }
     },
     {
         id: "gateMdr",
         type: "tristate",
-        position: { x: -250, y: 700 },
+        position: { x: -200, y: 850 },
         data: { label: "GateMDR" }
     },
     {
         id: "bus",
         type: "bus",
-        position: { x: -150, y: 0 },
+        position: { x: -400, y: -25 },
         data: {
             label: "Bus",
-            width: 900,
-            height: 750,
+            width: 1200,
+            height: 850,
         }
     }
 ];
@@ -327,6 +327,28 @@ export const initialEdges: Edge[] = [
     /**
      * MUX EDGES 
      */
+
+    // ADDR1MUX
+    {
+        id: 'addr1MuxMarAdder',
+        source: 'addr1Mux',
+        target: 'marAdder',
+        sourceHandle: 'output',
+        targetHandle:  'input-a',
+        type: 'step',
+        animated: true
+    },
+
+    // ADDR2MUX
+    {
+        id: 'addr2Mux',
+        source: 'addr2Mux',
+        target: 'marAdder',
+        sourceHandle: 'output',
+        targetHandle:  'input-b',
+        type: 'step',
+        animated: true
+    },
 
     // MARMUX
     {
@@ -352,7 +374,7 @@ export const initialEdges: Edge[] = [
 
     // PCMUX
     {
-        id: 'pcMuxPc',
+        id: 'pcMux',
         source: 'pcMux',
         target: 'pc',
         sourceHandle: 'output',
@@ -384,7 +406,7 @@ export const initialEdges: Edge[] = [
 
     //ZEXT
     {
-        id: 'e',
+        id: 'zext8MarMux',
         source: 'zext8',
         target: 'marMux',
         sourceHandle: 'output',
@@ -394,82 +416,436 @@ export const initialEdges: Edge[] = [
     },
 
     //SEXT [10:0]
-    
+    {
+        id: 'sext11Addr2Mux',
+        source: 'sext11',
+        target: 'addr2Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-0',
+        type: 'step',
+        animated: true
+    },
 
     //SEXT [8:0]
+    {
+        id: 'sext9Addr2Mux',
+        source: 'sext9',
+        target: 'addr2Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
 
     //SEXT [5:0]
+    {
+        id: 'sext6Addr2Mux',
+        source: 'sext6',
+        target: 'addr2Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-2',
+        type: 'step',
+        animated: true
+    },
 
     //SEXT [4:0]
+    {
+        id: 'sext10Sr2Mux',
+        source: 'sext5',
+        target: 'sr2Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-0',
+        type: 'step',
+        animated: true
+    },
 
     /**
      * ALU EDGES  
      */
 
     //ALU
+    {
+        id: 'aluGateAlu',
+        source: 'alu',
+        target: 'gateAlu',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
 
     //MAR ADDER
+    {
+        id: 'marAdderMarMux',
+        source: 'marAdder',
+        target: 'marMux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'marAdderPcMux',
+        source: 'marAdder',
+        target: 'pcMux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
 
     // PC ADDER
+    {
+        id: 'pcAdderPcMux',
+        source: 'pcAdder',
+        target: 'pcMux',
+        sourceHandle: 'output',
+        targetHandle:  'input-2',
+        type: 'step',
+        animated: true
+    },
 
     /**
      * REGISTER EDGES  
      */
 
     // MAR
+    {
+        id: 'marMemory',
+        source: 'mar',
+        target: 'memory',
+        sourceHandle: 'output',
+        targetHandle:  'mar-in',
+        type: 'step',
+        animated: true
+    },
 
     // MDR
+    {
+        id: 'mdrMemory',
+        source: 'mdr',
+        target: 'memory',
+        sourceHandle: 'mem-output',
+        targetHandle:  'mdr-in',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'mdrGateMdr',
+        source: 'mdr',
+        target: 'gateMdr',
+        sourceHandle: 'gate-mdr',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
 
     // IR
+    {
+        id: 'irZext8',
+        source: 'ir',
+        target: 'zext8',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irSext5',
+        source: 'ir',
+        target: 'sext5',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irSext6',
+        source: 'ir',
+        target: 'sext6',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irSext9',
+        source: 'ir',
+        target: 'sext9',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irSext11',
+        source: 'ir',
+        target: 'sext11',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irSr2Mux',
+        source: 'ir',
+        target: 'sr2Mux',
+        sourceHandle: 'output',
+        targetHandle:  'selector',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'irFsm',
+        source: 'ir',
+        target: 'fsm',
+        sourceHandle: 'output',
+        targetHandle:  'ir-15-9',
+        type: 'step',
+        animated: true
+    },
 
-    // PC 
+    // PC
+    {
+        id: 'pcAdderPc',
+        source: 'pc',
+        target: 'pcAdder',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'pcGatePc',
+        source: 'pc',
+        target: 'gatePc',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'pcAddr1Mux',
+        source: 'pc',
+        target: 'addr1Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
 
     // NZP
+    {
+        id: 'nzp',
+        source: 'nzp',
+        target: 'fsm',
+        sourceHandle: 'input',
+        targetHandle:  'nzp',
+        type: 'step',
+        animated: true
+    },
 
     // REG FILE
+    {
+        id: 'regFileSr2Mux',
+        source: 'regFile',
+        target: 'sr2Mux',
+        sourceHandle: 'sr2mux',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'regFileAlu',
+        source: 'regFile',
+        target: 'alu',
+        sourceHandle: 'alu',
+        targetHandle:  'input-a',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'regFileAddr1Mux',
+        source: 'regFile',
+        target: 'addr1Mux',
+        sourceHandle: 'alu',
+        targetHandle:  'input-0',
+        type: 'step',
+        animated: true
+    },
 
     /**
-     * GATE EDGES  
-     */
-
-    // MAR
-
-    // MDR
-
-    // 
-
-    /**
-     * GATE EDGES  
+     * GATE EDGES
+     *
+     * TODO: Create Bus handles 
      */
 
     // Gate ALU
+    {
+        id: 'gateAluBus',
+        source: 'gateAlu',
+        target: 'bus',
+        sourceHandle: 'output',
+        targetHandle:  'gateAlu',
+        type: 'step',
+        animated: true
+    },
 
     // Gate PC
-
+    {
+        id: 'gatePc',
+        source: 'gatePc',
+        target: 'bus',
+        sourceHandle: 'output',
+        targetHandle:  'gatePc',
+        type: 'step',
+        animated: true
+    },
     // Gate MARMUX
+    {
+        id: 'gateMarMux',
+        source: 'gateMarMux',
+        target: 'bus',
+        sourceHandle: 'output',
+        targetHandle:  'gateMarMux',
+        type: 'step',
+        animated: true
+    },
 
     // Gate MDR
+    {
+        id: 'gateMdr',
+        source: 'gateMdr',
+        target: 'bus',
+        sourceHandle: 'output',
+        targetHandle:  'gateMdr',
+        type: 'step',
+        animated: true
+    },
 
     /**
      * LOGIC EDGES
      */
 
     // FSM
+    {
+        id: 'fsmAlu',
+        source: 'fsm',
+        target: 'alu',
+        sourceHandle: 'aluk',
+        targetHandle:  'selector',
+        type: 'step',
+        animated: true
+    },
 
     // LOGIC
-
+    {
+        id: 'logicNzp',
+        source: 'logic',
+        target: 'nzp',
+        sourceHandle: 'output',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    
     /**
      * MEMORY EDGES
      */
 
     // Memory
+    {
+        id: 'memoryMdrMux',
+        source: 'memory',
+        target: 'mdrMux',
+        sourceHandle: 'mdr-out',
+        targetHandle:  'input-1',
+        type: 'step',
+        animated: true
+    },
 
     /**
      * I/O EDGES
      */
 
     // Input
+    {
+        id: 'inputBus',
+        source: 'ioInput',
+        target: 'bus',
+        sourceHandle: 'input',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
 
     // Output
+    {
+        id: 'outputBus',
+        source: 'ioOutput',
+        target: 'bus',
+        sourceHandle: 'input',
+        targetHandle:  'output',
+        type: 'step',
+        animated: true
+    },
 
+    /**
+     * BUS EDGES
+     */
+
+    {
+        id: 'busPcMux',
+        source: 'bus',
+        target: 'pcMux',
+        sourceHandle: 'pcMux',
+        targetHandle:  'input-0',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'busRegFile',
+        source: 'bus',
+        target: 'regFile',
+        sourceHandle: 'regFile',
+        targetHandle:  'bus',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'busMdrMux',
+        source: 'bus',
+        target: 'mdrMux',
+        sourceHandle: 'mdrMux',
+        targetHandle:  'input-0',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'busIr',
+        source: 'bus',
+        target: 'ir',
+        sourceHandle: 'ir',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'busLogic',
+        source: 'bus',
+        target: 'logic',
+        sourceHandle: 'logic',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
+    {
+        id: 'busMar',
+        source: 'bus',
+        target: 'mar',
+        sourceHandle: 'mar',
+        targetHandle:  'input',
+        type: 'step',
+        animated: true
+    },
 ];
