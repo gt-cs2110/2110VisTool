@@ -6,8 +6,8 @@
     import MuxNode from './flow/MuxNode.vue';
     import LogicNode from './flow/LogicNode.vue';
     import TriStateNode from './flow/TriStateNode.vue';
-import BusNode from './flow/BusNode.vue';
-import { initialNodes, initialEdges } from './flow/LC3Components';
+    import BusNode from './flow/BusNode.vue';
+    import { initialNodes, initialEdges, Consts } from './flow/LC3Components';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -102,7 +102,7 @@ import { initialNodes, initialEdges } from './flow/LC3Components';
 <template>
     <div ref="top" class="h-full w-full bg-surface-800 rounded">
         <VueFlow :nodes="nodes" :edges="edges" :nodesDraggable="false" class="vue-flow-container">
-          <Background pattern-color="var(--color-surface-500)" :gap="20" />
+          <Background pattern-color="var(--color-surface-500)" :gap="Consts.GRID_GAP_SIZE" />
       
           <template #node-alu="props">
             <ALUNode v-bind="props" />
