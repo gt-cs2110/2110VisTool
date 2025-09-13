@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, ref, useTemplateRef, onMounted, onUnmounted } from 'vue';
 import LC3 from './components/LC3.vue';
 import SEQUENCE_DATA from "./sequences";
 
@@ -25,6 +25,10 @@ const wireState = ref({
   cycle: 0,
   macro: undefined as string | undefined,
 });
+/**
+ * Track activation history for each wire to enable stack-like color behavior
+ */
+const wireActivationHistory = ref<Map<string, number[]>>(new Map());
 const loopId = ref<number>();
 const running = computed(() => typeof loopId.value !== "undefined");
 const isLoopDone = computed(() => wireState.value.step >= wireState.value.wires.length);
@@ -33,6 +37,33 @@ const macroCycleCount = computed(() => wireState.value.macro ? SEQUENCE_DATA[wir
  * The last tick when a wire was activated.
  */
 let lastWireActivate: number = 0;
+
+function handleKeydown(event: KeyboardEvent) {
+  // If escape is pressed, unfocus on whatever
+  if (event.code === "Escape") {
+    (document.activeElement as HTMLElement)?.blur();
+  }
+
+  if (document.activeElement == document.body || document.activeElement == document.documentElement) {
+    if (event.code === 'ArrowLeft') {
+      // On left, step back
+      pauseDiagramLoop();
+      stepBack();
+    } else if (event.code === 'ArrowRight') {
+      // On right, step fwd.
+      pauseDiagramLoop();
+      stepFwd();
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
 
 function stepBack() {
   if (wireState.value.step <= 0) {
@@ -46,7 +77,18 @@ function stepBack() {
   if (wire == CYCLE_BREAK) {
     wireState.value.cycle--;
   } else {
-    lc3Diagram.value?.deactivateWire(wire);
+    const history = wireActivationHistory.value.get(wire) || [];
+    if (history.length > 0) {
+      history.pop(); 
+      
+      if (history.length > 0) {
+        const previousCycle = history[history.length - 1];
+        lc3Diagram.value?.activateWire(wire, previousCycle);
+      } else {
+        lc3Diagram.value?.deactivateWire(wire);
+        wireActivationHistory.value.delete(wire);
+      }
+    }
   }
 }
 function stepFwd() {
@@ -58,6 +100,12 @@ function stepFwd() {
   if (wire == CYCLE_BREAK) {
     wireState.value.cycle++;
   } else {
+    // Track this activation in the history
+    if (!wireActivationHistory.value.has(wire)) {
+      wireActivationHistory.value.set(wire, []);
+    }
+    wireActivationHistory.value.get(wire)!.push(wireState.value.cycle);
+    
     lc3Diagram.value?.activateWire(wire, wireState.value.cycle);
   }
   wireState.value.step++;
@@ -119,6 +167,9 @@ function resetDiagramLoop() {
       cycle: 0,
       macro: undefined
     };
+    
+    // Clear the activation history
+    wireActivationHistory.value.clear();
 }
 function toggleDiagramLoop() {
   if (running.value) {
