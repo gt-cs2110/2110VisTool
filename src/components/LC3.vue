@@ -102,7 +102,7 @@ import { initialNodes, initialEdges } from './flow/LC3Components';
 <template>
     <div ref="top" class="h-full w-full bg-surface-800 rounded">
         <VueFlow :nodes="nodes" :edges="edges" :nodesDraggable="false" class="vue-flow-container">
-          <Background pattern-color="var(--color-surface-500)" :gap="16" />
+          <Background pattern-color="var(--color-surface-500)" :gap="20" />
       
           <template #node-alu="props">
             <ALUNode v-bind="props" />

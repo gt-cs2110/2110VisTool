@@ -6,13 +6,53 @@ export namespace Consts {
      * Slant for the diagonal edge of ALU/Mux.
      */
     export const ALU_SLANT = 0.8;
+
+    /**
+     * Height of a generic node.
+     * For logic, this is the height of the rectangle.
+     * For muxes, this is the height of the trapezoid.
+     */
+    export const DEFAULT_NODE_HEIGHT = 40;
+
+    /**
+     * Height of a generic node.
+     * For logic, this is the width of the rectangle.
+     * For muxes, this is the width of the trapezoid.
+     */
+    export const DEFAULT_NODE_WIDTH = 120;
+
+    /**
+     * Size of the PC [+1] adder logic.
+     */
+    export const PC_ADDER_SIZE = 50;
+
+    /**
+     * Height of the IO logic.
+     */
+    export const IO_NODE_HEIGHT = 50;
+    /**
+     * Width of the IO logic.
+     */
+    export const IO_NODE_WIDTH = DEFAULT_NODE_WIDTH;
 }
 
 export const initialNodes: LC3Node[] = [
     {
+        id: "bus",
+        type: "bus",
+        position: { x: -400, y: -25 },
+        width: 1200,
+        height: 850,
+        data: {
+            label: "Bus",
+        }
+    },
+    {
         id: "marMux",
         type: "mux",
         position: { x: -100, y: 100 },
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: "MARMUX",
             selectorLeftUp: true}
@@ -33,8 +73,8 @@ export const initialNodes: LC3Node[] = [
         id: "pc",
         type: "logic",
         position: { x: 200, y: 100 },
-        width: 120,
-        height: 40,
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "PC",
             componentType: 'register'
@@ -44,6 +84,8 @@ export const initialNodes: LC3Node[] = [
         id: "pcMux",
         type: "mux",
         position: { x: 200, y: 200 },
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "PCMUX",
             inputSize: 3,
@@ -53,8 +95,8 @@ export const initialNodes: LC3Node[] = [
         id: "pcAdder",
         type: "logic",
         position: { x: 400, y: 150 },
-        width: 50,
-        height: 50, 
+        width: Consts.PC_ADDER_SIZE,
+        height: Consts.PC_ADDER_SIZE,
         data: { 
             label: "+1",
             orientation: 'down',
@@ -77,7 +119,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: -250, y: 300 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: 'ZEXT',
             orientation: 'up',
@@ -89,7 +131,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: 200, y: 500 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: 'SEXT',
             componentType: 'extender'
@@ -100,7 +142,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: -150, y: 600 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: 'SEXT',
             componentType: 'extender'
@@ -111,7 +153,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: -150, y: 550 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: 'SEXT',
             componentType: 'extender'
@@ -122,7 +164,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: -150, y: 500 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: 'SEXT',
             componentType: 'extender'
@@ -132,8 +174,8 @@ export const initialNodes: LC3Node[] = [
         id: 'ir',
         type: "logic",
         position: { x: -150, y: 700 },
-        width: 120,
-        height: 40,
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: {
             label: 'IR',
             componentType: "register"
@@ -148,12 +190,16 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'addr1Mux',
         type: "mux",
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         position: { x: 100, y: 400 },
         data: { label: 'ADDR1MUX' }
     },
     {
         id: 'addr2Mux',
         type: "mux",
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         position: { x: -100, y: 400 },
         data: {
             label: 'ADDR2MUX',
@@ -174,6 +220,8 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sr2Mux',
         type: "mux",
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         position: { x: 550, y: 500 },
         data: { 
             label: "SR2MUX",
@@ -204,7 +252,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: 100, y: 700},
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "Logic",
             orientation: 'up',
@@ -216,7 +264,7 @@ export const initialNodes: LC3Node[] = [
         type: "logic",
         position: { x: 100, y: 650 },
         width: 80,
-        height: 35,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "NZP",
             orientation: "left",
@@ -227,8 +275,8 @@ export const initialNodes: LC3Node[] = [
         id: 'ioInput',
         type: "logic",
         position: { x: 350, y: 900 },
-        width: 100,
-        height: 50, 
+        width: Consts.IO_NODE_WIDTH,
+        height: Consts.IO_NODE_HEIGHT,
         data: {
             label: 'Input',
             orientation: 'left'
@@ -238,8 +286,8 @@ export const initialNodes: LC3Node[] = [
         id: 'ioOutput',
         type: "logic",
         position: { x: 500, y: 900 },
-        width: 100,
-        height: 50,
+        width: Consts.IO_NODE_WIDTH,
+        height: Consts.IO_NODE_HEIGHT,
         data: {
             label: 'Output',
             orientation: 'left'
@@ -249,6 +297,8 @@ export const initialNodes: LC3Node[] = [
         id: 'sr1Mux',
         type: "mux",
         position: { x: 300, y: 1000 },
+        width: Consts.DEFAULT_NODE_HEIGHT,
+        height: Consts.DEFAULT_NODE_WIDTH,
         data: { 
             label: "SR1MUX",
             orientation: "right",
@@ -258,6 +308,8 @@ export const initialNodes: LC3Node[] = [
         id: 'drmux',
         type: "mux",
         position: { x: 500, y: 1000 },
+        width: Consts.DEFAULT_NODE_HEIGHT,
+        height: Consts.DEFAULT_NODE_WIDTH,
         data: {
             label: "DRMUX",
             orientation: "right",
@@ -278,8 +330,8 @@ export const initialNodes: LC3Node[] = [
         id: "mar",
         type: "logic",
         position: { x: 100, y: 900 },
-        width: 120,
-        height: 40,
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "MAR",
             orientation: 'left',
@@ -290,8 +342,8 @@ export const initialNodes: LC3Node[] = [
         id: "mdr",
         type: "logic",
         position: { x: -300, y: 925 },
-        width: 120,
-        height: 40, 
+        width: Consts.DEFAULT_NODE_WIDTH,
+        height: Consts.DEFAULT_NODE_HEIGHT,
         data: { 
             label: "MDR",
             componentType: 'mdr'
@@ -308,16 +360,6 @@ export const initialNodes: LC3Node[] = [
         type: "tristate",
         position: { x: -200, y: 850 },
         data: { label: "GateMDR" }
-    },
-    {
-        id: "bus",
-        type: "bus",
-        position: { x: -400, y: -25 },
-        width: 1200,
-        height: 850,
-        data: {
-            label: "Bus",
-        }
     }
 ];
 

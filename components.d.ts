@@ -35,7 +35,7 @@ declare module 'vue' {
     TriState: typeof import('./src/components/flow/shapes/TriState.vue')['default']
     TriStateNode: typeof import('./src/components/flow/TriStateNode.vue')['default']
   }
-  export interface GlobalDirectives {
+  export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']
   }
 }
