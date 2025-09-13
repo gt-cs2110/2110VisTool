@@ -8,12 +8,10 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
-    width?: number,
-    height?: number,
 }>>();
 
-const width = computed(() => props.data.width ?? 900);
-const height = computed(() => props.data.height ?? 750);
+const width = computed(() => props.dimensions.width ?? 900);
+const height = computed(() => props.dimensions.height ?? 750);
 
 interface HandleProperties {
     id?: string,

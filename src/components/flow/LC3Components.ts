@@ -306,10 +306,10 @@ export const initialNodes: LC3Node[] = [
         id: "bus",
         type: "bus",
         position: { x: -400, y: -25 },
+        width: 1200,
+        height: 850,
         data: {
             label: "Bus",
-            width: 1200,
-            height: 850,
         }
     }
 ];
