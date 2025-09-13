@@ -16,18 +16,20 @@ const height = computed(() => props.dimensions.height ?? 750);
 
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [
-        { side: Position.Top, distance: "20%", handle: "target", id: "gateMarMux" },
-        { side: Position.Top, distance: "40%", handle: "source", id: "pcMux" },
-        { side: Position.Top, distance: "60%", handle: "target", id: "gatePc" },
-        { side: Position.Top, distance: "80%", handle: "source", id: "regFile" },
-        { side: Position.Bottom, distance: "5%", handle: "target", id: "mdrMux" },
-        { side: Position.Bottom, distance: "20%", handle: "source", id: "gateMdr" },
-        { side: Position.Bottom, distance: "30%", handle: "source", id: "ir" },
-        { side: Position.Bottom, distance: "40%", handle: "source", id: "logic" },
-        { side: Position.Bottom, distance: "50%", handle: "source", id: "mar" },
-        { side: Position.Bottom, distance: "60%", handle: "target", id: "input" },
-        { side: Position.Bottom, distance: "80%", handle: "target", id: "gateAlu" },
-        { side: Position.Bottom, distance: "90%", handle: "source", id: "output" }
+      // Top edges
+      { side: Position.Bottom, distance: "20%", depth: "100%", handle: "target", id: "gateMarMux" },
+      { side: Position.Bottom, distance: "40%", depth: "100%", handle: "source", id: "pcMux" },
+      { side: Position.Bottom, distance: "60%", depth: "100%", handle: "target", id: "gatePc" },
+      { side: Position.Bottom, distance: "80%", depth: "100%", handle: "source", id: "regFile" },
+      // Bottom edges
+      { side: Position.Bottom, distance: "5%", handle: "target", id: "mdrMux" },
+      { side: Position.Bottom, distance: "20%", handle: "source", id: "gateMdr" },
+      { side: Position.Top, distance: "30%", depth: "100%", handle: "source", id: "ir" },
+      { side: Position.Top, distance: "40%", depth: "100%", handle: "source", id: "logic" },
+      { side: Position.Bottom, distance: "50%", handle: "source", id: "mar" },
+      { side: Position.Bottom, distance: "60%", handle: "target", id: "input" },
+      { side: Position.Top, distance: "80%", depth: "100%", handle: "target", id: "gateAlu" },
+      { side: Position.Bottom, distance: "90%", handle: "source", id: "output" }
     ];
     return handles;
 });
