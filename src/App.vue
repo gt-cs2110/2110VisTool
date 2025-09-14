@@ -8,7 +8,7 @@ const CYCLE_BREAK = "CYCLE_BREAK";
 
 const speedScale = ref(50);
 const activeWireTime = computed(() => {
-  let scale = Math.pow(4, speedScale.value / 100) / 2;
+  const scale = Math.pow(4, speedScale.value / 100) / 2;
   return DEFAULT_ACTIVE_WIRE_TIME / scale;
 });
 const lc3Diagram = useTemplateRef("lc3");
@@ -181,56 +181,59 @@ function toggleDiagramLoop() {
 
 function activateMacro(key: string) {
     if (!(key in SEQUENCE_DATA)) return;
-    let { sequence } = SEQUENCE_DATA[key];
+    const { sequence } = SEQUENCE_DATA[key];
 
     resetDiagramLoop();
 
     wireState.value.macro = key;
     // Add CYCLE_BREAKs between the cycles
-    for (let cycle of sequence) {
+    for (const cycle of sequence) {
       wireState.value.wires.push(...cycle, CYCLE_BREAK);
     }
     wireState.value.stop = wireState.value.wires.length;
 }
 </script>
 
-<style scoped>
-@reference "@/style.css";
-
-.control-panel {
-  @apply flex flex-col items-stretch;
-  @apply bg-surface-ui border-surface border-2 rounded-t px-2;
-}
-</style>
-
 <template>
   <div class="flex flex-col gap-3 h-screen">
     <!-- Header -->
     <header class="p-4">
-        <div class="flex gap-1 items-center justify-center">
-          <h1 class="text-center text-4xl">
-            LC-3 Visualization Tool
-          </h1>
-          <Button
-            severity="secondary"
-            variant="text"
-            icon="pi"
-            aria-label="About"
-            rounded
-            @click="infoDialogVisible = true"
-          >
-            <MdiInformationOutline />
-          </Button>
-        </div>
+      <div class="flex gap-1 items-center justify-center">
+        <h1 class="text-center text-4xl">
+          LC-3 Visualization Tool
+        </h1>
+        <Button
+          severity="secondary"
+          variant="text"
+          icon="pi"
+          aria-label="About"
+          rounded
+          @click="infoDialogVisible = true"
+        >
+          <MdiInformationOutline />
+        </Button>
+      </div>
     </header>
     
-    <Dialog v-model:visible="infoDialogVisible" modal dismissableMask header="About">
+    <Dialog
+      v-model:visible="infoDialogVisible"
+      modal
+      dismissable-mask
+      header="About"
+    >
       This visualization tool is an interactive guide on how to trace the LC-3 datapath.<br>
 
-      Designed by Huy Nguyen & Henry Bui, maintained by the <a class="text-blue-500 underline" href="https://github.com/gt-cs2110/">GT CS 2110 TA Team</a>.
+      Designed by Huy Nguyen & Henry Bui, maintained by the <a
+        class="text-blue-500 underline"
+        href="https://github.com/gt-cs2110/"
+      >GT CS 2110 TA Team</a>.
 
       <template #footer>
-        <a title="Source Code" aria-label="Source Code" href="https://github.com/gt-cs2110/2110VisTool">
+        <a
+          title="Source Code"
+          aria-label="Source Code"
+          href="https://github.com/gt-cs2110/2110VisTool"
+        >
           <SiGithub />
         </a>
       </template>
@@ -243,18 +246,20 @@ function activateMacro(key: string) {
         <LC3 ref="lc3" />
       </div>
       <!-- The pseudocode -->
-        <div class="flex grow flex-col items-center 2xl:items-start justify-center">
-          <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
-            <template #title>{{SEQUENCE_DATA[wireState.macro].label}} Pseudocode</template>
-            <template #content>
-              <Pseudocode
-                :pseudocode="SEQUENCE_DATA[wireState.macro].pseudocode"
-                :cycle="wireState.cycle"
-                :running
-              />
-            </template>
-          </Card>
-        </div>
+      <div class="flex grow flex-col items-center 2xl:items-start justify-center">
+        <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
+          <template #title>
+            {{ SEQUENCE_DATA[wireState.macro].label }} Pseudocode
+          </template>
+          <template #content>
+            <Pseudocode
+              :pseudocode="SEQUENCE_DATA[wireState.macro].pseudocode"
+              :cycle="wireState.cycle"
+              :running
+            />
+          </template>
+        </Card>
+      </div>
     </div>
 
     <!-- Control panel -->
@@ -262,16 +267,19 @@ function activateMacro(key: string) {
       <div class="flex items-stretch gap-2 py-2">
         <div class="flex items-center gap-2">
           Speed: 
-          <Slider v-model="speedScale" class="w-56" />
+          <Slider
+            v-model="speedScale"
+            class="w-56"
+          />
           <div class="pl-1">
             <Button
+              v-tooltip.top="running ? 'Pause' : 'Play'"
               :disabled="isLoopDone"
               :aria-label="running ? 'Pause' : 'Play'"
-              v-tooltip.top="running ? 'Pause' : 'Play'"
-              @click="toggleDiagramLoop()"
               class="transition"
               icon="pi"
               rounded
+              @click="toggleDiagramLoop()"
             >
               <mdi-pause v-if="running" />
               <mdi-play v-else />
@@ -283,27 +291,27 @@ function activateMacro(key: string) {
           Step
           <div class="flex gap-0.5">
             <Button
-              aria-label="Step Backward"
               v-tooltip.top="'Step Backward'"
-              @click="() => { pauseDiagramLoop(); stepBack() }"
+              aria-label="Step Backward"
               :dt="{
                 root: {
                   borderRadius: '{form.field.border.radius} 0 0 {form.field.border.radius}'
                 }
               }"
+              @click="() => { pauseDiagramLoop(); stepBack() }"
             >
               <mdi-step-backward />
             </Button>
             <Button
+              v-tooltip.top="'Step Forward'"
               :disabled="isLoopDone"
               aria-label="Step Forward"
-              v-tooltip.top="'Step Forward'"
-              @click="() => { pauseDiagramLoop(); stepFwd() }"
               :dt="{
                 root: {
                   borderRadius: '0 {form.field.border.radius} {form.field.border.radius} 0'
                 }
               }"
+              @click="() => { pauseDiagramLoop(); stepFwd() }"
             >
               <mdi-step-forward />
             </Button>
@@ -312,11 +320,23 @@ function activateMacro(key: string) {
         <Divider layout="vertical" />
         <div class="flex items-center">
           Cycle&nbsp;
-          <span class="font-mono" v-if="wireState.macro">{{ Math.min(wireState.cycle + 1, macroCycleCount ?? Infinity) }}</span>
-          <span class="font-mono" v-else>-</span>
+          <span
+            v-if="wireState.macro"
+            class="font-mono"
+          >{{ Math.min(wireState.cycle + 1, macroCycleCount ?? Infinity) }}</span>
+          <span
+            v-else
+            class="font-mono"
+          >-</span>
           &nbsp;of&nbsp;
-          <span class="font-mono" v-if="wireState.macro">{{ macroCycleCount ?? '-' }}</span>
-          <span class="font-mono" v-else>-</span>
+          <span
+            v-if="wireState.macro"
+            class="font-mono"
+          >{{ macroCycleCount ?? '-' }}</span>
+          <span
+            v-else
+            class="font-mono"
+          >-</span>
         </div>
         <Button
           :disabled="isLoopDone || running"
@@ -363,3 +383,12 @@ function activateMacro(key: string) {
     </div>
   </div>
 </template>
+
+<style scoped>
+@reference "@/style.css";
+
+.control-panel {
+  @apply flex flex-col items-stretch;
+  @apply bg-surface-ui border-surface border-2 rounded-t px-2;
+}
+</style>

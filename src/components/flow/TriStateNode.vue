@@ -24,12 +24,16 @@ const handlePositions = computed(() => Array.from<HandleProperties, HandleProper
 
 <template>
   <div>
-    <TriState :dimensions="props.dimensions" :orientation />
+    <TriState
+      :dimensions="props.dimensions"
+      :orientation
+    />
     <!-- <div>{{ props.data.label }}</div> -->
 
     <Handle 
       v-for="pos of handlePositions"
       :id="pos.id"
+      :key="pos.id"
       :position="pos.side"
       :type="pos.handle"
     />

@@ -8,10 +8,10 @@ import type { HighlightRange, PseudocodeState } from '../sequences';
     }>();
 
     const highlightRanges = computed(() => {
-        let ranges: HighlightRange[] = [];
+        const ranges: HighlightRange[] = [];
 
         let cursor = 0;
-        for (let r of pseudocode.highlights) {
+        for (const r of pseudocode.highlights) {
             if (cursor != r.start) {
                 ranges.push({ start: cursor, end: r.start, cycle: -1 });
             }
@@ -30,7 +30,7 @@ import type { HighlightRange, PseudocodeState } from '../sequences';
      * based on the current cycle number and running state.
      */
     function getAllEnabledClasses(cycle: number, running: boolean) {
-        let cls = Array.from({ length: cycle }, (_, i) => `cy-done-${i}`);
+        const cls = Array.from({ length: cycle }, (_, i) => `cy-done-${i}`);
         if (running) {
             cls.push(`cy-active-${cycle}`);
         }
@@ -38,6 +38,22 @@ import type { HighlightRange, PseudocodeState } from '../sequences';
         return cls;
     }
 </script>
+
+<template>
+  <span
+    class="contents"
+    :class="getAllEnabledClasses(cycle, running)"
+  >
+    <!-- eslint-disable-next-line vue/require-v-for-key -->
+    <span
+      v-for="{start, end, cycle: c} of highlightRanges"
+      class="font-mono whitespace-pre-wrap transition-colors"
+      :class="{ [`cy-on-${c}`] : typeof c != 'number' || c >= 0 }"
+    >
+      {{ pseudocode.source.slice(start, end) }}
+    </span>
+  </span>
+</template>
 
 <style lang="css" scoped>
     @reference "@/style.css";
@@ -88,16 +104,3 @@ import type { HighlightRange, PseudocodeState } from '../sequences';
         @apply text-pink-800 dark:text-pink-200;
     }
 </style>
-
-<template>
-    <span
-        class="contents"
-        :class="getAllEnabledClasses(cycle, running)"
-    >
-        <span v-for="{start, end, cycle: c} of highlightRanges"
-        class="font-mono whitespace-pre-wrap transition-colors"
-        :class="{ [`cy-on-${c}`] : typeof c != 'number' || c >= 0 }">
-            {{ pseudocode.source.slice(start, end) }}
-        </span>
-    </span>
-</template>

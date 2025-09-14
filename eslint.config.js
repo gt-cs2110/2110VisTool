@@ -6,20 +6,20 @@ export default typescriptEslint.config(
   { ignores: ['*.d.ts', '**/coverage', '**/dist'] },
   {
     extends: [
-      eslint.configs.recommended,
-      ...typescriptEslint.configs.recommended,
-      ...eslintPluginVue.configs['flat/recommended'],
+        eslint.configs.recommended,
+        ...typescriptEslint.configs.recommended,
+        ...eslintPluginVue.configs['flat/recommended'],
     ],
     files: ['**/*.{ts,vue}'],
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        parser: typescriptEslint.parser,
-      },
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        parserOptions: {
+            parser: typescriptEslint.parser,
+        },
     },
     rules: {
-      // your rules
+        "vue/multi-word-component-names": "off"
     },
   }
 );

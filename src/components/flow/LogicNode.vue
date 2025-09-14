@@ -76,15 +76,17 @@ const handlePositions = computed(() => {
 
 <template>
   <div class="size-full">
-    <div class="logic-label">{{ props.data.label }}</div>
+    <div class="logic-label">
+      {{ props.data.label }}
+    </div>
 
     <Handle
-        v-for="pos of handlePositions"
-        :key="pos.id || `${pos.side}-${pos.distance}`"
-        :id="pos.id"
-        :type="pos.handle"
-        :position="pos.side"
-        :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
+      v-for="pos of handlePositions"
+      :id="pos.id"
+      :key="pos.id || `${pos.side}-${pos.distance}`"
+      :type="pos.handle"
+      :position="pos.side"
+      :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
     />
   </div>
 </template>

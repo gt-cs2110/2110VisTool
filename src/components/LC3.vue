@@ -63,6 +63,50 @@
     const edges = ref(initialEdges);
 </script>
 
+<template>
+  <div
+    ref="top"
+    class="h-full w-full bg-surface-800 rounded"
+  >
+    <VueFlow
+      :nodes
+      :edges
+      :nodes-draggable="false"
+      class="vue-flow-container"
+      snap-to-grid
+      :snap-grid="[Consts.GRID_GAP_SIZE / 2, Consts.GRID_GAP_SIZE / 2]"
+      :default-viewport="{ x: 2 * Consts.GRID_GAP_SIZE, y: 1 * Consts.GRID_GAP_SIZE, zoom: 0.5 }"
+      @node-click="(e) => console.log(e.node.id, {...e.node.position})"
+    >
+      <Background
+        pattern-color="var(--color-surface-500)"
+        :gap="Consts.GRID_GAP_SIZE"
+        :offset="-Consts.GRID_GAP_SIZE / 2"
+      />
+      
+      <template #node-alu="props">
+        <ALUNode v-bind="props" />
+      </template>
+
+      <template #node-mux="props">
+        <MuxNode v-bind="props" />
+      </template>
+
+      <template #node-logic="props">
+        <LogicNode v-bind="props" />
+      </template>
+          
+      <template #node-bus="props">
+        <BusNode v-bind="props" />
+      </template>
+
+      <template #node-tristate="props">
+        <TriStateNode v-bind="props" />
+      </template>
+    </VueFlow>
+  </div>
+</template>
+
 <style scoped>
     @reference "@/style.css";
 
@@ -98,44 +142,3 @@
         100% { stroke-opacity: 1; }
     }
 </style>
-
-<template>
-    <div ref="top" class="h-full w-full bg-surface-800 rounded">
-        <VueFlow
-            :nodes
-            :edges
-            :nodesDraggable="false"
-            @node-click="(e) => console.log(e.node.id, {...e.node.position})"
-            class="vue-flow-container"
-            snap-to-grid
-            :snap-grid="[Consts.GRID_GAP_SIZE / 2, Consts.GRID_GAP_SIZE / 2]"
-            :default-viewport="{ x: 2 * Consts.GRID_GAP_SIZE, y: 1 * Consts.GRID_GAP_SIZE, zoom: 0.5 }"
-        >
-          <Background
-            pattern-color="var(--color-surface-500)"
-            :gap="Consts.GRID_GAP_SIZE"
-            :offset="-Consts.GRID_GAP_SIZE / 2"
-          />
-      
-          <template #node-alu="props">
-            <ALUNode v-bind="props" />
-          </template>
-
-          <template #node-mux="props">
-            <MuxNode v-bind="props" />
-          </template>
-
-          <template #node-logic="props">
-            <LogicNode v-bind="props" />
-          </template>
-          
-          <template #node-bus="props">
-            <BusNode v-bind="props" />
-          </template>
-
-          <template #node-tristate="props">
-            <TriStateNode v-bind="props" />
-          </template>
-        </VueFlow>
-    </div>
-</template>

@@ -60,10 +60,13 @@ const points = computed(() => [
 </script>
 
 <template>
-  <div class="bus-node" :style="{
-    width: `${width}px`,
-    height: `${height}px`,
-  }">
+  <div
+    class="bus-node"
+    :style="{
+      width: `${width}px`,
+      height: `${height}px`,
+    }"
+  >
     <!-- Square outline with one missing side -->
     <svg
       :width
@@ -72,17 +75,22 @@ const points = computed(() => [
       :style="{ position: 'absolute', top: 0, left: 0, zIndex: 0 }"
     >
       <!-- 3 sides of square -->
-      <g stroke="#fff" :stroke-width="STROKE_WIDTH" fill="none">
-        <polyline :points="points.join(' ')"/>
+      <g
+        stroke="#fff"
+        :stroke-width="STROKE_WIDTH"
+        fill="none"
+      >
+        <polyline :points="points.join(' ')" />
       </g>
     </svg>
 
     <Handle
-        v-for="pos of handlePositions"
-        :id="pos.id"
-        :type="pos.handle"
-        :position="pos.side"
-        :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
+      v-for="pos of handlePositions"
+      :id="pos.id"
+      :key="pos.id"
+      :type="pos.handle"
+      :position="pos.side"
+      :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
     />
   </div>
 </template>

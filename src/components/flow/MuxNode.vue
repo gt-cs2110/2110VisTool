@@ -43,15 +43,19 @@ const handlePositions = computed(() => {
 
 <template>
   <div>
-    <Mux :dimensions="props.dimensions" :orientation />
+    <Mux
+      :dimensions="props.dimensions"
+      :orientation
+    />
     <div>{{ props.data.label }}</div>
 
     <Handle
-        v-for="pos of handlePositions"
-        :id="pos.id"
-        :type="pos.handle"
-        :position="pos.side"
-        :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
+      v-for="pos of handlePositions"
+      :id="pos.id"
+      :key="pos.id"
+      :type="pos.handle"
+      :position="pos.side"
+      :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
     />
   </div>
 </template>

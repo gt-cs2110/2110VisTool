@@ -40,7 +40,11 @@ import { Consts } from '../LC3Components';
 </script>
 
 <template>
-    <svg :viewBox="`0 0 ${width} ${height}`" xmlns="http://www.w3.org/2000/svg" class="node-bg">
-        <polygon :points="points.join(' ')" />
-    </svg>
+  <svg
+    :viewBox="`0 0 ${width} ${height}`"
+    xmlns="http://www.w3.org/2000/svg"
+    class="node-bg"
+  >
+    <polygon :points="points.join(' ')" />
+  </svg>
 </template>
