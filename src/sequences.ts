@@ -73,10 +73,10 @@ function pseudocode(parts: TemplateStringsArray | string, ...subs: [string, High
     if (typeof parts === "string") return { source: dedent(parts), highlights: [] };
     
     let template = dedent(parts.join("{@}"));
-    let highlights: HighlightRange[] = [];
+    const highlights: HighlightRange[] = [];
 
-    for (let [source, cycle] of subs) {
-        let start = template.indexOf("{@}");
+    for (const [source, cycle] of subs) {
+        const start = template.indexOf("{@}");
         if (start == -1) {
             throw new TypeError("Input was not a well-formed template string");
         }

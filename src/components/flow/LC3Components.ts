@@ -1,6 +1,7 @@
 import type { LC3Node } from './types.d';
 import { Position, type Edge } from '@vue-flow/core';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Consts {
     /**
      * Number of pixels in grid gap.

@@ -5,11 +5,10 @@ import type ALUNode from "./ALUNode.vue";
 import type LogicNode from "./LogicNode.vue";
 import type MuxNode from "./MuxNode.vue";
 import type TriStateNode from "./TriStateNode.vue";
-import type ExtenderNode from "./ExtenderNode.vue";
 import type BusNode from "./BusNode.vue";
 
 type NodeTypeOf<Type extends string, C> = C extends Component<NodeProps<infer P>>
-    ? Node<P, any, Type>
+    ? Node<P, unknown, Type>
     : never;
 
 export type LC3Node =

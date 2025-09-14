@@ -47,18 +47,21 @@ function rotatePosition(position: Position, n: number) {
             case Position.Bottom: return Position.Left;
             case Position.Left: return Position.Top;
         }
+        break;
         case 2: switch (position) {
             case Position.Top: return Position.Bottom;
             case Position.Right: return Position.Left;
             case Position.Bottom: return Position.Top;
             case Position.Left: return Position.Right;
         }
+        break;
         case 3: switch (position) {
             case Position.Top: return Position.Left;
             case Position.Right: return Position.Top;
             case Position.Bottom: return Position.Right;
             case Position.Left: return Position.Bottom;
         }
+        break;
     }
 
     throw new Error("Bad argument");
@@ -84,7 +87,7 @@ export function computeHandleOriented<T extends { side: Position }>(
  * @param depth How far into the node the handle should be
  */
 export function getPositionStyles(side: Position, distance?: string, depth?: string) {
-    let properties: { top?: string, left?: string, bottom?: string, right?: string } = {};
+    const properties: { top?: string, left?: string, bottom?: string, right?: string } = {};
 
     if (distance) {
         // Set perpendicular property to edge distance
