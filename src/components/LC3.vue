@@ -7,7 +7,8 @@
     import LogicNode from './flow/LogicNode.vue';
     import TriStateNode from './flow/TriStateNode.vue';
     import BusNode from './flow/BusNode.vue';
-    import { initialNodes, initialEdges, Consts } from './flow/LC3Components';
+    import { GRID_GAP_SIZE } from './flow/constants';
+    import { initialNodes, initialEdges } from './flow/LC3Components';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -74,14 +75,14 @@
       :nodes-draggable="false"
       class="vue-flow-container"
       snap-to-grid
-      :snap-grid="[Consts.GRID_GAP_SIZE / 2, Consts.GRID_GAP_SIZE / 2]"
-      :default-viewport="{ x: 2 * Consts.GRID_GAP_SIZE, y: 1 * Consts.GRID_GAP_SIZE, zoom: 0.5 }"
+      :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
+      :default-viewport="{ x: 2 * GRID_GAP_SIZE, y: 1 * GRID_GAP_SIZE, zoom: 0.5 }"
       @node-click="(e) => console.log(e.node.id, {...e.node.position})"
     >
       <Background
         pattern-color="var(--color-surface-500)"
-        :gap="Consts.GRID_GAP_SIZE"
-        :offset="-Consts.GRID_GAP_SIZE / 2"
+        :gap="GRID_GAP_SIZE"
+        :offset="-GRID_GAP_SIZE / 2"
       />
       
       <template #node-alu="props">

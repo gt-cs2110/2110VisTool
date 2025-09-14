@@ -7,7 +7,7 @@ import ALU from "./shapes/ALU.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
-import { Consts } from './LC3Components';
+import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
     label?: string,
@@ -27,7 +27,7 @@ const handlePositions = computed(() => {
         handles.push({
           side: Position.Bottom,
           distance: "50%",
-          depth: `${Math.round((1 - Consts.ALU_SLANT) * 100 / 2)}%`,
+          depth: `${Math.round((1 - ALU_SLANT) * 100 / 2)}%`,
           handle: "target",
           id: "selector"
         });

@@ -7,7 +7,7 @@ import Mux from "./shapes/Mux.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
-import { Consts } from './LC3Components';
+import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
     label?: string,
@@ -29,7 +29,7 @@ const handlePositions = computed(() => {
   const selectorSide = leftUp.value ? Position.Top : Position.Bottom;
   
   const selectorDistance = "50%";
-  const selectorDepth = `${Math.round((1 - Consts.ALU_SLANT) * 100 / 2)}%`;
+  const selectorDepth = `${Math.round((1 - ALU_SLANT) * 100 / 2)}%`;
   
   return Array.from<HandleProperties, HandleProperties>([
     { id: 'output', side: Position.Right, handle: "source" },
