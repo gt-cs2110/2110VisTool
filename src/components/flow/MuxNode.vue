@@ -42,12 +42,14 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="size-full">
     <Mux
       :dimensions="props.dimensions"
       :orientation
     />
-    <div>{{ props.data.label }}</div>
+    <div class="mux-label small-label">
+      {{ props.data.label }}
+    </div>
 
     <Handle
       v-for="pos of handlePositions"
@@ -70,4 +72,13 @@ const handlePositions = computed(() => {
   text-align: center;
   color: var(--vf-node-text);
 }
+</style>
+<style lang="css" scoped>
+  .mux-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 </style>

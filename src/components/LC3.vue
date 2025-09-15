@@ -72,7 +72,7 @@
     <VueFlow
       :nodes
       :edges
-      :nodes-draggable="false"
+      :nodes-draggable="true"
       class="vue-flow-container"
       snap-to-grid
       :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
@@ -108,6 +108,14 @@
   </div>
 </template>
 
+<style>
+.vue-flow__node {
+    font-size: 25px;
+    .small-label {
+        font-size: 17.5px;
+    }
+}
+</style>
 <style scoped>
     @reference "@/style.css";
 

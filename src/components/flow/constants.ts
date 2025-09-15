@@ -22,7 +22,7 @@ export const BUS_DIMS = {
  */
 export const DEFAULT_NODE_DIMS = {
     width:  6 * GRID_GAP_SIZE,
-    height: 2 * GRID_GAP_SIZE,
+    height: 3 * GRID_GAP_SIZE,
 }
 
 /**
@@ -30,7 +30,7 @@ export const DEFAULT_NODE_DIMS = {
  */
 export const ALU_DIMS = {
     width:  9 * GRID_GAP_SIZE,
-    height: 2 * GRID_GAP_SIZE,
+    height: DEFAULT_NODE_DIMS.height,
 }
 
 /**
@@ -47,8 +47,8 @@ export const TRISTATE_DIMS = {
  * Dimensions of the PC [+1] adder logic.
  */
 export const PC_ADDER_DIMS = {
-    width:  3 * GRID_GAP_SIZE,
-    height: 3 * GRID_GAP_SIZE
+    width:  2 * GRID_GAP_SIZE,
+    height: 2 * GRID_GAP_SIZE
 }
 
 /**
@@ -56,7 +56,7 @@ export const PC_ADDER_DIMS = {
  */
 export const SEXT_NODE_DIMS = {
     width: 4 * GRID_GAP_SIZE,
-    height: DEFAULT_NODE_DIMS.height
+    height: 2 * GRID_GAP_SIZE,
 }
 
 /**
@@ -72,8 +72,8 @@ export const IO_NODE_DIMS = DEFAULT_NODE_DIMS;
  * Dimensions for CC/NZP nodes.
  */
 export const CC_NODE_DIMS = {
-    width: 4 * GRID_GAP_SIZE,
-    height: DEFAULT_NODE_DIMS.height
+    width: 6 * GRID_GAP_SIZE,
+    height: 2 * GRID_GAP_SIZE
 }
 
 /**
@@ -89,7 +89,7 @@ export const REG_FILE_DIMS = {
  */
 export const FSM_DIMS = {
     width: 5 * GRID_GAP_SIZE,
-    height: 10 * GRID_GAP_SIZE
+    height: 9.5 * GRID_GAP_SIZE
 }
 
 /**

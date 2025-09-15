@@ -107,7 +107,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'sext5',
         type: "logic",
-        position: { x: 16 * Consts.GRID_GAP_SIZE, y: 29 * Consts.GRID_GAP_SIZE },
+        position: { x: 16 * Consts.GRID_GAP_SIZE, y: 29.5 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT',
@@ -157,21 +157,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'marAdder',
         type: "alu",
-        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
+        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
         id: 'addr1Mux',
         type: "mux",
-        position: { x: 20 * Consts.GRID_GAP_SIZE, y: 19.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 20 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
         id: 'addr2Mux',
         type: "mux",
-        position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 19.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
@@ -181,7 +181,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'fsm',
         type: "logic",
-        position: { x: 30 * Consts.GRID_GAP_SIZE, y: 29 * Consts.GRID_GAP_SIZE },
+        position: { x: 30 * Consts.GRID_GAP_SIZE, y: 29.5 * Consts.GRID_GAP_SIZE },
         ...Consts.FSM_DIMS,
         data: { 
             label: "Finite State Machine",
@@ -201,7 +201,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'alu',
         type: "alu",
-        position: { x: 42 * Consts.GRID_GAP_SIZE, y: 31 * Consts.GRID_GAP_SIZE },
+        position: { x: 42 * Consts.GRID_GAP_SIZE, y: 33 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: {
             label: "ALU",
@@ -212,7 +212,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'gateAlu',
         type: 'tristate',
-        position: { x: 46 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
+        position: { x: 46 * Consts.GRID_GAP_SIZE, y: 37.5 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { 
             label: "GateALU",
@@ -222,7 +222,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'ccLogic',
         type: "logic",
-        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 36 * Consts.GRID_GAP_SIZE },
+        position: { x: 21 * Consts.GRID_GAP_SIZE, y: 36.5 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "CC Logic",
@@ -233,7 +233,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'nzp',
         type: "logic",
-        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 33.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 21 * Consts.GRID_GAP_SIZE, y: 34 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "NZP",
@@ -288,7 +288,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: "memory",
         type: "logic",
-        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
+        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 45.5 * Consts.GRID_GAP_SIZE },
         ...Consts.MEMORY_DIMS,
         data: {
             label: 'Memory',
