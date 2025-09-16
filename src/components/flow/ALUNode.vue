@@ -1,12 +1,12 @@
 <!-- The pants-shaped component for all diagram components that are arithmetic operations (e.g., adder/ALU). -->
 
 <script setup lang="ts">
-import { Position, Handle } from '@vue-flow/core';
+import { Position, Handle, useNode } from '@vue-flow/core';
 import type { NodeProps } from '@vue-flow/core';
 import ALU from "./shapes/ALU.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
@@ -16,6 +16,7 @@ const props = defineProps<NodeProps<{
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
+const activeClass = computed(() => props.data.activeClasses?.[0] ?? "");
 
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [
@@ -37,7 +38,10 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div class="size-full">
+  <div
+    class="size-full"
+    :class="activeClass"
+  >
     <ALU
       :dimensions="props.dimensions"
       :orientation

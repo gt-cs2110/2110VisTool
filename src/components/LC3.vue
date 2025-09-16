@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ref, useTemplateRef } from 'vue';
-    import { VueFlow } from '@vue-flow/core';
+    import { useEdge, VueFlow } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
     import ALUNode from './flow/ALUNode.vue';
     import MuxNode from './flow/MuxNode.vue';
@@ -12,49 +12,67 @@
     import { initialNodes, initialEdges } from './flow/LC3Components';
     import WireEdge from './flow/WireEdge.vue';
 
-    const top = useTemplateRef<HTMLDivElement>("top");
+    const top = useTemplateRef("top");
+    const flow = useTemplateRef("flow");
+
     defineExpose({
         /**
          * Activates the wire with the given ID, causing it to light up.
          * @param wireId ID of the wire to activate.
          */
         activateWire(wireId: string, cycle: number) {
-                // Activate selected wire
-            const wire = document.getElementById(wireId);
-            if (wire) {
-                wire.classList.remove(
-                    ...Array.from(wire.classList.values())
-                        .filter(cls => cls.startsWith("active-"))
-                );
-                wire.classList.add("active", `active-${cycle}`);
-            } else {
-                console.warn("Failed to activate missing wire:", wireId);
+            if (!flow.value) return;
+
+            const edge = flow.value.findEdge(wireId);
+            if (edge) {
+                (edge.data.activeCycles ??= []).push(cycle);
+                edge.data.animator.animate(1000);
+                return;
             }
+
+            const node = flow.value.findNode(wireId);
+            if (node) {
+                (node.data.activeCycles ??= []).push(cycle);
+                return;
+            }
+
+            console.warn("Failed to activate missing wire:", wireId);
         },
         /**
          * Deactivates the wire with the given ID, causing it to turn off.
          * @param wireId ID of the wire to activate.
          */
         deactivateWire(wireId: string) {
-            const wire = document.getElementById(wireId);
-            if (wire) {
-                wire.classList.remove(
-                    'active',
-                    ...Array.from(wire.classList.values())
-                        .filter(cls => cls.startsWith("active-"))
-                );
-            } else {
-                console.warn("Failed to deactivate missing wire:", wireId);
+            if (!flow.value) return;
+
+            const edge = flow.value.findEdge(wireId);
+            if (edge) {
+                (edge.data.activeCycles ??= []).pop();
+                edge.data.animator.animate(1000);
+                return;
             }
+
+            const node = flow.value.findNode(wireId);
+            if (node) {
+                (node.data.activeCycles ??= []).pop();
+                return;
+            }
+
+            console.warn("Failed to deactivate missing wire:", wireId);
         },
 
         /**
          * Resets all wires, removing their light-up status.
          */
         resetWires() {
-            document.querySelectorAll('.wire').forEach(wire => {
-                wire.classList.remove('active');
-            });
+            if (!flow.value) return;
+
+            for (const node of flow.value.nodes) {
+                node.data.activeClasses = [];
+            }
+            for (const edge of flow.value.edges) {
+                edge.data.animator.reset();
+            }
         },
 
         scrollIntoView() {
@@ -73,6 +91,7 @@
   >
     <VueFlow
       id="lc3-flow-diagram"
+      ref="flow"
       :nodes
       :edges
       :nodes-draggable="true"
@@ -186,31 +205,31 @@
     }
 
     :deep(.vue-flow__node-logic) {
-        &.active-0 {
+        &:has(.active-0) {
             background-color: var(--color-active-0-light);
             border-color: var(--color-active-0);
         }
-        &.active-1 {
+        &:has(.active-1) {
             background-color: var(--color-active-1-light);
             border-color: var(--color-active-1);
         }
-        &.active-2 {
+        &:has(.active-2) {
             background-color: var(--color-active-2-light);
             border-color: var(--color-active-2);
         }
-        &.active-3 {
+        &:has(.active-3) {
             background-color: var(--color-active-3-light);
             border-color: var(--color-active-3);
         }
-        &.active-4 {
+        &:has(.active-4) {
             background-color: var(--color-active-4-light);
             border-color: var(--color-active-4);
         }
-        &.active-5 {
+        &:has(.active-5) {
             background-color: var(--color-active-5-light);
             border-color: var(--color-active-5);
         }
-        &.active-6 {
+        &:has(.active-6) {
             background-color: var(--color-active-6-light);
             border-color: var(--color-active-6);
         }

@@ -42,8 +42,16 @@ function reset() {
     pathEl.value.style.strokeDashoffset = '1000';
   }
 }
+function complete() {
+  animation?.cancel();
+  animation = null;
+  if (pathEl.value) {
+    pathEl.value.style.strokeDashoffset = '0';
+  }
+}
 
-defineExpose({ animate, pause, reset, resume });
+props.data.animator = { animate, pause, reset, resume, complete };
+defineExpose(props.data.animator);
 
 // temporary
 window.addEventListener("keydown", e => {
@@ -54,7 +62,7 @@ if (props.markerEnd != "url('#')") console.log(props.markerEnd);
 
 <script lang="ts">
 export default {
-  name: 'CustomEdge',
+  name: 'WireEdge',
 };
 </script>
 
@@ -75,6 +83,7 @@ export default {
 <style>
   @reference "@/style.css";
   .vue-flow__edge-wire > .vue-flow__edge-path {
+    stroke: var(--color-active-0);
     stroke-width: 2;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;

@@ -541,7 +541,7 @@ export const initialEdges: Edge[] = [
 
     // PCMUX
     {
-        id: 'pcMux',
+        id: 'pcMuxPc',
         source: 'pcMux',
         target: 'pc',
         sourceHandle: 'output',
@@ -831,7 +831,7 @@ export const initialEdges: Edge[] = [
 
     // Gate PC
     {
-        id: 'gatePc',
+        id: 'gatePcBus',
         source: 'gatePc',
         target: 'bus',
         sourceHandle: 'output',
@@ -840,7 +840,7 @@ export const initialEdges: Edge[] = [
     },
     // Gate MARMUX
     {
-        id: 'gateMarMux',
+        id: 'gateMarMuxBus',
         source: 'gateMarMux',
         target: 'bus',
         sourceHandle: 'output',
@@ -850,7 +850,7 @@ export const initialEdges: Edge[] = [
 
     // Gate MDR
     {
-        id: 'gateMdr',
+        id: 'gateMdrBus',
         source: 'gateMdr',
         target: 'bus',
         sourceHandle: 'output',

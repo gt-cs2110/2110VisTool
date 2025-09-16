@@ -17,6 +17,7 @@ const props = defineProps<NodeProps<{
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
+const activeClass = computed(() => props.data.activeClasses?.[0] ?? "");
 const nInputs = computed(() => props.data.inputSize ?? 2);
 const leftUp = computed(() => !!props.data.selectorLeftUp);
 
@@ -44,6 +45,7 @@ const handlePositions = computed(() => {
 <template>
   <div class="size-full">
     <Mux
+      :class="activeClass"
       :dimensions="props.dimensions"
       :orientation
     />
