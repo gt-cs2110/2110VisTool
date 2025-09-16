@@ -48,7 +48,6 @@
             const edge = flow.value.findEdge(wireId);
             if (edge) {
                 (edge.data.activeCycles ??= []).pop();
-                edge.data.animator.animate(1000);
                 return;
             }
 

@@ -106,8 +106,8 @@ const sequences: Record<string, MacroData> = {
                 "mar",
                 "pcAdderPc",
                 "pcAdder",
-                "pcMux",
                 "pcAdderPcMux",
+                "pcMux",
                 "pcMuxPc",
                 "pc"
         ], [
