@@ -44,6 +44,18 @@ export const TRISTATE_DIMS = {
 }
 
 /**
+ * Dimensions of a generic node.
+ * 
+ * For logic, this is the width/height of the rectangle.
+ * For muxes, the width is the long side 
+ *     and the height is the short side.
+ */
+export const LABEL_DIMS = {
+    width:  4 * GRID_GAP_SIZE,
+    height: 2 * GRID_GAP_SIZE,
+}
+
+/**
  * Dimensions of the PC [+1] adder logic.
  */
 export const PC_ADDER_DIMS = {
