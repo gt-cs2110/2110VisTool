@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { EdgeProps } from '@vue-flow/core';
-import { BaseEdge, getSmoothStepPath, getStraightPath } from '@vue-flow/core';
+import { BaseEdge, getMarkerId, getSmoothStepPath, getStraightPath, MarkerType } from '@vue-flow/core';
 import { computed, useTemplateRef } from 'vue';
 
 const props = defineProps<EdgeProps<object>>();
-console.log(props.data);
 
 const path = computed(() => {
   const straight = (props.sourceX == props.targetX) || (props.sourceY == props.targetY);
@@ -13,6 +12,7 @@ const path = computed(() => {
 
 const baseEl = useTemplateRef("baseEdge");
 const pathEl = computed(() => baseEl.value?.pathEl);
+const arrowEnd = computed(() => getMarkerId({ type: MarkerType.ArrowClosed }, "lc3-flow-diagram"));
 
 let animation: Animation | null = null;
 
@@ -49,6 +49,7 @@ defineExpose({ animate, pause, reset, resume });
 window.addEventListener("keydown", e => {
   animate(1500);
 })
+if (props.markerEnd != "url('#')") console.log(props.markerEnd);
 </script>
 
 <script lang="ts">
@@ -61,11 +62,13 @@ export default {
   <path
     :d="path[0]"
     class="vue-flow__edge-path path-background"
+    :marker-end="`url(#${arrowEnd})`"
   />
   <BaseEdge
     :id
     ref="baseEdge"
     :path="path[0]"
+    :marker-end="`url(#${arrowEnd})`"
   />
 </template>
 

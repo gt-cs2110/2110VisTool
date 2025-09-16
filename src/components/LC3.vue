@@ -72,6 +72,7 @@
     class="h-full w-full bg-surface-800 rounded"
   >
     <VueFlow
+      id="lc3-flow-diagram"
       :nodes
       :edges
       :nodes-draggable="true"

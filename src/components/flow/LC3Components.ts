@@ -1,6 +1,6 @@
 import * as Consts from "./constants";
 import type { LC3Node } from './types.d';
-import { Position, type Edge } from '@vue-flow/core';
+import { MarkerType, Position, type Edge } from '@vue-flow/core';
 
 export const initialNodes: LC3Node[] = [
     {
@@ -501,7 +501,12 @@ export const initialEdges: Edge[] = [
         target: 'marAdder',
         sourceHandle: 'output',
         targetHandle:  'input-a',
-        type: 'wire'
+        type: 'wire',
+        // This needs to appear at least once
+        // for it to appear to all edges
+        markerEnd: {
+            type: MarkerType.ArrowClosed,
+        }
     },
 
     // ADDR2MUX
