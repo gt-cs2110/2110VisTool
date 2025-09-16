@@ -10,7 +10,8 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
-    orientation?: Orientation
+    orientation?: Orientation,
+    activeCycles?: number[]
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
@@ -20,6 +21,10 @@ const handlePositions = computed(() => Array.from<HandleProperties, HandleProper
     { id: "input", side: Position.Left, handle: "target" },
 ], p => computeHandleOriented(p, orientation.value)));
 
+// Active highlight
+const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
+const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
+
 </script>
 
 <template>
@@ -27,6 +32,7 @@ const handlePositions = computed(() => Array.from<HandleProperties, HandleProper
     <TriState
       :dimensions="props.dimensions"
       :orientation
+      :class="activeClass"
     />
     <!-- <div>{{ props.data.label }}</div> -->
 

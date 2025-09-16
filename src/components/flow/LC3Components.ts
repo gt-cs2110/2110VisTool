@@ -531,7 +531,7 @@ export const initialEdges: Edge[] = [
 
     // MDRMUX
     {
-        id: 'mdrMuxmdr',
+        id: 'mdrMuxMdr',
         source: 'mdrMux',
         target: 'mdr',
         sourceHandle: 'output',

@@ -1,22 +1,25 @@
 <!-- The pants-shaped component for all diagram components that are arithmetic operations (e.g., adder/ALU). -->
 
 <script setup lang="ts">
-import { Position, Handle, useNode } from '@vue-flow/core';
+import { Position, Handle } from '@vue-flow/core';
 import type { NodeProps } from '@vue-flow/core';
 import ALU from "./shapes/ALU.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
     label?: string,
     orientation?: Orientation,
-    selector?: boolean
+    selector?: boolean,
+    activeCycles?: number[]
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
-const activeClass = computed(() => props.data.activeClasses?.[0] ?? "");
+// Active highlight
+const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
+const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
 
 const handlePositions = computed(() => {
     const handles: HandleProperties[] = [

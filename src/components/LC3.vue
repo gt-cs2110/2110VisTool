@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { ref, useTemplateRef } from 'vue';
-    import { useEdge, VueFlow } from '@vue-flow/core';
+    import { VueFlow } from '@vue-flow/core';
     import { Background } from '@vue-flow/background';
     import ALUNode from './flow/ALUNode.vue';
     import MuxNode from './flow/MuxNode.vue';
@@ -68,7 +68,7 @@
             if (!flow.value) return;
 
             for (const node of flow.value.nodes) {
-                node.data.activeClasses = [];
+                node.data.activeCycles = [];
             }
             for (const edge of flow.value.edges) {
                 edge.data.animator.reset();

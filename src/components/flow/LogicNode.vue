@@ -11,11 +11,15 @@ const props = defineProps<NodeProps<{
     label?: string,
     orientation?: Orientation,
     handles?: HandleProperties[],
-    componentType?: LogicComponentType
+    componentType?: LogicComponentType,
+    activeCycles?: number[]
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'right');
-const activeClass = computed(() => props.data.activeClasses?.[0] ?? "");
+// Active highlight
+const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
+const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
+
 watch(activeClass, c => console.log(props.id, c));
 type LogicComponentType = 'register' | 'regfile' | 'memory' | 'fsm' | 'mdr' | 'extender' | 'default';
 
@@ -76,7 +80,10 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div class="size-full" :class="activeClass">
+  <div
+    class="size-full"
+    :class="activeClass"
+  >
     <div class="logic-label">
       {{ props.data.label }}
     </div>

@@ -6,20 +6,24 @@ import type { NodeProps } from '@vue-flow/core';
 import Mux from "./shapes/Mux.vue";
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
     label?: string,
     orientation?: Orientation,
     inputSize?: number,
-    selectorLeftUp?: boolean
+    selectorLeftUp?: boolean,
+    activeCycles?: number[]
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
-const activeClass = computed(() => props.data.activeClasses?.[0] ?? "");
 const nInputs = computed(() => props.data.inputSize ?? 2);
 const leftUp = computed(() => !!props.data.selectorLeftUp);
+// Active highlight
+const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
+const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
+watch(activeClass, console.log);
 
 function computeDistance(i: number, nInputs: number) {
   // 1/2n distance around the edges, and 1/n between ports
