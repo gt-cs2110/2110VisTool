@@ -70,14 +70,14 @@ export default {
 </template>
 
 <style>
-  .vue-flow__edge-custom > .vue-flow__edge-path {
-    stroke: red;
+  @reference "@/style.css";
+  .vue-flow__edge-wire > .vue-flow__edge-path {
     stroke-width: 2;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
 
     &.path-background {
-      stroke: white;
+      stroke: var(--color-inactive);
       stroke-dasharray: none;
     }
   }

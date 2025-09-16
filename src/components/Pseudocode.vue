@@ -62,45 +62,45 @@ import type { HighlightRange, PseudocodeState } from '../sequences';
         @apply text-surface-400 dark:text-surface-500;
     }
     .cy-done-0 .cy-on-0 {
-        @apply text-red-500;
+        @apply text-active-0;
     }
     .cy-active-0 .cy-on-0 {
-        @apply text-red-800 dark:text-red-200;
+        @apply text-active-0-dark dark:text-active-0-light;
     }
     .cy-done-1 .cy-on-1 {
-        @apply text-orange-500;
+        @apply text-active-1;
     }
     .cy-active-1 .cy-on-1 {
-        @apply text-orange-800 dark:text-orange-200;
+        @apply text-active-1-dark dark:text-active-1-light;
     }
     .cy-done-2 .cy-on-2 {
-        @apply text-yellow-500;
+        @apply text-active-2;
     }
     .cy-active-2 .cy-on-2 {
-        @apply text-yellow-800 dark:text-yellow-200;
+        @apply text-active-2-dark dark:text-active-2-light;
     }
     .cy-done-3 .cy-on-3 {
-        @apply text-green-500;
+        @apply text-active-3;
     }
     .cy-active-3 .cy-on-3 {
-        @apply text-green-800 dark:text-green-200;
+        @apply text-active-3-dark dark:text-active-3-light;
     }
     .cy-done-4 .cy-on-4 {
-        @apply text-blue-500;
+        @apply text-active-4;
     }
     .cy-active-4 .cy-on-4 {
-        @apply text-blue-800 dark:text-blue-200;
+        @apply text-active-4-dark dark:text-active-4-light;
     }
     .cy-done-5 .cy-on-5 {
-        @apply text-purple-500;
+        @apply text-active-5;
     }
     .cy-active-5 .cy-on-5 {
-        @apply text-purple-800 dark:text-purple-200;
+        @apply text-active-5-dark dark:text-active-5-light;
     }
     .cy-done-6 .cy-on-6 {
-        @apply text-pink-500;
+        @apply text-active-6;
     }
     .cy-active-6 .cy-on-6 {
-        @apply text-pink-800 dark:text-pink-200;
+        @apply text-active-6-dark dark:text-active-6-light;
     }
 </style>

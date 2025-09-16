@@ -10,7 +10,7 @@
     import SignalNode from './flow/SignalNode.vue';
     import { GRID_GAP_SIZE } from './flow/constants';
     import { initialNodes, initialEdges } from './flow/LC3Components';
-    import CustomEdge from './flow/CustomEdge.vue';
+    import WireEdge from './flow/WireEdge.vue';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -111,8 +111,8 @@
         <SignalNode v-bind="props" />
       </template>
 
-      <template #edge-custom="props">
-        <CustomEdge v-bind="props" />
+      <template #edge-wire="props">
+        <WireEdge v-bind="props" />
       </template>
     </VueFlow>
   </div>
@@ -129,35 +129,89 @@
 <style scoped>
     @reference "@/style.css";
 
-    .wire.active {
-        @apply fill-surface-500 stroke-surface-500;
-        animation: wire-pulse 1s infinite;
-    }
-    .wire.active.active-0 {
-        @apply fill-red-500 stroke-red-500;
-    }
-    .wire.active.active-1 {
-        @apply fill-orange-500 stroke-orange-500;
-    }
-    .wire.active.active-2 {
-        @apply fill-yellow-500 stroke-yellow-500;
-    }
-    .wire.active.active-3 {
-        @apply fill-green-500 stroke-green-500;
-    }
-    .wire.active.active-4 {
-        @apply fill-blue-500 stroke-blue-500;
-    }
-    .wire.active.active-5 {
-        @apply fill-purple-500 stroke-purple-500;
-    }
-    .wire.active.active-6 {
-        @apply fill-pink-500 stroke-pink-500;
+    :deep(.vue-flow__edge-wire > .vue-flow__edge-path) {
+        &.active-0 {
+            stroke: var(--color-active-0);
+        }
+        &.active-1 {
+            stroke: var(--color-active-1);
+        }
+        &.active-2 {
+            stroke: var(--color-active-2);
+        }
+        &.active-3 {
+            stroke: var(--color-active-3);
+        }
+        &.active-4 {
+            stroke: var(--color-active-4);
+        }
+        &.active-5 {
+            stroke: var(--color-active-5);
+        }
+        &.active-6 {
+            stroke: var(--color-active-6);
+        }
     }
 
-    @keyframes wire-pulse {
-        0% { stroke-opacity: 1; }
-        50% { stroke-opacity: 0.5; }
-        100% { stroke-opacity: 1; }
+    :deep(.vue-flow__node svg.shape) {
+        &.active-0 {
+            fill: var(--color-active-0-light);
+            stroke: var(--color-active-0);
+        }
+        &.active-1 {
+            fill: var(--color-active-1-light);
+            stroke: var(--color-active-1);
+        }
+        &.active-2 {
+            fill: var(--color-active-2-light);
+            stroke: var(--color-active-2);
+        }
+        &.active-3 {
+            fill: var(--color-active-3-light);
+            stroke: var(--color-active-3);
+        }
+        &.active-4 {
+            fill: var(--color-active-4-light);
+            stroke: var(--color-active-4);
+        }
+        &.active-5 {
+            fill: var(--color-active-5-light);
+            stroke: var(--color-active-5);
+        }
+        &.active-6 {
+            fill: var(--color-active-6-light);
+            stroke: var(--color-active-6);
+        }
+    }
+
+    :deep(.vue-flow__node-logic) {
+        &.active-0 {
+            background-color: var(--color-active-0-light);
+            border-color: var(--color-active-0);
+        }
+        &.active-1 {
+            background-color: var(--color-active-1-light);
+            border-color: var(--color-active-1);
+        }
+        &.active-2 {
+            background-color: var(--color-active-2-light);
+            border-color: var(--color-active-2);
+        }
+        &.active-3 {
+            background-color: var(--color-active-3-light);
+            border-color: var(--color-active-3);
+        }
+        &.active-4 {
+            background-color: var(--color-active-4-light);
+            border-color: var(--color-active-4);
+        }
+        &.active-5 {
+            background-color: var(--color-active-5-light);
+            border-color: var(--color-active-5);
+        }
+        &.active-6 {
+            background-color: var(--color-active-6-light);
+            border-color: var(--color-active-6);
+        }
     }
 </style>
