@@ -1,4 +1,5 @@
 import dedent from "dedent-js";
+import { NodeId } from "./components/flow/LC3Components";
 interface MacroData {
     /**
      * THe text label of the macro.
@@ -90,6 +91,10 @@ function pseudocode(parts: TemplateStringsArray | string, ...subs: [string, High
     return { source: template, highlights };
 }
 
+function edge(source: string, target: string) {
+    return `${source}-${target}`;
+}
+
 const sequences: Record<string, MacroData> = {
     "FETCH": {
         "label": "Fetch",
@@ -99,31 +104,37 @@ const sequences: Record<string, MacroData> = {
         `,
         "sequence": [
             [
-                "pcGatePc",
-                "gatePc",
-                "gatePcBus",
-                "busMar",
-                "mar",
-                "pcAdderPc",
-                "pcAdder",
-                "pcAdderPcMux",
-                "pcMux",
-                "pcMuxPc",
-                "pc"
+                // MAR <- PC
+                edge(NodeId.PC, NodeId.GatePC),
+                NodeId.GatePC,
+                edge(NodeId.GatePC, NodeId.Bus),
+                // TODO: Bus
+                edge(NodeId.Bus, NodeId.MAR),
+                NodeId.MAR,
+                
+                // PC <- PC + 1
+                edge(NodeId.PC, NodeId.PCAdder),
+                NodeId.PCAdder,
+                edge(NodeId.PCAdder, NodeId.PCMux),
+                NodeId.PCMux,
+                edge(NodeId.PCMux, NodeId.PC),
+                NodeId.PC,
         ], [
-                "marMemory",
-                "memory",
-                "memoryMdrMux",
-                "mdrMux",
-                "mdrMuxMdr",
-                "mdr",
+                // MDR <- Mem[MAR]
+                edge(NodeId.MAR, NodeId.Memory),
+                NodeId.Memory,
+                edge(NodeId.Memory, NodeId.MdrMux),
+                NodeId.MdrMux,
+                edge(NodeId.MdrMux, NodeId.MDR),
+                NodeId.MDR,
             ], [
-                "1 (Gate.MDR)",
-                "mdrGateMdr",
-                "gateMdr",
-                "gateMdrBus",
-                "busIr",
-                "ir"
+                // IR <- MDR
+                edge(NodeId.MDR, NodeId.GateMdr),
+                NodeId.GateMdr,
+                edge(NodeId.GateMdr, NodeId.Bus),
+                // TODO: Bus
+                edge(NodeId.Bus, NodeId.IR),
+                NodeId.IR,
             ]
         ]
     },

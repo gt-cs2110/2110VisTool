@@ -2,9 +2,58 @@ import * as Consts from "./constants";
 import type { LC3Node } from './types.d';
 import { MarkerType, Position, type Edge } from '@vue-flow/core';
 
+export const enum NodeId {
+    Bus = "bus",
+    MarMux = "marMux",
+    GateMarMux = "gateMarMux",
+    GatePC = "gatePc",
+    PC = "pc",
+    PCMux = "pcMux",
+    PCAdder = "pcAdder",
+    RegFile = 'regFile',
+    Zext8 = 'zext8',
+    Sext5 = 'sext5',
+    Sext6 = 'sext6',
+    Sext9 = 'sext9',
+    Sext11 = 'sext11',
+    IR = 'ir',
+    MarAdder = 'marAdder',
+    Addr1Mux = 'addr1Mux',
+    Addr2Mux = 'addr2Mux',
+    FSM = 'fsm',
+    SR2Mux = 'sr2Mux',
+    ALU = 'alu',
+    GateALU = 'gateAlu',
+    CCLogic = 'ccLogic',
+    NZP = 'nzp',
+    IOInput = 'ioInput',
+    IOOutput = 'ioOutput',
+    SR1Mux = 'sr1Mux',
+    DrMux = 'drmux',
+    Memory = "memory",
+    MAR = "mar",
+    MDR = "mdr",
+    MdrMux = "mdrMux",
+    GateMdr = "gateMdr",
+    SignalLdReg = "ldreg",
+    SignalLdMar = "ldmar",
+    SignalLdIR = "ldir",
+    SignalLdMDR = "ldmdr",
+    SignalLdCC = "ldcc",
+    SignalLdPC = "ldpc",
+    SignalMemEn = "memen",
+    SignalRW = "rw",
+    SignalRF_DR = "dr",
+    SignalRF_SR1 = "sr1",
+    SignalRF_SR2 = "sr2",
+    SignalSR1_IR11 = "ir11sr1",
+    SignalSR1_IR8 = "ir8sr1",
+    SignalDR_IR11 = "ir11dr",
+    SignalDR_R7 = "reg7",
+}
 export const initialNodes: LC3Node[] = [
     {
-        id: "bus",
+        id: NodeId.Bus,
         type: "bus",
         position: { x: 0, y: 0 },
         ...Consts.BUS_DIMS,
@@ -30,7 +79,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "marMux",
+        id: NodeId.MarMux,
         type: "mux",
         position: { x: 10 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -39,21 +88,21 @@ export const initialNodes: LC3Node[] = [
             selectorLeftUp: true}
     },
     {
-        id: "gateMarMux",
+        id: NodeId.GateMarMux,
         type: "tristate",
         position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMARMUX" }
     },
     {
-        id: "gatePc",
+        id: NodeId.GatePC,
         type: "tristate",
         position: { x: 31.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GatePC" }
     },
     { 
-        id: "pc",
+        id: NodeId.PC,
         type: "logic",
         position: { x: 29 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -63,7 +112,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     { 
-        id: "pcMux",
+        id: NodeId.PCMux,
         type: "mux",
         position: { x: 29 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -73,7 +122,7 @@ export const initialNodes: LC3Node[] = [
             selectorLeftUp: true}
     },
     { 
-        id: "pcAdder",
+        id: NodeId.PCAdder,
         type: "logic",
         position: { x: 36 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.PC_ADDER_DIMS,
@@ -84,7 +133,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     { 
-        id: 'regFile',
+        id: NodeId.RegFile,
         type: "logic",
         position: { x: 45 * Consts.GRID_GAP_SIZE, y: 4 * Consts.GRID_GAP_SIZE },
         ...Consts.REG_FILE_DIMS,
@@ -94,7 +143,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'zext8',
+        id: NodeId.Zext8,
         type: "logic",
         position: { x: 2 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
@@ -105,7 +154,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sext5',
+        id: NodeId.Sext5,
         type: "logic",
         position: { x: 16 * Consts.GRID_GAP_SIZE, y: 29.5 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
@@ -115,7 +164,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sext6',
+        id: NodeId.Sext6,
         type: "logic",
         position: { x: 6 * Consts.GRID_GAP_SIZE, y: 26 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
@@ -125,7 +174,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sext9',
+        id: NodeId.Sext9,
         type: "logic",
         position: { x: 6 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
@@ -135,7 +184,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sext11',
+        id: NodeId.Sext11,
         type: "logic",
         position: { x: 6 * Consts.GRID_GAP_SIZE, y: 22 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
@@ -145,7 +194,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'ir',
+        id: NodeId.IR,
         type: "logic",
         position: { x: 1 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -155,21 +204,21 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'marAdder',
+        id: NodeId.MarAdder,
         type: "alu",
         position: { x: 15 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
-        id: 'addr1Mux',
+        id: NodeId.Addr1Mux,
         type: "mux",
         position: { x: 20 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
-        id: 'addr2Mux',
+        id: NodeId.Addr2Mux,
         type: "mux",
         position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -179,7 +228,7 @@ export const initialNodes: LC3Node[] = [
             selectorLeftUp: true}
     },
     {
-        id: 'fsm',
+        id: NodeId.FSM,
         type: "logic",
         position: { x: 30 * Consts.GRID_GAP_SIZE, y: 29.5 * Consts.GRID_GAP_SIZE },
         ...Consts.FSM_DIMS,
@@ -189,7 +238,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sr2Mux',
+        id: NodeId.SR2Mux,
         type: "mux",
         position: { x: 41 * Consts.GRID_GAP_SIZE, y: 27.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -199,7 +248,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'alu',
+        id: NodeId.ALU,
         type: "alu",
         position: { x: 42 * Consts.GRID_GAP_SIZE, y: 33 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
@@ -210,7 +259,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'gateAlu',
+        id: NodeId.GateALU,
         type: 'tristate',
         position: { x: 46 * Consts.GRID_GAP_SIZE, y: 37.5 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
@@ -220,7 +269,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'ccLogic',
+        id: NodeId.CCLogic,
         type: "logic",
         position: { x: 21 * Consts.GRID_GAP_SIZE, y: 36.5 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
@@ -231,7 +280,7 @@ export const initialNodes: LC3Node[] = [
          }
     },
     {
-        id: 'nzp',
+        id: NodeId.NZP,
         type: "logic",
         position: { x: 21 * Consts.GRID_GAP_SIZE, y: 34 * Consts.GRID_GAP_SIZE },
         ...Consts.CC_NODE_DIMS,
@@ -242,7 +291,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'ioInput',
+        id: NodeId.IOInput,
         type: "logic",
         position: { x: 42 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.IO_NODE_DIMS,
@@ -252,7 +301,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'ioOutput',
+        id: NodeId.IOOutput,
         type: "logic",
         position: { x: 49 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.IO_NODE_DIMS,
@@ -262,7 +311,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: 'sr1Mux',
+        id: NodeId.SR1Mux,
         type: "mux",
         position: { x: 42 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         // Inverted because rotated 90
@@ -274,7 +323,7 @@ export const initialNodes: LC3Node[] = [
             selectorLeftUp: true}
     },
     {
-        id: 'drmux',
+        id: NodeId.DrMux,
         type: "mux",
         position: { x: 53 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         // Inverted because rotated 90
@@ -286,7 +335,7 @@ export const initialNodes: LC3Node[] = [
             selectorLeftUp: true}
     },
     {
-        id: "memory",
+        id: NodeId.Memory,
         type: "logic",
         position: { x: 18 * Consts.GRID_GAP_SIZE, y: 45.5 * Consts.GRID_GAP_SIZE },
         ...Consts.MEMORY_DIMS,
@@ -296,7 +345,7 @@ export const initialNodes: LC3Node[] = [
         },
     },
     {
-        id: "mar",
+        id: NodeId.MAR,
         type: "logic",
         position: { x: 29 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -307,7 +356,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "mdr",
+        id: NodeId.MDR,
         type: "logic",
         position: { x: 9 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
@@ -317,21 +366,21 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "mdrMux",
+        id: NodeId.MdrMux,
         type: "mux",
         position: { x: 9 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: "MDRMUX" }
     },
     {
-        id: "gateMdr",
+        id: NodeId.GateMdr,
         type: "tristate",
         position: { x: 11.5 * Consts.GRID_GAP_SIZE, y: 42 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMDR" }
     },
     {
-        id: "ldreg",
+        id: NodeId.SignalLdReg,
         type: "signal",
         position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 7 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -340,7 +389,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ldmar",
+        id: NodeId.SignalLdMar,
         type: "signal",
         position: { x: 36 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -350,16 +399,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ldpc",
-        type: "signal",
-        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
-        ...Consts.LABEL_DIMS,
-        data: {
-            label: "LD.PC"
-        }
-    },
-    {
-        id: "ldir",
+        id: NodeId.SignalLdIR,
         type: "signal",
         position: { x: -6 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -368,7 +408,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ldmdr",
+        id: NodeId.SignalLdMDR,
         type: "signal",
         position: { x: 2 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -377,7 +417,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ldcc",
+        id: NodeId.SignalLdCC,
         type: "signal",
         position: { x: 14 * Consts.GRID_GAP_SIZE, y: 33.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -386,7 +426,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ldpc",
+        id: NodeId.SignalLdPC,
         type: "signal",
         position: { x: 21.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -395,7 +435,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "memen",
+        id: NodeId.SignalMemEn,
         type: "signal",
         position: { x: 17 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -405,7 +445,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "rw",
+        id: NodeId.SignalRW,
         type: "signal",
         position: { x: 21 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -415,7 +455,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "dr",
+        id: NodeId.SignalRF_DR,
         type: "signal",
         position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -424,7 +464,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "sr1",
+        id: NodeId.SignalRF_SR1,
         type: "signal",
         position: { x: 52.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -434,7 +474,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "sr2",
+        id: NodeId.SignalRF_SR2,
         type: "signal",
         position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -443,7 +483,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ir11sr1",
+        id: NodeId.SignalSR1_IR11,
         type: "signal",
         position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -452,7 +492,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ir8sr1",
+        id: NodeId.SignalSR1_IR8,
         type: "signal",
         position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -461,7 +501,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "ir11dr",
+        id: NodeId.SignalDR_IR11,
         type: "signal",
         position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -470,7 +510,7 @@ export const initialNodes: LC3Node[] = [
         }
     },
     {
-        id: "reg7",
+        id: NodeId.SignalDR_R7,
         type: "signal",
         position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
@@ -486,7 +526,7 @@ export const initialNodes: LC3Node[] = [
  * Edges are grouped by type of component. An edge is listed
  * under a specific component if it is a source.
  * 
- * id: sourceIdTargetId
+ * id: sourceId-TargetId
  */
 
 export const initialEdges: Edge[] = [
@@ -496,11 +536,11 @@ export const initialEdges: Edge[] = [
 
     // ADDR1MUX
     {
-        id: 'addr1MuxMarAdder',
-        source: 'addr1Mux',
-        target: 'marAdder',
+        id: `${NodeId.Addr1Mux}-${NodeId.MarAdder}`,
+        source: NodeId.Addr1Mux,
+        target: NodeId.MarAdder,
         sourceHandle: 'output',
-        targetHandle:  'input-a',
+        targetHandle: 'input-a',
         type: 'wire',
         // This needs to appear at least once
         // for it to appear to all edges
@@ -511,41 +551,41 @@ export const initialEdges: Edge[] = [
 
     // ADDR2MUX
     {
-        id: 'addr2Mux',
-        source: 'addr2Mux',
-        target: 'marAdder',
+        id: `${NodeId.Addr2Mux}-${NodeId.MarAdder}`,
+        source: NodeId.Addr2Mux,
+        target: NodeId.MarAdder,
         sourceHandle: 'output',
-        targetHandle:  'input-b',
+        targetHandle: 'input-b',
         type: 'wire'
     },
 
     // MARMUX
     {
-        id: 'marMuxgateMarMux',
-        source: 'marMux',
-        target: 'gateMarMux',
+        id: `${NodeId.MarMux}-${NodeId.GateMarMux}`,
+        source: NodeId.MarMux,
+        target: NodeId.GateMarMux,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
 
     // MDRMUX
     {
-        id: 'mdrMuxMdr',
-        source: 'mdrMux',
-        target: 'mdr',
+        id: `${NodeId.MdrMux}-${NodeId.MDR}`,
+        source: NodeId.MdrMux,
+        target: NodeId.MDR,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
 
     // PCMUX
     {
-        id: 'pcMuxPc',
-        source: 'pcMux',
-        target: 'pc',
+        id: `${NodeId.PCMux}-${NodeId.PC}`,
+        source: NodeId.PCMux,
+        target: NodeId.PC,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
 
@@ -554,11 +594,11 @@ export const initialEdges: Edge[] = [
 
     // SR2MUX
     {
-        id: 'sr2MuxAlu',
-        source: 'sr2Mux',
-        target: 'alu',
+        id: `${NodeId.SR2Mux}-${NodeId.ALU}`,
+        source: NodeId.SR2Mux,
+        target: NodeId.ALU,
         sourceHandle: 'output',
-        targetHandle:  'input-b',
+        targetHandle: 'input-b',
         type: 'wire'
     },
 
@@ -571,51 +611,51 @@ export const initialEdges: Edge[] = [
 
     //ZEXT
     {
-        id: 'zext8MarMux',
-        source: 'zext8',
-        target: 'marMux',
+        id: `${NodeId.Zext8}-${NodeId.MarMux}`,
+        source: NodeId.Zext8,
+        target: NodeId.MarMux,
         sourceHandle: 'output',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 
     //SEXT [10:0]
     {
-        id: 'sext11Addr2Mux',
-        source: 'sext11',
-        target: 'addr2Mux',
+        id: `${NodeId.Sext11}-${NodeId.Addr2Mux}`,
+        source: NodeId.Sext11,
+        target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 
     //SEXT [8:0]
     {
-        id: 'sext9Addr2Mux',
-        source: 'sext9',
-        target: 'addr2Mux',
+        id: `${NodeId.Sext9}-${NodeId.Addr2Mux}`,
+        source: NodeId.Sext9,
+        target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
     //SEXT [5:0]
     {
-        id: 'sext6Addr2Mux',
-        source: 'sext6',
-        target: 'addr2Mux',
+        id: `${NodeId.Sext6}-${NodeId.Addr2Mux}`,
+        source: NodeId.Sext6,
+        target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-2',
+        targetHandle: 'input-2',
         type: 'wire'
     },
 
     //SEXT [4:0]
     {
-        id: 'sext10Sr2Mux',
-        source: 'sext5',
-        target: 'sr2Mux',
+        id: `${NodeId.Sext5}-${NodeId.SR2Mux}`,
+        source: NodeId.Sext5,
+        target: NodeId.SR2Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 
@@ -625,39 +665,39 @@ export const initialEdges: Edge[] = [
 
     //ALU
     {
-        id: 'aluGateAlu',
-        source: 'alu',
-        target: 'gateAlu',
+        id: `${NodeId.ALU}-${NodeId.GateALU}`,
+        source: NodeId.ALU,
+        target: NodeId.GateALU,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
 
     //MAR ADDER
     {
-        id: 'marAdderMarMux',
-        source: 'marAdder',
-        target: 'marMux',
+        id: `${NodeId.MarAdder}-${NodeId.MarMux}`,
+        source: NodeId.MarAdder,
+        target: NodeId.MarMux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
     {
-        id: 'marAdderPcMux',
-        source: 'marAdder',
-        target: 'pcMux',
+        id: `${NodeId.MarAdder}-${NodeId.PCMux}`,
+        source: NodeId.MarAdder,
+        target: NodeId.PCMux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
     // PC ADDER
     {
-        id: 'pcAdderPcMux',
-        source: 'pcAdder',
-        target: 'pcMux',
+        id: `${NodeId.PCAdder}-${NodeId.PCMux}`,
+        source: NodeId.PCAdder,
+        target: NodeId.PCMux,
         sourceHandle: 'output',
-        targetHandle:  'input-2',
+        targetHandle: 'input-2',
         type: 'wire'
     },
 
@@ -667,149 +707,149 @@ export const initialEdges: Edge[] = [
 
     // MAR
     {
-        id: 'marMemory',
-        source: 'mar',
-        target: 'memory',
+        id: `${NodeId.MAR}-${NodeId.Memory}`,
+        source: NodeId.MAR,
+        target: NodeId.Memory,
         sourceHandle: 'output',
-        targetHandle:  'mar-in',
+        targetHandle: 'mar-in',
         type: 'wire'
     },
 
     // MDR
     {
-        id: 'mdrMemory',
-        source: 'mdr',
-        target: 'memory',
+        id: `${NodeId.MDR}-${NodeId.Memory}`,
+        source: NodeId.MDR,
+        target: NodeId.Memory,
         sourceHandle: 'mem-output',
-        targetHandle:  'mdr-in',
+        targetHandle: 'mdr-in',
         type: 'wire'
     },
     {
-        id: 'mdrGateMdr',
-        source: 'mdr',
-        target: 'gateMdr',
+        id: `${NodeId.MDR}-${NodeId.GateMdr}`,
+        source: NodeId.MDR,
+        target: NodeId.GateMdr,
         sourceHandle: 'gate-mdr',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
 
     // IR
     {
-        id: 'irZext8',
-        source: 'ir',
-        target: 'zext8',
+        id: `${NodeId.IR}-${NodeId.Zext8}`,
+        source: NodeId.IR,
+        target: NodeId.Zext8,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'irSext5',
-        source: 'ir',
-        target: 'sext5',
+        id: `${NodeId.IR}-${NodeId.Sext5}`,
+        source: NodeId.IR,
+        target: NodeId.Sext5,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'irSext6',
-        source: 'ir',
-        target: 'sext6',
+        id: `${NodeId.IR}-${NodeId.Sext6}`,
+        source: NodeId.IR,
+        target: NodeId.Sext6,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'irSext9',
-        source: 'ir',
-        target: 'sext9',
+        id: `${NodeId.IR}-${NodeId.Sext9}`,
+        source: NodeId.IR,
+        target: NodeId.Sext9,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'irSext11',
-        source: 'ir',
-        target: 'sext11',
+        id: `${NodeId.IR}-${NodeId.Sext11}`,
+        source: NodeId.IR,
+        target: NodeId.Sext11,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'irSr2Mux',
-        source: 'ir',
-        target: 'sr2Mux',
+        id: `${NodeId.IR}-${NodeId.SR2Mux}`,
+        source: NodeId.IR,
+        target: NodeId.SR2Mux,
         sourceHandle: 'output',
-        targetHandle:  'selector',
+        targetHandle: 'selector',
         type: 'wire'
     },
     {
-        id: 'irFsm',
-        source: 'ir',
-        target: 'fsm',
+        id: `${NodeId.IR}-${NodeId.FSM}`,
+        source: NodeId.IR,
+        target: NodeId.FSM,
         sourceHandle: 'output',
-        targetHandle:  'ir-15-9',
+        targetHandle: 'ir-15-9',
         type: 'wire'
     },
 
     // PC
     {
-        id: 'pcAdderPc',
-        source: 'pc',
-        target: 'pcAdder',
+        id: `${NodeId.PC}-${NodeId.PCAdder}`,
+        source: NodeId.PC,
+        target: NodeId.PCAdder,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'pcGatePc',
-        source: 'pc',
-        target: 'gatePc',
+        id: `${NodeId.PC}-${NodeId.GatePC}`,
+        source: NodeId.PC,
+        target: NodeId.GatePC,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'pcAddr1Mux',
-        source: 'pc',
-        target: 'addr1Mux',
+        id: `${NodeId.PC}-${NodeId.Addr1Mux}`,
+        source: NodeId.PC,
+        target: NodeId.Addr1Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
     // NZP
     {
-        id: 'nzp',
-        source: 'nzp',
-        target: 'fsm',
+        id: `${NodeId.NZP}-${NodeId.FSM}`,
+        source: NodeId.NZP,
+        target: NodeId.FSM,
         sourceHandle: 'output',
-        targetHandle:  'nzp',
+        targetHandle: 'nzp',
         type: 'wire'
     },
 
     // REG FILE
     {
-        id: 'regFileSr2Mux',
-        source: 'regFile',
-        target: 'sr2Mux',
+        id: `${NodeId.RegFile}-${NodeId.SR2Mux}`,
+        source: NodeId.RegFile,
+        target: NodeId.SR2Mux,
         sourceHandle: 'sr2mux',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
     {
-        id: 'regFileAlu',
-        source: 'regFile',
-        target: 'alu',
+        id: `${NodeId.RegFile}-${NodeId.ALU}`,
+        source: NodeId.RegFile,
+        target: NodeId.ALU,
         sourceHandle: 'alu',
-        targetHandle:  'input-a',
+        targetHandle: 'input-a',
         type: 'wire'
     },
     {
-        id: 'regFileAddr1Mux',
-        source: 'regFile',
-        target: 'addr1Mux',
+        id: `${NodeId.RegFile}-${NodeId.Addr1Mux}`,
+        source: NodeId.RegFile,
+        target: NodeId.Addr1Mux,
         sourceHandle: 'alu',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 
@@ -821,40 +861,40 @@ export const initialEdges: Edge[] = [
 
     // Gate ALU
     {
-        id: 'gateAluBus',
-        source: 'gateAlu',
-        target: 'bus',
+        id: `${NodeId.GateALU}-${NodeId.Bus}`,
+        source: NodeId.GateALU,
+        target: NodeId.Bus,
         sourceHandle: 'output',
-        targetHandle:  'gateAlu',
+        targetHandle: 'gateAlu',
         type: 'wire'
     },
 
     // Gate PC
     {
-        id: 'gatePcBus',
-        source: 'gatePc',
-        target: 'bus',
+        id: `${NodeId.GatePC}-${NodeId.Bus}`,
+        source: NodeId.GatePC,
+        target: NodeId.Bus,
         sourceHandle: 'output',
-        targetHandle:  'gatePc',
+        targetHandle: 'gatePc',
         type: 'wire'
     },
     // Gate MARMUX
     {
-        id: 'gateMarMuxBus',
-        source: 'gateMarMux',
-        target: 'bus',
+        id: `${NodeId.GateMarMux}-${NodeId.Bus}`,
+        source: NodeId.GateMarMux,
+        target: NodeId.Bus,
         sourceHandle: 'output',
-        targetHandle:  'gateMarMux',
+        targetHandle: 'gateMarMux',
         type: 'wire'
     },
 
     // Gate MDR
     {
-        id: 'gateMdrBus',
-        source: 'gateMdr',
-        target: 'bus',
+        id: `${NodeId.GateMdr}-${NodeId.Bus}`,
+        source: NodeId.GateMdr,
+        target: NodeId.Bus,
         sourceHandle: 'output',
-        targetHandle:  'gateMdr',
+        targetHandle: 'gateMdr',
         type: 'wire'
     },
 
@@ -864,21 +904,21 @@ export const initialEdges: Edge[] = [
 
     // FSM
     {
-        id: 'fsmAlu',
-        source: 'fsm',
-        target: 'alu',
+        id: `${NodeId.FSM}-${NodeId.ALU}`,
+        source: NodeId.FSM,
+        target: NodeId.ALU,
         sourceHandle: 'aluk',
-        targetHandle:  'selector',
+        targetHandle: 'selector',
         type: 'wire'
     },
 
     // LOGIC
     {
-        id: 'logicNzp',
-        source: 'ccLogic',
-        target: 'nzp',
+        id: `${NodeId.CCLogic}-${NodeId.NZP}`,
+        source: NodeId.CCLogic,
+        target: NodeId.NZP,
         sourceHandle: 'output',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     
@@ -888,11 +928,11 @@ export const initialEdges: Edge[] = [
 
     // Memory
     {
-        id: 'memoryMdrMux',
-        source: 'memory',
-        target: 'mdrMux',
+        id: `${NodeId.Memory}-${NodeId.MdrMux}`,
+        source: NodeId.Memory,
+        target: NodeId.MdrMux,
         sourceHandle: 'mdr-out',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
@@ -902,21 +942,21 @@ export const initialEdges: Edge[] = [
 
     // Input
     {
-        id: 'inputBus',
-        source: 'ioInput',
-        target: 'bus',
+        id: `${NodeId.IOInput}-${NodeId.Bus}`,
+        source: NodeId.IOInput,
+        target: NodeId.Bus,
         sourceHandle: 'input',
-        targetHandle:  'ioInput',
+        targetHandle: 'ioInput',
         type: 'wire'
     },
 
     // Output
     {
-        id: 'outputBus',
-        source: 'ioOutput',
-        target: 'bus',
+        id: `${NodeId.IOOutput}-${NodeId.Bus}`,
+        source: NodeId.IOOutput,
+        target: NodeId.Bus,
         sourceHandle: 'input',
-        targetHandle:  'ioOutput',
+        targetHandle: 'ioOutput',
         type: 'wire'
     },
 
@@ -925,51 +965,51 @@ export const initialEdges: Edge[] = [
      */
 
     {
-        id: 'busPcMux',
-        source: 'bus',
-        target: 'pcMux',
+        id: `${NodeId.Bus}-${NodeId.PCMux}`,
+        source: NodeId.Bus,
+        target: NodeId.PCMux,
         sourceHandle: 'pcMux',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
     {
-        id: 'busRegFile',
-        source: 'bus',
-        target: 'regFile',
+        id: `${NodeId.Bus}-${NodeId.RegFile}`,
+        source: NodeId.Bus,
+        target: NodeId.RegFile,
         sourceHandle: 'regFile',
-        targetHandle:  'bus',
+        targetHandle: 'bus',
         type: 'wire'
     },
     {
-        id: 'busMdrMux',
-        source: 'bus',
-        target: 'mdrMux',
+        id: `${NodeId.Bus}-${NodeId.MdrMux}`,
+        source: NodeId.Bus,
+        target: NodeId.MdrMux,
         sourceHandle: 'mdrMux',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
     {
-        id: 'busIr',
-        source: 'bus',
-        target: 'ir',
+        id: `${NodeId.Bus}-${NodeId.IR}`,
+        source: NodeId.Bus,
+        target: NodeId.IR,
         sourceHandle: 'ir',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'busLogic',
-        source: 'bus',
-        target: 'ccLogic',
+        id: `${NodeId.Bus}-${NodeId.CCLogic}`,
+        source: NodeId.Bus,
+        target: NodeId.CCLogic,
         sourceHandle: 'ccLogic',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     {
-        id: 'busMar',
-        source: 'bus',
-        target: 'mar',
+        id: `${NodeId.Bus}-${NodeId.MAR}`,
+        source: NodeId.Bus,
+        target: NodeId.MAR,
         sourceHandle: 'mar',
-        targetHandle:  'input',
+        targetHandle: 'input',
         type: 'wire'
     },
     /**
@@ -977,123 +1017,123 @@ export const initialEdges: Edge[] = [
      */
 
     {
-        id: 'ldpcPc',
-        source: 'ldpc',
-        target: 'pc',
+        id: `${NodeId.SignalLdPC}-${NodeId.PC}`,
+        source: NodeId.SignalLdPC,
+        target: NodeId.PC,
         sourceHandle: 'output',
-        targetHandle:  'ld',
+        targetHandle: 'ld',
         type: 'wire'
     },
     {
-        id: 'ldccNzp',
-        source: 'ldcc',
-        target: 'nzp',
+        id: `${NodeId.SignalLdCC}-${NodeId.NZP}`,
+        source: NodeId.SignalLdCC,
+        target: NodeId.NZP,
         sourceHandle: 'output',
-        targetHandle:  'ld',
+        targetHandle: 'ld',
         type: 'wire'
     },
     {
-        id: 'ldirIr',
-        source: 'ldir',
-        target: 'ir',
+        id: `${NodeId.SignalLdIR}-${NodeId.IR}`,
+        source: NodeId.SignalLdIR,
+        target: NodeId.IR,
         sourceHandle: 'output',
-        targetHandle:  'ld',
+        targetHandle: 'ld',
         type: 'wire'
     },
     {
-        id: 'ldmdrMdr',
-        source: 'ldmdr',
-        target: 'mdr',
+        id: `${NodeId.SignalLdMDR}-${NodeId.MDR}`,
+        source: NodeId.SignalLdMDR,
+        target: NodeId.MDR,
         sourceHandle: 'output',
-        targetHandle:  'ld-mdr',
+        targetHandle: 'ld-mdr',
         type: 'wire'
     },
     {
-        id: 'ldmarMar',
-        source: 'ldmar',
-        target: 'mar',
+        id: `${NodeId.SignalLdMar}-${NodeId.MAR}`,
+        source: NodeId.SignalLdMar,
+        target: NodeId.MAR,
         sourceHandle: 'output',
-        targetHandle:  'ld',
+        targetHandle: 'ld',
         type: 'wire'
     },
     {
-        id: 'ldregRegfile',
-        source: 'ldreg',
-        target: 'regFile',
+        id: `${NodeId.SignalLdReg}-${NodeId.RegFile}`,
+        source: NodeId.SignalLdReg,
+        target: NodeId.RegFile,
         sourceHandle: 'output',
-        targetHandle:  'ld-reg',
+        targetHandle: 'ld-reg',
         type: 'wire'
     },
     {
-        id: 'drRegfile',
-        source: 'dr',
-        target: 'regFile',
+        id: `${NodeId.SignalRF_DR}-${NodeId.RegFile}`,
+        source: NodeId.SignalRF_DR,
+        target: NodeId.RegFile,
         sourceHandle: 'output',
-        targetHandle:  'dr',
+        targetHandle: 'dr',
         type: 'wire'
     },
     {
-        id: 'sr2Regfile',
-        source: 'sr2',
-        target: 'regFile',
+        id: `${NodeId.SignalRF_SR2}-${NodeId.RegFile}`,
+        source: NodeId.SignalRF_SR2,
+        target: NodeId.RegFile,
         sourceHandle: 'output',
-        targetHandle:  'sr2',
+        targetHandle: 'sr2',
         type: 'wire'
     },
     {
-        id: 'sr1Regfile',
-        source: 'sr1',
-        target: 'regFile',
+        id: `${NodeId.SignalRF_SR1}-${NodeId.RegFile}`,
+        source: NodeId.SignalRF_SR1,
+        target: NodeId.RegFile,
         sourceHandle: 'output',
-        targetHandle:  'sr1',
+        targetHandle: 'sr1',
         type: 'wire'
     },
     {
-        id: 'memenMemory',
-        source: 'memen',
-        target: 'memory',
+        id: `${NodeId.SignalMemEn}-${NodeId.Memory}`,
+        source: NodeId.SignalMemEn,
+        target: NodeId.Memory,
         sourceHandle: 'output',
-        targetHandle:  'mem-en',
+        targetHandle: 'mem-en',
         type: 'wire'
     },
     {
-        id: 'rwMemory',
-        source: 'rw',
-        target: 'memory',
+        id: `${NodeId.SignalRW}-${NodeId.Memory}`,
+        source: NodeId.SignalRW,
+        target: NodeId.Memory,
         sourceHandle: 'output',
-        targetHandle:  'rw',
+        targetHandle: 'rw',
         type: 'wire'
     },
     {
-        id: 'ir11sr1Sr1Mux',
-        source: 'ir11sr1',
-        target: 'sr1Mux',
+        id: `${NodeId.SignalSR1_IR11}-${NodeId.SR1Mux}`,
+        source: NodeId.SignalSR1_IR11,
+        target: NodeId.SR1Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
     {
-        id: 'ir8sr1Sr1Mux',
-        source: 'ir8sr1',
-        target: 'sr1Mux',
+        id: `${NodeId.SignalSR1_IR8}-${NodeId.SR1Mux}`,
+        source: NodeId.SignalSR1_IR8,
+        target: NodeId.SR1Mux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
     {
-        id: 'ir11drDr1Mux',
-        source: 'ir11dr',
-        target: 'drmux',
+        id: `${NodeId.SignalDR_IR11}-${NodeId.DrMux}`,
+        source: NodeId.SignalDR_IR11,
+        target: NodeId.DrMux,
         sourceHandle: 'output',
-        targetHandle:  'input-0',
+        targetHandle: 'input-0',
         type: 'wire'
     },
     {
-        id: 'reg7Dr1Mux',
-        source: 'reg7',
-        target: 'drmux',
+        id: `${NodeId.SignalDR_R7}-${NodeId.DrMux}`,
+        source: NodeId.SignalDR_R7,
+        target: NodeId.DrMux,
         sourceHandle: 'output',
-        targetHandle:  'input-1',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 ];
