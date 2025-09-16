@@ -37,8 +37,8 @@ const componentHandleConfigs: Record<LogicComponentType, HandleProperties[]> = {
         { side: Position.Right, distance: "80%", handle: "target", id: "mar-in" },
         { side: Position.Left, distance: "20%", handle: "target", id: "mdr-in" },
         { side: Position.Bottom, distance: "10%", handle: "source", id: "mdr-out" },
-        { side: Position.Bottom, distance: "25%", handle: "target", id: "rw" },
-        { side: Position.Bottom, distance: "75%", handle: "target", id: "mem-en" }
+        { side: Position.Bottom, distance: "75%", handle: "target", id: "rw" },
+        { side: Position.Bottom, distance: "25%", handle: "target", id: "mem-en" }
     ],
     fsm: [
         { side: Position.Left, distance: "30%", handle: "target", id: "ir-15-9" },

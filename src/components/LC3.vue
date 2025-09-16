@@ -7,6 +7,7 @@
     import LogicNode from './flow/LogicNode.vue';
     import TriStateNode from './flow/TriStateNode.vue';
     import BusNode from './flow/BusNode.vue';
+    import SignalNode from './flow/SignalNode.vue';
     import { GRID_GAP_SIZE } from './flow/constants';
     import { initialNodes, initialEdges } from './flow/LC3Components';
     import CustomEdge from './flow/CustomEdge.vue';
@@ -104,6 +105,10 @@
 
       <template #node-tristate="props">
         <TriStateNode v-bind="props" />
+      </template>
+
+      <template #node-signal="props">
+        <SignalNode v-bind="props" />
       </template>
 
       <template #edge-custom="props">

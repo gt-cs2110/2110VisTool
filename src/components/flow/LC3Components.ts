@@ -276,7 +276,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: 'drmux',
         type: "mux",
-        position: { x: 49 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
+        position: { x: 53 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         // Inverted because rotated 90
         width: Consts.DEFAULT_NODE_DIMS.height,
         height: Consts.DEFAULT_NODE_DIMS.width,
@@ -329,7 +329,155 @@ export const initialNodes: LC3Node[] = [
         position: { x: 11.5 * Consts.GRID_GAP_SIZE, y: 42 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMDR" }
-    }
+    },
+    {
+        id: "ldreg",
+        type: "signal",
+        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 7 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.REG"
+        }
+    },
+    {
+        id: "ldmar",
+        type: "signal",
+        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.MAR",
+            orientation: "left"
+        }
+    },
+    {
+        id: "ldpc",
+        type: "signal",
+        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.PC"
+        }
+    },
+    {
+        id: "ldir",
+        type: "signal",
+        position: { x: -6 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.IR"
+        }
+    },
+    {
+        id: "ldmdr",
+        type: "signal",
+        position: { x: 2 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.MDR"
+        }
+    },
+    {
+        id: "ldcc",
+        type: "signal",
+        position: { x: 14 * Consts.GRID_GAP_SIZE, y: 33.5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.CC"
+        }
+    },
+    {
+        id: "ldpc",
+        type: "signal",
+        position: { x: 21.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "LD.PC"
+        }
+    },
+    {
+        id: "memen",
+        type: "signal",
+        position: { x: 17 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "MEM.EN",
+            orientation: 'up'
+        }
+    },
+    {
+        id: "rw",
+        type: "signal",
+        position: { x: 21 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "RW",
+            orientation: 'up'
+        }
+    },
+    {
+        id: "dr",
+        type: "signal",
+        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "DR"
+        }
+    },
+    {
+        id: "sr1",
+        type: "signal",
+        position: { x: 52.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "SR1",
+            orientation: "left"
+        }
+    },
+    {
+        id: "sr2",
+        type: "signal",
+        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "SR2"
+        }
+    },
+    {
+        id: "ir11sr1",
+        type: "signal",
+        position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "IR[11:9]"
+        }
+    },
+    {
+        id: "ir8sr1",
+        type: "signal",
+        position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "IR[8:6]"
+        }
+    },
+    {
+        id: "ir11dr",
+        type: "signal",
+        position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "IR[11:9]"
+        }
+    },
+    {
+        id: "reg7",
+        type: "signal",
+        position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
+        ...Consts.DEFAULT_NODE_DIMS,
+        data: {
+            label: "111"
+        }
+    },
 ];
 
 /**
@@ -863,6 +1011,145 @@ export const initialEdges: Edge[] = [
         target: 'mar',
         sourceHandle: 'mar',
         targetHandle:  'input',
+        type: 'custom',
+        animated: false
+    },
+    /**
+     * SIGNAL EDGES
+     */
+
+    {
+        id: 'ldpcPc',
+        source: 'ldpc',
+        target: 'pc',
+        sourceHandle: 'output',
+        targetHandle:  'ld',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ldccNzp',
+        source: 'ldcc',
+        target: 'nzp',
+        sourceHandle: 'output',
+        targetHandle:  'ld',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ldirIr',
+        source: 'ldir',
+        target: 'ir',
+        sourceHandle: 'output',
+        targetHandle:  'ld',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ldmdrMdr',
+        source: 'ldmdr',
+        target: 'mdr',
+        sourceHandle: 'output',
+        targetHandle:  'ld-mdr',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ldmarMar',
+        source: 'ldmar',
+        target: 'mar',
+        sourceHandle: 'output',
+        targetHandle:  'ld',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ldregRegfile',
+        source: 'ldreg',
+        target: 'regFile',
+        sourceHandle: 'output',
+        targetHandle:  'ld-reg',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'drRegfile',
+        source: 'dr',
+        target: 'regFile',
+        sourceHandle: 'output',
+        targetHandle:  'dr',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'sr2Regfile',
+        source: 'sr2',
+        target: 'regFile',
+        sourceHandle: 'output',
+        targetHandle:  'sr2',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'sr1Regfile',
+        source: 'sr1',
+        target: 'regFile',
+        sourceHandle: 'output',
+        targetHandle:  'sr1',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'memenMemory',
+        source: 'memen',
+        target: 'memory',
+        sourceHandle: 'output',
+        targetHandle:  'mem-en',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'rwMemory',
+        source: 'rw',
+        target: 'memory',
+        sourceHandle: 'output',
+        targetHandle:  'rw',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ir11sr1Sr1Mux',
+        source: 'ir11sr1',
+        target: 'sr1Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-0',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ir8sr1Sr1Mux',
+        source: 'ir8sr1',
+        target: 'sr1Mux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'ir11drDr1Mux',
+        source: 'ir11dr',
+        target: 'drmux',
+        sourceHandle: 'output',
+        targetHandle:  'input-0',
+        type: 'custom',
+        animated: false
+    },
+    {
+        id: 'reg7Dr1Mux',
+        source: 'reg7',
+        target: 'drmux',
+        sourceHandle: 'output',
+        targetHandle:  'input-1',
         type: 'custom',
         animated: false
     },

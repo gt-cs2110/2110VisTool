@@ -1,11 +1,12 @@
 import type { Component } from "vue";
-import type { Node, NodeProps, HandleType } from '@vue-flow/core';
+import type { Node, NodeProps, HandleType, Position } from '@vue-flow/core';
 
 import type ALUNode from "./ALUNode.vue";
 import type LogicNode from "./LogicNode.vue";
 import type MuxNode from "./MuxNode.vue";
 import type TriStateNode from "./TriStateNode.vue";
 import type BusNode from "./BusNode.vue";
+import type SignalNode from "./SignalNode.vue";
 
 type NodeTypeOf<Type extends string, C> = C extends Component<NodeProps<infer P>>
     ? Node<P, unknown, Type>
@@ -16,7 +17,8 @@ export type LC3Node =
     | NodeTypeOf<"logic", typeof LogicNode>
     | NodeTypeOf<"mux", typeof MuxNode>
     | NodeTypeOf<"tristate", typeof TriStateNode>
-    | NodeTypeOf<"bus", typeof BusNode>;
+    | NodeTypeOf<"bus", typeof BusNode>
+    | NodeTypeOf<"signal", typeof SignalNode>;
 
 /**
  * A list of all special properties used for positioning + identifying handles
