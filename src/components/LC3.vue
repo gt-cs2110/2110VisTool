@@ -9,6 +9,7 @@
     import BusNode from './flow/BusNode.vue';
     import { GRID_GAP_SIZE } from './flow/constants';
     import { initialNodes, initialEdges } from './flow/LC3Components';
+    import CustomEdge from './flow/CustomEdge.vue';
 
     const top = useTemplateRef<HTMLDivElement>("top");
     defineExpose({
@@ -103,6 +104,10 @@
 
       <template #node-tristate="props">
         <TriStateNode v-bind="props" />
+      </template>
+
+      <template #edge-custom="props">
+        <CustomEdge v-bind="props" />
       </template>
     </VueFlow>
   </div>

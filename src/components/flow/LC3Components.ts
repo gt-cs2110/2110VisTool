@@ -353,8 +353,8 @@ export const initialEdges: Edge[] = [
         target: 'marAdder',
         sourceHandle: 'output',
         targetHandle:  'input-a',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // ADDR2MUX
@@ -364,8 +364,8 @@ export const initialEdges: Edge[] = [
         target: 'marAdder',
         sourceHandle: 'output',
         targetHandle:  'input-b',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // MARMUX
@@ -375,8 +375,8 @@ export const initialEdges: Edge[] = [
         target: 'gateMarMux',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // MDRMUX
@@ -386,8 +386,8 @@ export const initialEdges: Edge[] = [
         target: 'mdr',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // PCMUX
@@ -397,8 +397,8 @@ export const initialEdges: Edge[] = [
         target: 'pc',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // SR1MUX
@@ -411,8 +411,8 @@ export const initialEdges: Edge[] = [
         target: 'alu',
         sourceHandle: 'output',
         targetHandle:  'input-b',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // DR MUX
@@ -429,8 +429,8 @@ export const initialEdges: Edge[] = [
         target: 'marMux',
         sourceHandle: 'output',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     //SEXT [10:0]
@@ -440,8 +440,8 @@ export const initialEdges: Edge[] = [
         target: 'addr2Mux',
         sourceHandle: 'output',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     //SEXT [8:0]
@@ -451,8 +451,8 @@ export const initialEdges: Edge[] = [
         target: 'addr2Mux',
         sourceHandle: 'output',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     //SEXT [5:0]
@@ -462,8 +462,8 @@ export const initialEdges: Edge[] = [
         target: 'addr2Mux',
         sourceHandle: 'output',
         targetHandle:  'input-2',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     //SEXT [4:0]
@@ -473,8 +473,8 @@ export const initialEdges: Edge[] = [
         target: 'sr2Mux',
         sourceHandle: 'output',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -488,8 +488,8 @@ export const initialEdges: Edge[] = [
         target: 'gateAlu',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     //MAR ADDER
@@ -499,8 +499,8 @@ export const initialEdges: Edge[] = [
         target: 'marMux',
         sourceHandle: 'output',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'marAdderPcMux',
@@ -508,8 +508,8 @@ export const initialEdges: Edge[] = [
         target: 'pcMux',
         sourceHandle: 'output',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // PC ADDER
@@ -519,8 +519,8 @@ export const initialEdges: Edge[] = [
         target: 'pcMux',
         sourceHandle: 'output',
         targetHandle:  'input-2',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -534,8 +534,8 @@ export const initialEdges: Edge[] = [
         target: 'memory',
         sourceHandle: 'output',
         targetHandle:  'mar-in',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // MDR
@@ -545,8 +545,8 @@ export const initialEdges: Edge[] = [
         target: 'memory',
         sourceHandle: 'mem-output',
         targetHandle:  'mdr-in',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'mdrGateMdr',
@@ -554,8 +554,8 @@ export const initialEdges: Edge[] = [
         target: 'gateMdr',
         sourceHandle: 'gate-mdr',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // IR
@@ -565,8 +565,8 @@ export const initialEdges: Edge[] = [
         target: 'zext8',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irSext5',
@@ -574,8 +574,8 @@ export const initialEdges: Edge[] = [
         target: 'sext5',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irSext6',
@@ -583,8 +583,8 @@ export const initialEdges: Edge[] = [
         target: 'sext6',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irSext9',
@@ -592,8 +592,8 @@ export const initialEdges: Edge[] = [
         target: 'sext9',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irSext11',
@@ -601,8 +601,8 @@ export const initialEdges: Edge[] = [
         target: 'sext11',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irSr2Mux',
@@ -610,8 +610,8 @@ export const initialEdges: Edge[] = [
         target: 'sr2Mux',
         sourceHandle: 'output',
         targetHandle:  'selector',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'irFsm',
@@ -619,8 +619,8 @@ export const initialEdges: Edge[] = [
         target: 'fsm',
         sourceHandle: 'output',
         targetHandle:  'ir-15-9',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // PC
@@ -630,8 +630,8 @@ export const initialEdges: Edge[] = [
         target: 'pcAdder',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'pcGatePc',
@@ -639,8 +639,8 @@ export const initialEdges: Edge[] = [
         target: 'gatePc',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'pcAddr1Mux',
@@ -648,8 +648,8 @@ export const initialEdges: Edge[] = [
         target: 'addr1Mux',
         sourceHandle: 'output',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // NZP
@@ -659,8 +659,8 @@ export const initialEdges: Edge[] = [
         target: 'fsm',
         sourceHandle: 'output',
         targetHandle:  'nzp',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // REG FILE
@@ -670,8 +670,8 @@ export const initialEdges: Edge[] = [
         target: 'sr2Mux',
         sourceHandle: 'sr2mux',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'regFileAlu',
@@ -679,8 +679,8 @@ export const initialEdges: Edge[] = [
         target: 'alu',
         sourceHandle: 'alu',
         targetHandle:  'input-a',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'regFileAddr1Mux',
@@ -688,8 +688,8 @@ export const initialEdges: Edge[] = [
         target: 'addr1Mux',
         sourceHandle: 'alu',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -705,8 +705,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'output',
         targetHandle:  'gateAlu',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // Gate PC
@@ -716,8 +716,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'output',
         targetHandle:  'gatePc',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     // Gate MARMUX
     {
@@ -726,8 +726,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'output',
         targetHandle:  'gateMarMux',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // Gate MDR
@@ -737,8 +737,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'output',
         targetHandle:  'gateMdr',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -752,8 +752,8 @@ export const initialEdges: Edge[] = [
         target: 'alu',
         sourceHandle: 'aluk',
         targetHandle:  'selector',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // LOGIC
@@ -763,8 +763,8 @@ export const initialEdges: Edge[] = [
         target: 'nzp',
         sourceHandle: 'output',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     
     /**
@@ -778,8 +778,8 @@ export const initialEdges: Edge[] = [
         target: 'mdrMux',
         sourceHandle: 'mdr-out',
         targetHandle:  'input-1',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -793,8 +793,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'input',
         targetHandle:  'ioInput',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     // Output
@@ -804,8 +804,8 @@ export const initialEdges: Edge[] = [
         target: 'bus',
         sourceHandle: 'input',
         targetHandle:  'ioOutput',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 
     /**
@@ -818,8 +818,8 @@ export const initialEdges: Edge[] = [
         target: 'pcMux',
         sourceHandle: 'pcMux',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'busRegFile',
@@ -827,8 +827,8 @@ export const initialEdges: Edge[] = [
         target: 'regFile',
         sourceHandle: 'regFile',
         targetHandle:  'bus',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'busMdrMux',
@@ -836,8 +836,8 @@ export const initialEdges: Edge[] = [
         target: 'mdrMux',
         sourceHandle: 'mdrMux',
         targetHandle:  'input-0',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'busIr',
@@ -845,8 +845,8 @@ export const initialEdges: Edge[] = [
         target: 'ir',
         sourceHandle: 'ir',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'busLogic',
@@ -854,8 +854,8 @@ export const initialEdges: Edge[] = [
         target: 'ccLogic',
         sourceHandle: 'ccLogic',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
     {
         id: 'busMar',
@@ -863,7 +863,7 @@ export const initialEdges: Edge[] = [
         target: 'mar',
         sourceHandle: 'mar',
         targetHandle:  'input',
-        type: 'step',
-        animated: true
+        type: 'custom',
+        animated: false
     },
 ];
