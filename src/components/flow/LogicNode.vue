@@ -31,10 +31,10 @@ const componentHandleConfigs: Record<LogicComponentType, HandleProperties[]> = {
     ],
     regfile: [
         { side: Position.Top, distance: "50%", handle: "target", id: "bus"},
-        { side: Position.Left, distance: "30%", handle: "target", id: "dr" },
+        { side: Position.Left, distance: "calc(100% * 2 / 9)", handle: "target", id: "dr" },
         { side: Position.Left, distance: "50%", handle: "target", id: "ld-reg" },
-        { side: Position.Left, distance: "70%", handle: "target", id: "sr2" },
-        { side: Position.Right, distance: "70%", handle: "target", id: "sr1" },
+        { side: Position.Left, distance: "calc(100% * 7 / 9)", handle: "target", id: "sr2" },
+        { side: Position.Right, distance: "calc(100% * 7 / 9)", handle: "target", id: "sr1" },
         { side: Position.Bottom, distance: "calc(100% / 3)", handle: "source", id: "sr2mux" },
         { side: Position.Bottom, distance: "calc(100% * 2 / 3)", handle: "source", id: "alu" }
     ],

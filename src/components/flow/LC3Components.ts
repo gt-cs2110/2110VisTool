@@ -124,7 +124,7 @@ export const initialNodes: LC3Node[] = [
     { 
         id: NodeId.PCAdder,
         type: "logic",
-        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        position: { x: 35.5 * Consts.GRID_GAP_SIZE, y: 8 * Consts.GRID_GAP_SIZE },
         ...Consts.PC_ADDER_DIMS,
         data: { 
             label: "+1",
@@ -379,10 +379,12 @@ export const initialNodes: LC3Node[] = [
         ...Consts.TRISTATE_DIMS,
         data: { label: "GateMDR" }
     },
+
+    // SIGNAL COMPONENTS
     {
         id: NodeId.SignalLdReg,
         type: "signal",
-        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 7 * Consts.GRID_GAP_SIZE },
+        position: { x: 39 * Consts.GRID_GAP_SIZE, y: 7.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.REG"
@@ -391,7 +393,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdMar,
         type: "signal",
-        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
+        position: { x: 37 * Consts.GRID_GAP_SIZE, y: 45.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.MAR",
@@ -401,7 +403,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdIR,
         type: "signal",
-        position: { x: -6 * Consts.GRID_GAP_SIZE, y: 35 * Consts.GRID_GAP_SIZE },
+        position: { x: -5 * Consts.GRID_GAP_SIZE, y: 35.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.IR"
@@ -410,7 +412,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdMDR,
         type: "signal",
-        position: { x: 2 * Consts.GRID_GAP_SIZE, y: 45 * Consts.GRID_GAP_SIZE },
+        position: { x: 3 * Consts.GRID_GAP_SIZE, y: 45.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.MDR"
@@ -419,7 +421,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdCC,
         type: "signal",
-        position: { x: 14 * Consts.GRID_GAP_SIZE, y: 33.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 34 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.CC"
@@ -428,7 +430,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdPC,
         type: "signal",
-        position: { x: 21.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        position: { x: 23 * Consts.GRID_GAP_SIZE, y: 5.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.PC"
@@ -437,7 +439,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalMemEn,
         type: "signal",
-        position: { x: 17 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 52.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "MEM.EN",
@@ -447,7 +449,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalRW,
         type: "signal",
-        position: { x: 21 * Consts.GRID_GAP_SIZE, y: 51.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 22 * Consts.GRID_GAP_SIZE, y: 52.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "RW",
@@ -457,7 +459,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalRF_DR,
         type: "signal",
-        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
+        position: { x: 39 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "DR"
@@ -466,9 +468,10 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalRF_SR1,
         type: "signal",
-        position: { x: 52.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
+        position: { x: 53 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
+
             label: "SR1",
             orientation: "left"
         }
@@ -476,7 +479,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalRF_SR2,
         type: "signal",
-        position: { x: 37.5 * Consts.GRID_GAP_SIZE, y: 9 * Consts.GRID_GAP_SIZE },
+        position: { x: 39 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "SR2"
@@ -485,7 +488,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalSR1_IR11,
         type: "signal",
-        position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
+        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 50.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "IR[11:9]"
@@ -494,7 +497,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalSR1_IR8,
         type: "signal",
-        position: { x: 34.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
+        position: { x: 36 * Consts.GRID_GAP_SIZE, y: 53.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "IR[8:6]"
@@ -503,7 +506,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalDR_IR11,
         type: "signal",
-        position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
+        position: { x: 47 * Consts.GRID_GAP_SIZE, y: 50.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "IR[11:9]"
@@ -512,7 +515,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalDR_R7,
         type: "signal",
-        position: { x: 45.5 * Consts.GRID_GAP_SIZE, y: 53 * Consts.GRID_GAP_SIZE },
+        position: { x: 47 * Consts.GRID_GAP_SIZE, y: 53.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "111"
