@@ -63,7 +63,7 @@ export const initialNodes: LC3Node[] = [
             handles: [
                 // Top handles
                 { side: Position.Top, lineSide: Position.Bottom, distance: 13 * Consts.GRID_GAP_SIZE, handle: "target", id: "gateMarMux" },
-                { side: Position.Top, lineSide: Position.Bottom, distance: 24 * Consts.GRID_GAP_SIZE, handle: "source", id: "pcMux" },
+                { side: Position.Top, lineSide: Position.Bottom, distance: 26 * Consts.GRID_GAP_SIZE, handle: "source", id: "pcMux" },
                 { side: Position.Top, lineSide: Position.Bottom, distance: 32 * Consts.GRID_GAP_SIZE, handle: "target", id: "gatePc" },
                 { side: Position.Top, lineSide: Position.Bottom, distance: 48 * Consts.GRID_GAP_SIZE, handle: "source", id: "regFile" },
                 // Bottom handles
@@ -430,7 +430,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalLdPC,
         type: "signal",
-        position: { x: 23 * Consts.GRID_GAP_SIZE, y: 5.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 21 * Consts.GRID_GAP_SIZE, y: 5.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.PC"
@@ -982,7 +982,7 @@ export const initialEdges: Edge[] = [
         type: 'wire',
         data: {
             intermediateNodes: [
-                { x: 24 * Consts.GRID_GAP_SIZE, y: 16 * Consts.GRID_GAP_SIZE },
+                { x: 26 * Consts.GRID_GAP_SIZE, y: 16 * Consts.GRID_GAP_SIZE },
                 { x: 32 * Consts.GRID_GAP_SIZE, y: 16 * Consts.GRID_GAP_SIZE },
             ]
         }
