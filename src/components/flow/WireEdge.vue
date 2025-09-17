@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { EdgeProps } from '@vue-flow/core';
+import type { EdgeProps, XYPosition } from '@vue-flow/core';
 import { BaseEdge, getMarkerId, getSmoothStepPath, getStraightPath, MarkerType } from '@vue-flow/core';
 import { computed, useTemplateRef } from 'vue';
+import { getManualPath } from './edgePath';
 
 const props = defineProps<EdgeProps<{
   activeCycles?: number[],
-  animator?: Animator
+  animator?: Animator,
+  intermediateNodes?: XYPosition[]
 }>>();
 
 const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
@@ -13,7 +15,16 @@ const activeClass = computed(() => typeof activeCycle.value === "number" ? `acti
 
 const path = computed(() => {
   const straight = (props.sourceX == props.targetX) || (props.sourceY == props.targetY);
-  return straight ? getStraightPath(props) : getSmoothStepPath(props);
+  if (straight) return getStraightPath(props);
+
+  const hasIntermediates = props.data.intermediateNodes && props.data.intermediateNodes.length > 0;
+  if (hasIntermediates) {
+    const source = { x: props.sourceX, y: props.sourceY };
+    const target = { x: props.targetX, y: props.targetY };
+    return getManualPath({ source, intermediate: props.data.intermediateNodes, target });
+  }
+
+  return getSmoothStepPath(props);
 });
 
 const baseEl = useTemplateRef("baseEdge");

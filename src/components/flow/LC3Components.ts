@@ -206,21 +206,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.MarAdder,
         type: "alu",
-        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
+        position: { x: 13 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
         id: NodeId.Addr1Mux,
         type: "mux",
-        position: { x: 20 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
         id: NodeId.Addr2Mux,
         type: "mux",
-        position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 10.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
@@ -690,7 +690,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.MarAdder,
         target: NodeId.PCMux,
         sourceHandle: 'output',
-        targetHandle: 'input-1',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 
@@ -853,7 +853,13 @@ export const initialEdges: Edge[] = [
         target: NodeId.Addr1Mux,
         sourceHandle: 'alu',
         targetHandle: 'input-0',
-        type: 'wire'
+        type: 'wire',
+        data: {
+            intermediateNodes: [
+                { x: 49 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
+                { x: 19.5 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
+            ]
+        }
     },
 
     /**
@@ -972,8 +978,14 @@ export const initialEdges: Edge[] = [
         source: NodeId.Bus,
         target: NodeId.PCMux,
         sourceHandle: 'pcMux',
-        targetHandle: 'input-0',
-        type: 'wire'
+        targetHandle: 'input-1',
+        type: 'wire',
+        data: {
+            intermediateNodes: [
+                { x: 24 * Consts.GRID_GAP_SIZE, y: 16 * Consts.GRID_GAP_SIZE },
+                { x: 32 * Consts.GRID_GAP_SIZE, y: 16 * Consts.GRID_GAP_SIZE },
+            ]
+        }
     },
     {
         id: `${NodeId.Bus}-${NodeId.RegFile}`,
