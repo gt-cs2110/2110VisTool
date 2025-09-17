@@ -5,7 +5,7 @@ import { Position, Handle } from '@vue-flow/core';
 import type { NodeProps } from '@vue-flow/core';
 import { computeHandleOriented, getPositionStyles, type Orientation } from './shapes';
 import type { HandleProperties } from './types';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
@@ -20,7 +20,6 @@ const orientation = computed(() => props.data.orientation ?? 'right');
 const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
 const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
 
-watch(activeClass, c => console.log(props.id, c));
 type LogicComponentType = 'register' | 'regfile' | 'memory' | 'fsm' | 'mdr' | 'extender' | 'default';
 
 const componentHandleConfigs: Record<LogicComponentType, HandleProperties[]> = {
