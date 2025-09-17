@@ -37,7 +37,7 @@ const handlePositions = computed(() => {
       :key="pos.id || `${pos.side}-${pos.distance}`"
       :type="pos.handle"
       :position="pos.side"
-      :style="getPositionStyles(pos.side, pos.distance, pos.depth)"
+      :style="{...getPositionStyles(pos.side, pos.distance, pos.depth), opacity: 0}"
     />
   </div>
 </template>
