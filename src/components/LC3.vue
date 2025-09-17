@@ -70,6 +70,7 @@
                 node.data.activeCycles = [];
             }
             for (const edge of flow.value.edges) {
+                edge.data.activeCycles = [];
                 edge.data.animator.reset();
             }
         },

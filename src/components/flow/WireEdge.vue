@@ -106,7 +106,7 @@ export default {
 <style>
   @reference "@/style.css";
   .vue-flow__edge-wire > .vue-flow__edge-path {
-    stroke-width: 2;
+    stroke-width: 5;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
 

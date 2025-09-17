@@ -110,6 +110,7 @@ const sequences: Record<string, MacroData> = {
                 edge(NodeId.GatePC, NodeId.Bus),
                 // TODO: Bus
                 edge(NodeId.Bus, NodeId.MAR),
+                edge(NodeId.SignalLdMar, NodeId.MAR),
                 NodeId.MAR,
                 
                 // PC <- PC + 1
@@ -118,6 +119,7 @@ const sequences: Record<string, MacroData> = {
                 edge(NodeId.PCAdder, NodeId.PCMux),
                 NodeId.PCMux,
                 edge(NodeId.PCMux, NodeId.PC),
+                edge(NodeId.SignalLdPC, NodeId.PC),
                 NodeId.PC,
         ], [
                 // MDR <- Mem[MAR]
@@ -126,6 +128,7 @@ const sequences: Record<string, MacroData> = {
                 edge(NodeId.Memory, NodeId.MdrMux),
                 NodeId.MdrMux,
                 edge(NodeId.MdrMux, NodeId.MDR),
+                edge(NodeId.SignalLdMDR, NodeId.MDR),
                 NodeId.MDR,
             ], [
                 // IR <- MDR
@@ -134,6 +137,7 @@ const sequences: Record<string, MacroData> = {
                 edge(NodeId.GateMdr, NodeId.Bus),
                 // TODO: Bus
                 edge(NodeId.Bus, NodeId.IR),
+                edge(NodeId.SignalLdIR, NodeId.IR),
                 NodeId.IR,
             ]
         ]
