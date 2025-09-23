@@ -264,7 +264,7 @@ function activateMacro(key: string) {
 
     <!-- Control panel -->
     <div class="control-panel">
-      <div class="flex items-stretch gap-2 py-2">
+      <div class="flex items-stretch gap-2 py-2 justify-center">
         <div class="flex items-center gap-2">
           Speed: 
           <Slider
@@ -364,7 +364,7 @@ function activateMacro(key: string) {
             borderRadius: '0',
           }
         }"
-        class="px-0"
+        class="px-0 justify-center"
       >
         <template #item="{ item, label, props }">
           <a
