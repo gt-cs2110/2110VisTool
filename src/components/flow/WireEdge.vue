@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { EdgeProps, XYPosition } from '@vue-flow/core';
-import { BaseEdge, getSmoothStepPath, getStraightPath } from '@vue-flow/core';
-import { computed, useTemplateRef } from 'vue';
+import { BaseEdge, getSmoothStepPath, getStraightPath, useEdge } from '@vue-flow/core';
+import { computed, useTemplateRef, watch } from 'vue';
 import { getManualPath } from './edgePath';
 import WireArrow from './WireArrow.vue';
 
@@ -28,9 +28,18 @@ const path = computed(() => {
   return getSmoothStepPath(props);
 });
 
+const { edgeEl } = useEdge();
 const baseEl = useTemplateRef("baseEdge");
 const pathEl = computed(() => baseEl.value?.pathEl);
 const arrowEnd = computed(() => `arrow-marker-${props.id}`);
+
+// Put higher cycle elements on top
+watch(activeCycle, c => {
+  if (edgeEl.value && edgeEl.value.parentElement) {
+    console.log(edgeEl.value.parentElement, "set to ", c);
+    edgeEl.value.parentElement.style.zIndex = String((c ?? -1) + 1);
+  }
+});
 
 interface Animator {
   animation: Animation | null,
