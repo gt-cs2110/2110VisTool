@@ -50,6 +50,7 @@ export const enum NodeId {
     SignalSR1_IR8 = "ir8sr1",
     SignalDR_IR11 = "ir11dr",
     SignalDR_R7 = "reg7",
+    SignalA2M_0 = "a2m0"
 }
 export const initialNodes: LC3Node[] = [
     {
@@ -519,6 +520,16 @@ export const initialNodes: LC3Node[] = [
         ...Consts.LABEL_DIMS,
         data: {
             label: "111"
+        }
+    },
+    {
+        id: NodeId.SignalA2M_0,
+        type: "signal",
+        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 25 * Consts.GRID_GAP_SIZE },
+        ...Consts.LABEL_DIMS,
+        data: {
+            label: "0 (16 Bit)",
+            orientation: "up"
         }
     },
 ];
@@ -1149,6 +1160,14 @@ export const initialEdges: Edge[] = [
         target: NodeId.DrMux,
         sourceHandle: 'output',
         targetHandle: 'input-1',
+        type: 'wire'
+    },
+    {
+        id: `${NodeId.SignalA2M_0}-${NodeId.Addr2Mux}`,
+        source: NodeId.SignalA2M_0,
+        target: NodeId.Addr2Mux,
+        sourceHandle: 'output',
+        targetHandle: 'input-3',
         type: 'wire'
     },
 ];
