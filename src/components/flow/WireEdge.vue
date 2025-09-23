@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { EdgeProps, XYPosition } from '@vue-flow/core';
-import { BaseEdge, getMarkerId, getSmoothStepPath, getStraightPath, MarkerType } from '@vue-flow/core';
+import { BaseEdge, getSmoothStepPath, getStraightPath } from '@vue-flow/core';
 import { computed, useTemplateRef } from 'vue';
 import { getManualPath } from './edgePath';
+import WireArrow from './WireArrow.vue';
 
 const props = defineProps<EdgeProps<{
   activeCycles?: number[],
@@ -29,7 +30,7 @@ const path = computed(() => {
 
 const baseEl = useTemplateRef("baseEdge");
 const pathEl = computed(() => baseEl.value?.pathEl);
-const arrowEnd = computed(() => getMarkerId({ type: MarkerType.ArrowClosed }, "lc3-flow-diagram"));
+const arrowEnd = computed(() => `arrow-marker-${props.id}`);
 
 interface Animator {
   animation: Animation | null,
@@ -89,6 +90,11 @@ export default {
 </script>
 
 <template>
+  <WireArrow
+    :id="arrowEnd"
+    type="arrow"
+    :active-class="activeClass"
+  />
   <path
     :d="path[0]"
     class="vue-flow__edge-path path-background"

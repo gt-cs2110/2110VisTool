@@ -14,7 +14,6 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
     copy: typeof import('./src/components/flow/LogicNode copy.vue')['default']
-    CustomEdge: typeof import('./src/components/flow/CustomEdge.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Divider: typeof import('primevue/divider')['default']
     ExtenderNode: typeof import('./src/components/flow/ExtenderNode.vue')['default']
@@ -36,6 +35,8 @@ declare module 'vue' {
     Slider: typeof import('primevue/slider')['default']
     TriState: typeof import('./src/components/flow/shapes/TriState.vue')['default']
     TriStateNode: typeof import('./src/components/flow/TriStateNode.vue')['default']
+    WireArrow: typeof import('./src/components/flow/WireArrow.vue')['default']
+    WireEdge: typeof import('./src/components/flow/WireEdge.vue')['default']
   }
   export interface ComponentCustomProperties {
     Tooltip: typeof import('primevue/tooltip')['default']

@@ -172,6 +172,42 @@
             stroke: var(--color-active-6);
         }
     }
+    :deep(.vue-flow__arrowhead path) {
+        &.active-0 {
+            stroke: var(--color-active-0) !important;
+            fill: var(--color-active-0);
+        }
+
+        &.active-1 {
+            stroke: var(--color-active-1) !important;
+            fill: var(--color-active-1);
+        }
+
+        &.active-2 {
+            stroke: var(--color-active-2) !important;
+            fill: var(--color-active-2);
+        }
+
+        &.active-3 {
+            stroke: var(--color-active-3) !important;
+            fill: var(--color-active-3);
+        }
+
+        &.active-4 {
+            stroke: var(--color-active-4) !important;
+            fill: var(--color-active-4);
+        }
+
+        &.active-5 {
+            stroke: var(--color-active-5) !important;
+            fill: var(--color-active-5);
+        }
+
+        &.active-6 {
+            stroke: var(--color-active-6) !important;
+            fill: var(--color-active-6);
+        }
+    }
 
     :deep(.vue-flow__node svg.shape) {
         &.active-0 {
