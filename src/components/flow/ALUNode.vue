@@ -43,9 +43,9 @@ const handlePositions = computed(() => {
 <template>
   <div
     class="size-full"
-    :class="activeClass"
   >
     <ALU
+      :class="activeClass"
       :dimensions="props.dimensions"
       :orientation
     />
