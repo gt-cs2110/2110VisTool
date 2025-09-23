@@ -148,7 +148,7 @@
 </style>
 <style scoped>
     @reference "@/style.css";
-
+    /* EDGE ACTIVE STATES */
     :deep(.vue-flow__edge-wire > .vue-flow__edge-path) {
         &.active-0 {
             stroke: var(--color-active-0);
@@ -172,43 +172,38 @@
             stroke: var(--color-active-6);
         }
     }
+    /* WIRE ARROW ACTIVE STATES */
     :deep(.vue-flow__arrowhead path) {
         &.active-0 {
             stroke: var(--color-active-0) !important;
             fill: var(--color-active-0);
         }
-
         &.active-1 {
             stroke: var(--color-active-1) !important;
             fill: var(--color-active-1);
         }
-
         &.active-2 {
             stroke: var(--color-active-2) !important;
             fill: var(--color-active-2);
         }
-
         &.active-3 {
             stroke: var(--color-active-3) !important;
             fill: var(--color-active-3);
         }
-
         &.active-4 {
             stroke: var(--color-active-4) !important;
             fill: var(--color-active-4);
         }
-
         &.active-5 {
             stroke: var(--color-active-5) !important;
             fill: var(--color-active-5);
         }
-
         &.active-6 {
             stroke: var(--color-active-6) !important;
             fill: var(--color-active-6);
         }
     }
-
+    /* NODE SVG ACTIVE STATES */
     :deep(.vue-flow__node svg.shape) {
         &.active-0 {
             fill: var(--color-active-0-light);
@@ -239,7 +234,31 @@
             stroke: var(--color-active-6);
         }
     }
-
+    /* BUS ACTIVE STATES */
+    :deep(.vue-flow__node-bus svg.shape) {
+        &.active-0 g {
+            stroke: var(--color-active-0) !important;
+        }
+        &.active-1 g {
+            stroke: var(--color-active-1) !important;
+        }
+        &.active-2 g {
+            stroke: var(--color-active-2) !important;
+        }
+        &.active-3 g {
+            stroke: var(--color-active-3) !important;
+        }
+        &.active-4 g {
+            stroke: var(--color-active-4) !important;
+        }
+        &.active-5 g {
+            stroke: var(--color-active-5) !important;
+        }
+        &.active-6 g {
+            stroke: var(--color-active-6) !important;
+        }
+    }
+    /* LOGIC NODE ACTIVE STATES */
     :deep(.vue-flow__node-logic) {
         &:has(.active-0) {
             background-color: var(--color-active-0-light);

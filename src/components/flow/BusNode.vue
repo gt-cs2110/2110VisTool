@@ -6,6 +6,7 @@ import type { HandleType, NodeProps } from '@vue-flow/core';
 import { getPositionStyles } from './shapes/index';
 import type { HandleProperties } from './types';
 import { computed } from 'vue';
+import WireArrow from './WireArrow.vue';
   
 interface BusHandle {
   /**
@@ -33,10 +34,15 @@ interface BusHandle {
 const props = defineProps<NodeProps<{
     label?: string,
     handles?: BusHandle[]
+    activeCycles?: number[]
 }>>();
 
 const width = computed(() => props.dimensions.width ?? 900);
 const height = computed(() => props.dimensions.height ?? 750);
+
+// Active highlight
+const activeCycle = computed(() => props.data.activeCycles?.[props.data.activeCycles.length - 1]);
+const activeClass = computed(() => typeof activeCycle.value === "number" ? `active-${activeCycle.value}` : undefined);
 
 const handlePositions = computed(() => (props.data.handles ?? []).map<HandleProperties>(h => ({
   // Handle side decides which direction edges come from,
@@ -67,20 +73,23 @@ const points = computed(() => [
       height: `${height}px`,
     }"
   >
+    <WireArrow
+      id="bus-arrow"
+      type="arrow"
+      :active-class="activeClass"
+      :refX="5"
+    />
     <!-- Square outline with one missing side -->
     <svg
       :width
       :height
-      class="bus-outline"
+      :class="['shape', activeClass]"
       :style="{ position: 'absolute', top: 0, left: 0, zIndex: 0 }"
     >
-      <!-- 3 sides of square -->
-      <g
-        stroke="#fff"
-        :stroke-width="STROKE_WIDTH"
-        fill="none"
-      >
-        <polyline :points="points.join(' ')" />
+      <g :stroke-width="STROKE_WIDTH" fill="none" class="bus-lines">
+        <line :x1="points[1][0]" :y1="points[0][1]" :x2="points[0][0]" :y2="points[1][1]" class="with-arrow" />
+        <line :x1="points[1][0]" :y1="points[1][1]" :x2="points[2][0]" :y2="points[2][1]" />
+        <line :x1="points[2][0]" :y1="points[2][1]" :x2="points[3][0]" :y2="points[3][1]" class="with-arrow" />
       </g>
     </svg>
 
@@ -98,10 +107,15 @@ const points = computed(() => [
 <style>
 .vue-flow__node-bus {
   --vf-handle: var(--vf-node-color);
-  position: relative;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
+}
+.bus-lines .with-arrow {
+  marker-end: url(#bus-arrow);
+}
+.vue-flow__node-bus svg g {
+  stroke: var(--vf-node-bg);
+}
+.vue-flow__node-bus .marker-arrow {
+  stroke: var(--vf-node-bg);
+  fill: var(--vf-node-bg);
 }
 </style>

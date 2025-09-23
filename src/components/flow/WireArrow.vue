@@ -14,6 +14,10 @@ defineProps({
     type: Number,
     default: 8,
   },
+  refX: {
+    type: Number,
+    default: 9,
+  },
   activeClass: {
     type: String,
     default: undefined,
@@ -28,7 +32,7 @@ defineProps({
         :id="id"
         :class="['vue-flow__arrowhead', activeClass]"
         viewBox="-10 -10 20 20"
-        refX="10"
+        :refX="refX"
         refY="0"
         :markerWidth="width"
         :markerHeight="height"
