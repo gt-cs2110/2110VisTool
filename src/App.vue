@@ -8,7 +8,7 @@ const CYCLE_BREAK = "CYCLE_BREAK";
 
 const speedScale = ref(50);
 const activeWireTime = computed(() => {
-  const scale = Math.pow(4, speedScale.value / 100) / 2;
+  const scale = Math.pow(1.5, speedScale.value / 100);
   return DEFAULT_ACTIVE_WIRE_TIME / scale;
 });
 const lc3Diagram = useTemplateRef("lc3");
