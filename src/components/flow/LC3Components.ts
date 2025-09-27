@@ -469,12 +469,12 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalRF_SR1,
         type: "signal",
-        position: { x: 53 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
+        position: { x: 51 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
 
             label: "SR1",
-            orientation: "left"
+            orientation: "up"
         }
     },
     {
