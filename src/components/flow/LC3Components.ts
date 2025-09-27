@@ -440,7 +440,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalMemEn,
         type: "signal",
-        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 52.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 54 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "MEM.EN",
