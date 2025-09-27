@@ -67,7 +67,7 @@ export const PC_ADDER_DIMS = {
  * Dimensions of sign extenders.
  */
 export const SEXT_NODE_DIMS = {
-    width: 4 * GRID_GAP_SIZE,
+    width: 7 * GRID_GAP_SIZE,
     height: 2 * GRID_GAP_SIZE,
 }
 

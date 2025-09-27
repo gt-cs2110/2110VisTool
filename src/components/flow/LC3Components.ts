@@ -146,10 +146,10 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.Zext8,
         type: "logic",
-        position: { x: 2 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
+        position: { x: 0.5 * Consts.GRID_GAP_SIZE, y: 15 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: { 
-            label: 'ZEXT',
+            label: 'ZEXT [7:0]',
             orientation: 'up',
             componentType: 'extender'
         }
@@ -160,37 +160,37 @@ export const initialNodes: LC3Node[] = [
         position: { x: 16 * Consts.GRID_GAP_SIZE, y: 29.5 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
-            label: 'SEXT',
+            label: 'SEXT [4:0]',
             componentType: 'extender'
         }
     },
     {
         id: NodeId.Sext6,
         type: "logic",
-        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 26 * Consts.GRID_GAP_SIZE },
+        position: { x: 5.5 * Consts.GRID_GAP_SIZE, y: 26 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
-            label: 'SEXT',
+            label: 'SEXT [5:0]',
             componentType: 'extender'
         }
     },
     {
         id: NodeId.Sext9,
         type: "logic",
-        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
+        position: { x: 5.5 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
-            label: 'SEXT',
+            label: 'SEXT [8:0]',
             componentType: 'extender'
         }
     },
     {
         id: NodeId.Sext11,
         type: "logic",
-        position: { x: 6 * Consts.GRID_GAP_SIZE, y: 22 * Consts.GRID_GAP_SIZE },
+        position: { x: 5.5 * Consts.GRID_GAP_SIZE, y: 22 * Consts.GRID_GAP_SIZE },
         ...Consts.SEXT_NODE_DIMS,
         data: {
-            label: 'SEXT',
+            label: 'SEXT [10:0]',
             componentType: 'extender'
         }
     },
@@ -207,21 +207,21 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.MarAdder,
         type: "alu",
-        position: { x: 13 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
+        position: { x: 14.5 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
         data: { label: '+' }
     },
     {
         id: NodeId.Addr1Mux,
         type: "mux",
-        position: { x: 18 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 19.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: { label: 'ADDR1MUX' }
     },
     {
         id: NodeId.Addr2Mux,
         type: "mux",
-        position: { x: 10.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
+        position: { x: 13 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
@@ -525,7 +525,7 @@ export const initialNodes: LC3Node[] = [
     {
         id: NodeId.SignalA2M_0,
         type: "signal",
-        position: { x: 15 * Consts.GRID_GAP_SIZE, y: 25 * Consts.GRID_GAP_SIZE },
+        position: { x: 17.5 * Consts.GRID_GAP_SIZE, y: 25 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
             label: "0 (16 Bit)",
@@ -868,7 +868,7 @@ export const initialEdges: Edge[] = [
         data: {
             intermediateNodes: [
                 { x: 49 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
-                { x: 19.5 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
+                { x: 21 * Consts.GRID_GAP_SIZE, y: 24 * Consts.GRID_GAP_SIZE },
             ]
         }
     },
