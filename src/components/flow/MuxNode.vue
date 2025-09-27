@@ -51,6 +51,8 @@ const handlePositions = computed(() => {
       :class="activeClass"
       :dimensions="props.dimensions"
       :orientation
+      :n-inputs="nInputs"
+      :input-handles="handlePositions.filter(h => h.id && h.id.startsWith('input-'))"
     />
     <div class="mux-label small-label">
       {{ props.data.label }}
