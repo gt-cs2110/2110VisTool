@@ -100,6 +100,7 @@ export default {
 
 <template>
   <WireArrow
+    v-if="!props.target.startsWith('gate')"
     :id="arrowEnd"
     type="arrow"
     :active-class="activeClass"
