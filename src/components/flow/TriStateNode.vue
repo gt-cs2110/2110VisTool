@@ -28,13 +28,14 @@ const activeClass = computed(() => typeof activeCycle.value === "number" ? `acti
 </script>
 
 <template>
-  <div class="tristate-container">
-    <div class="tristate-label">{{ props.data.label }}</div>
+  <div>
     <TriState
       :dimensions="props.dimensions"
       :orientation
       :class="activeClass"
     />
+    <!-- <div>{{ props.data.label }}</div> -->
+
     <Handle 
       v-for="pos of handlePositions"
       :id="pos.id"
@@ -46,19 +47,6 @@ const activeClass = computed(() => typeof activeCycle.value === "number" ? `acti
 </template>
 
 <style>
-.tristate-container {
-  display: flex;
-  align-items: center;
-}
-
-.tristate-label {
-  margin-right: 8px; /* spacing between label and triangle */
-  color: white;
-  font-size: 18px;
-  white-space: nowrap; 
-  transform: translate(12px, -10px)
-}
-
 .vue-flow__node-tristate {
   --vf-handle: var(--vf-node-color);
 
