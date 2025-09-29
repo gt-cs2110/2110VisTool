@@ -1,4 +1,5 @@
 import * as Consts from "./constants";
+import type { LC3Node } from './types.d';
 import { MarkerType, Position, type Edge } from '@vue-flow/core';
 
 export const enum NodeId {
@@ -51,7 +52,7 @@ export const enum NodeId {
     SignalDR_R7 = "reg7",
     SignalA2M_0 = "a2m0"
 }
-export const initialNodes: any[] = [
+export const initialNodes: LC3Node[] = [
     {
         id: NodeId.Bus,
         type: "bus",
@@ -85,29 +86,21 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: "MARMUX",
-            description: "Memory Address Register Multiplexer - Selects between different address sources (PC+offset or ZEXT) to load into MAR.",
-            selectorLeftUp: true
-        } as any
+            selectorLeftUp: true}
     },
     {
         id: NodeId.GateMarMux,
         type: "tristate",
         position: { x: 12.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
-        data: { 
-            label: "GateMARMUX",
-            description: "GateMARMUX controls when MARMUX output is driven onto the bus."
-        } as any
+        data: { label: "GateMARMUX" }
     },
     {
         id: NodeId.GatePC,
         type: "tristate",
         position: { x: 31.5 * Consts.GRID_GAP_SIZE, y: 2 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
-        data: { 
-            label: "GatePC",
-            description: "GatePC controls when the Program Counter value is driven onto the bus."
-        } as any
+        data: { label: "GatePC" }
     },
     { 
         id: NodeId.PC,
@@ -116,9 +109,8 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PC",
-            description: "Program Counter - A 16-bit register that holds the address of the next instruction to be fetched.",
             componentType: 'register'
-        } as any
+        }
     },
     { 
         id: NodeId.PCMux,
@@ -127,10 +119,8 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "PCMUX",
-            description: "Program Counter Multiplexer - Selects the next value to load into PC (PC+offset, bus value, or PC+1).",
             inputSize: 3,
-            selectorLeftUp: true
-        } as any
+            selectorLeftUp: true}
     },
     { 
         id: NodeId.PCAdder,
@@ -139,7 +129,6 @@ export const initialNodes: any[] = [
         ...Consts.PC_ADDER_DIMS,
         data: { 
             label: "+1",
-            description: "PC Incrementer - Adds 1 to the Program Counter for sequential instruction execution.",
             orientation: 'down',
             componentType: 'extender'
         }
@@ -151,7 +140,6 @@ export const initialNodes: any[] = [
         ...Consts.REG_FILE_DIMS,
         data: {
             label: 'Register File',
-            description: "LC-3 Register File - Contains eight 16-bit general-purpose registers (R0-R7) used for data storage and manipulation.",
             componentType: "regfile"
         }
     },
@@ -162,7 +150,6 @@ export const initialNodes: any[] = [
         ...Consts.SEXT_NODE_DIMS,
         data: { 
             label: 'ZEXT [7:0]',
-            description: "Zero Extension - Takes the low 8 bits from IR[7:0] and extends with zeros to create a 16-bit value.",
             orientation: 'up',
             componentType: 'extender'
         }
@@ -174,7 +161,6 @@ export const initialNodes: any[] = [
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT [4:0]',
-            description: "Sign Extension (5-bit) - Takes IR[4:0] and sign-extends to 16 bits for immediate values in ALU operations.",
             componentType: 'extender'
         }
     },
@@ -185,7 +171,6 @@ export const initialNodes: any[] = [
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT [5:0]',
-            description: "Sign Extension (6-bit) - Takes IR[5:0] and sign-extends to 16 bits for PC-relative addressing in LD/ST operations.",
             componentType: 'extender'
         }
     },
@@ -196,7 +181,6 @@ export const initialNodes: any[] = [
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT [8:0]',
-            description: "Sign Extension (9-bit) - Takes IR[8:0] and sign-extends to 16 bits for PC-relative addressing in branch operations.",
             componentType: 'extender'
         }
     },
@@ -207,7 +191,6 @@ export const initialNodes: any[] = [
         ...Consts.SEXT_NODE_DIMS,
         data: {
             label: 'SEXT [10:0]',
-            description: "Sign Extension (11-bit) - Takes IR[10:0] and sign-extends to 16 bits for PC-relative addressing in jump operations.",
             componentType: 'extender'
         }
     },
@@ -218,7 +201,6 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'IR',
-            description: "Instruction Register - Holds the current 16-bit instruction being executed, providing opcode and operand fields.",
             componentType: "register"
         }
     },
@@ -227,20 +209,14 @@ export const initialNodes: any[] = [
         type: "alu",
         position: { x: 14.5 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.ALU_DIMS,
-        data: { 
-            label: '+',
-            description: "Memory Address Adder - Computes effective addresses by adding base address (from ADDR1MUX) with offset (from ADDR2MUX)."
-        }
+        data: { label: '+' }
     },
     {
         id: NodeId.Addr1Mux,
         type: "mux",
         position: { x: 19.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
-        data: { 
-            label: 'ADDR1MUX',
-            description: "Address 1 Multiplexer - Selects the base address for effective address calculation (either PC or register contents)."
-        } as any
+        data: { label: 'ADDR1MUX' }
     },
     {
         id: NodeId.Addr2Mux,
@@ -249,10 +225,8 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: {
             label: 'ADDR2MUX',
-            description: "Address 2 Multiplexer - Selects the offset for address calculation (sign-extended immediate values or zero).",
             inputSize: 4,
-            selectorLeftUp: true
-        } as any
+            selectorLeftUp: true}
     },
     {
         id: NodeId.FSM,
@@ -261,7 +235,6 @@ export const initialNodes: any[] = [
         ...Consts.FSM_DIMS,
         data: { 
             label: "Finite State Machine",
-            description: "Control Unit - The brain of the LC-3 that generates all control signals based on instruction opcode and processor state.",
             componentType: "fsm"
         }
     },
@@ -272,9 +245,8 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "SR2MUX",
-            description: "Source Register 2 Multiplexer - Selects between register contents and sign-extended immediate value for ALU operations.",
-            orientation: 'down'
-        } as any
+            orientation: 'down',
+        }
     },
     {
         id: NodeId.ALU,
@@ -283,7 +255,6 @@ export const initialNodes: any[] = [
         ...Consts.ALU_DIMS,
         data: {
             label: "ALU",
-            description: "Arithmetic Logic Unit - Performs arithmetic and logical operations (ADD, AND, NOT) on two 16-bit operands.",
             orientation: "down",
             selector: true
         }
@@ -295,7 +266,6 @@ export const initialNodes: any[] = [
         ...Consts.TRISTATE_DIMS,
         data: { 
             label: "GateALU",
-            description: "GateALU controls when ALU output is driven onto the bus.",
             orientation: "down"
         }
     },
@@ -306,7 +276,6 @@ export const initialNodes: any[] = [
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "CC Logic",
-            description: "Condition Code Logic - Analyzes bus data to generate N (negative), Z (zero), and P (positive) condition codes.",
             orientation: 'up',
             componentType: 'extender'
          }
@@ -318,7 +287,6 @@ export const initialNodes: any[] = [
         ...Consts.CC_NODE_DIMS,
         data: { 
             label: "NZP",
-            description: "Condition Code Register - Stores the N (negative), Z (zero), and P (positive) flags for conditional branching.",
             orientation: "right",
             componentType: "register"
         }
@@ -330,7 +298,6 @@ export const initialNodes: any[] = [
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Input',
-            description: "Input Device - Represents external input devices (keyboard) that can provide data to the processor via memory-mapped I/O.",
             orientation: 'left'
         }
     },
@@ -341,7 +308,6 @@ export const initialNodes: any[] = [
         ...Consts.IO_NODE_DIMS,
         data: {
             label: 'Output',
-            description: "Output Device - Represents external output devices (display) that can receive data from the processor via memory-mapped I/O.",
             orientation: 'left'
         }
     },
@@ -354,10 +320,8 @@ export const initialNodes: any[] = [
         height: Consts.DEFAULT_NODE_DIMS.width,
         data: { 
             label: "SR1MUX",
-            description: "Source Register 1 Multiplexer - Selects which register field from IR specifies the first source register for operations.",
             orientation: "right",
-            selectorLeftUp: true
-        } as any
+            selectorLeftUp: true}
     },
     {
         id: NodeId.DrMux,
@@ -368,10 +332,8 @@ export const initialNodes: any[] = [
         height: Consts.DEFAULT_NODE_DIMS.width,
         data: {
             label: "DRMUX",
-            description: "Destination Register Multiplexer - Selects which register receives the result (from IR[11:9] or R7 for subroutines).",
             orientation: "right",
-            selectorLeftUp: true
-        } as any
+            selectorLeftUp: true}
     },
     {
         id: NodeId.Memory,
@@ -380,7 +342,6 @@ export const initialNodes: any[] = [
         ...Consts.MEMORY_DIMS,
         data: {
             label: 'Memory',
-            description: "Main Memory - 16-bit addressable memory array storing instructions and data, accessed through MAR and MDR.",
             componentType: 'memory'
         },
     },
@@ -391,7 +352,6 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MAR",
-            description: "Memory Address Register - Holds the 16-bit address for memory operations, specifying which memory location to access.",
             orientation: 'left',
             componentType: 'register'
         }
@@ -403,7 +363,6 @@ export const initialNodes: any[] = [
         ...Consts.DEFAULT_NODE_DIMS,
         data: { 
             label: "MDR",
-            description: "Memory Data Register - Holds data being read from or written to memory, acting as a buffer between processor and memory.",
             componentType: 'mdr'
         }
     },
@@ -412,20 +371,14 @@ export const initialNodes: any[] = [
         type: "mux",
         position: { x: 9 * Consts.GRID_GAP_SIZE, y: 50 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
-        data: { 
-            label: "MDRMUX",
-            description: "Memory Data Register Multiplexer - Selects data source for MDR (from bus for writes or from memory for reads)."
-        } as any
+        data: { label: "MDRMUX" }
     },
     {
         id: NodeId.GateMdr,
         type: "tristate",
         position: { x: 11.5 * Consts.GRID_GAP_SIZE, y: 42 * Consts.GRID_GAP_SIZE },
         ...Consts.TRISTATE_DIMS,
-        data: { 
-            label: "GateMDR",
-            description: "GateMDR controls when MDR contents are driven onto the bus during memory read operations."
-        }
+        data: { label: "GateMDR" }
     },
 
     // SIGNAL COMPONENTS
@@ -435,8 +388,7 @@ export const initialNodes: any[] = [
         position: { x: 39 * Consts.GRID_GAP_SIZE, y: 7.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "LD.REG",
-            description: "Load Register signal - When asserted, enables writing data from the bus into the register specified by DR."
+            label: "LD.REG"
         }
     },
     {
@@ -446,7 +398,6 @@ export const initialNodes: any[] = [
         ...Consts.LABEL_DIMS,
         data: {
             label: "LD.MAR",
-            description: "Load Memory Address Register signal - When asserted, loads the address from the bus into MAR.",
             orientation: "left"
         }
     },
@@ -456,8 +407,7 @@ export const initialNodes: any[] = [
         position: { x: -5 * Consts.GRID_GAP_SIZE, y: 35.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "LD.IR",
-            description: "Load Instruction Register signal - When asserted, loads the instruction from the bus into IR."
+            label: "LD.IR"
         }
     },
     {
@@ -466,8 +416,7 @@ export const initialNodes: any[] = [
         position: { x: 3 * Consts.GRID_GAP_SIZE, y: 45.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "LD.MDR",
-            description: "Load Memory Data Register signal - When asserted, loads data into MDR from the selected source (bus or memory)."
+            label: "LD.MDR"
         }
     },
     {
@@ -476,8 +425,7 @@ export const initialNodes: any[] = [
         position: { x: 15 * Consts.GRID_GAP_SIZE, y: 34 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "LD.CC",
-            description: "Load Condition Code signal - When asserted, loads new N, Z, P condition codes into the NZP register."
+            label: "LD.CC"
         }
     },
     {
@@ -486,8 +434,7 @@ export const initialNodes: any[] = [
         position: { x: 21 * Consts.GRID_GAP_SIZE, y: 5.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "LD.PC",
-            description: "Load Program Counter signal - When asserted, loads a new address into PC from the PCMUX output."
+            label: "LD.PC"
         }
     },
     {
@@ -497,7 +444,6 @@ export const initialNodes: any[] = [
         ...Consts.LABEL_DIMS,
         data: {
             label: "MEM.EN",
-            description: "Memory Enable signal - When asserted, enables memory operation (read or write based on R/W signal).",
             orientation: 'up'
         }
     },
@@ -508,7 +454,6 @@ export const initialNodes: any[] = [
         ...Consts.LABEL_DIMS,
         data: {
             label: "RW",
-            description: "Read/Write signal - Controls memory operation direction (0 = write to memory, 1 = read from memory).",
             orientation: 'up'
         }
     },
@@ -518,8 +463,7 @@ export const initialNodes: any[] = [
         position: { x: 39 * Consts.GRID_GAP_SIZE, y: 5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "DR",
-            description: "Destination Register address - Specifies which register in the register file will receive the write data."
+            label: "DR"
         }
     },
     {
@@ -528,8 +472,8 @@ export const initialNodes: any[] = [
         position: { x: 51 * Consts.GRID_GAP_SIZE, y: 13 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
+
             label: "SR1",
-            description: "Source Register 1 address - Specifies which register provides the first operand for ALU operations.",
             orientation: "up"
 
         }
@@ -540,8 +484,7 @@ export const initialNodes: any[] = [
         position: { x: 39 * Consts.GRID_GAP_SIZE, y: 10 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "SR2",
-            description: "Source Register 2 address - Specifies which register provides the second operand for register-based operations (immediate 5 or register value)."
+            label: "SR2"
         }
     },
     {
@@ -550,8 +493,7 @@ export const initialNodes: any[] = [
         position: { x: 36 * Consts.GRID_GAP_SIZE, y: 50.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "IR[11:9]",
-            description: "Instruction bits 11-9 - Contains the first source register address for most instructions."
+            label: "IR[11:9]"
         }
     },
     {
@@ -560,8 +502,7 @@ export const initialNodes: any[] = [
         position: { x: 36 * Consts.GRID_GAP_SIZE, y: 53.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "IR[8:6]",
-            description: "Instruction bits 8-6 - Contains the base register address for load/store operations."
+            label: "IR[8:6]"
         }
     },
     {
@@ -570,8 +511,7 @@ export const initialNodes: any[] = [
         position: { x: 47 * Consts.GRID_GAP_SIZE, y: 50.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "IR[11:9]",
-            description: "Instruction bits 11-9 - Contains the destination register address for most instructions."
+            label: "IR[11:9]"
         }
     },
     {
@@ -580,8 +520,7 @@ export const initialNodes: any[] = [
         position: { x: 47 * Consts.GRID_GAP_SIZE, y: 53.5 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "111",
-            description: "Register 7 address (111 in binary) - Used as destination register for subroutine calls (JSR/JSRR)."
+            label: "111"
         }
     },
     {
@@ -591,7 +530,6 @@ export const initialNodes: any[] = [
         ...Consts.LABEL_DIMS,
         data: {
             label: "0",
-            description: "Zero value - Used when no offset is needed for address calculation (e.g., trap vectors).",
             orientation: "up"
         }
     },

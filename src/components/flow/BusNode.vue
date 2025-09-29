@@ -33,7 +33,6 @@ interface BusHandle {
 }
 const props = defineProps<NodeProps<{
     label?: string,
-    description?: string,
     handles?: BusHandle[]
     activeCycles?: number[]
 }>>();
@@ -73,7 +72,6 @@ const points = computed(() => [
       width: `${width}px`,
       height: `${height}px`,
     }"
-    v-tooltip.top="props.data.description"
   >
     <WireArrow
       id="bus-arrow"

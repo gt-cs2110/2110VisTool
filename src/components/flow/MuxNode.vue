@@ -11,7 +11,6 @@ import { ALU_SLANT } from './constants';
   
 const props = defineProps<NodeProps<{
     label?: string,
-    description?: string,
     orientation?: Orientation,
     inputSize?: number,
     selectorLeftUp?: boolean,
@@ -47,7 +46,7 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div class="size-full" v-tooltip.top="props.data.description">
+  <div class="size-full">
     <Mux
       :class="activeClass"
       :dimensions="props.dimensions"
