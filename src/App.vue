@@ -240,7 +240,7 @@ function activateMacro(key: string) {
     </Dialog>
 
     <!-- SVG + pseudocode -->
-    <div class="flex gap-4 px-2 grow justify-center items-start">
+    <div class="flex gap-4 px-2 grow justify-center items-center">
       <!-- The SVG diagram -->
       <div 
         class="flex justify-center items-center flex-shrink-0" 
@@ -252,7 +252,7 @@ function activateMacro(key: string) {
         />
       </div>
       <!-- The pseudocode -->
-      <div class="flex flex-col items-start justify-start max-w-xs">
+      <div>
         <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
           <template #title>
             {{ SEQUENCE_DATA[wireState.macro].label }} Pseudocode
