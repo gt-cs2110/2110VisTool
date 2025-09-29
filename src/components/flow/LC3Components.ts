@@ -590,7 +590,7 @@ export const initialNodes: any[] = [
         position: { x: 17.5 * Consts.GRID_GAP_SIZE, y: 25 * Consts.GRID_GAP_SIZE },
         ...Consts.LABEL_DIMS,
         data: {
-            label: "0 (16 Bit)",
+            label: "0",
             description: "Zero value - Used when no offset is needed for address calculation (e.g., trap vectors).",
             orientation: "up"
         }
