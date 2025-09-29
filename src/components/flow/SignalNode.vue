@@ -9,6 +9,7 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
+    description?: string,
     orientation?: Orientation,
     handles?: HandleProperties[],
 }>>();
@@ -26,7 +27,7 @@ const handlePositions = computed(() => {
 </script>
 
 <template>
-  <div class="size-full">
+  <div class="size-full" v-tooltip.top="props.data.description">
     <div class="signal-label">
       {{ props.data.label }}
     </div>

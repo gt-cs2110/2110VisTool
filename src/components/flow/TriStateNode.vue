@@ -10,6 +10,7 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
+    description?: string,
     orientation?: Orientation,
     activeCycles?: number[]
 }>>();
