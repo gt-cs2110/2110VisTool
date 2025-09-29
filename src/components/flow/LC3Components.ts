@@ -829,7 +829,15 @@ export const initialEdges: Edge[] = [
         target: NodeId.Addr1Mux,
         sourceHandle: 'output',
         targetHandle: 'input-1',
-        type: 'wire'
+        type: 'wire',
+        data: {
+            intermediateNodes: [
+                { x: 32 * Consts.GRID_GAP_SIZE, y: 3.9 * Consts.GRID_GAP_SIZE },
+                { x: 39 * Consts.GRID_GAP_SIZE, y: 3.9 * Consts.GRID_GAP_SIZE },
+                { x: 39 * Consts.GRID_GAP_SIZE, y: 23 * Consts.GRID_GAP_SIZE },
+                { x: 24 * Consts.GRID_GAP_SIZE, y: 23 * Consts.GRID_GAP_SIZE }
+            ]
+        }
     },
 
     // NZP
