@@ -10,6 +10,7 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
+    description?: string,
     orientation?: Orientation,
     activeCycles?: number[]
 }>>();
@@ -28,7 +29,7 @@ const activeClass = computed(() => typeof activeCycle.value === "number" ? `acti
 </script>
 
 <template>
-  <div>
+  <div v-tooltip.top="props.data.description">
     <TriState
       :dimensions="props.dimensions"
       :orientation

@@ -9,6 +9,7 @@ import { computed } from 'vue';
   
 const props = defineProps<NodeProps<{
     label?: string,
+    description?: string,
     orientation?: Orientation,
     handles?: HandleProperties[],
     componentType?: LogicComponentType,
@@ -82,6 +83,7 @@ const handlePositions = computed(() => {
   <div
     class="size-full"
     :class="activeClass"
+    v-tooltip.top="props.data.description"
   >
     <div class="logic-label">
       {{ props.data.label }}
