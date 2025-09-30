@@ -36,7 +36,6 @@ const arrowEnd = computed(() => `arrow-marker-${props.id}`);
 // Put higher cycle elements on top
 watch(activeCycle, c => {
   if (edgeEl.value && edgeEl.value.parentElement) {
-    console.log(edgeEl.value.parentElement, "set to ", c);
     edgeEl.value.parentElement.style.zIndex = String((c ?? -1) + 1);
   }
 });
