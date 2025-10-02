@@ -94,7 +94,7 @@
       ref="flow"
       :nodes
       :edges
-      :nodes-draggable="true"
+      :nodes-draggable="false"
       class="vue-flow-container"
       snap-to-grid
       :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
