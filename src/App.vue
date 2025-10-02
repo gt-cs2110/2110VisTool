@@ -13,8 +13,6 @@ const activeWireTime = computed(() => {
 });
 const lc3Diagram = useTemplateRef("lc3");
 
-const infoDialogVisible = ref(false);
-
 /**
  * A queue of wires to activate.
  */
@@ -195,46 +193,10 @@ function activateMacro(key: string) {
   <div class="flex flex-col gap-3 h-screen">
     <!-- Header -->
     <header class="p-4">
-      <div class="flex gap-1 items-center justify-center">
-        <h1 class="text-center text-4xl">
-          LC-3 Visualization Tool
-        </h1>
-        <Button
-          severity="secondary"
-          variant="text"
-          icon="pi"
-          aria-label="About"
-          rounded
-          @click="infoDialogVisible = true"
-        >
-          <MdiInformationOutline />
-        </Button>
-      </div>
+      <h1 class="text-center text-4xl">
+        LC-3 Visualization Tool
+      </h1>
     </header>
-    
-    <Dialog
-      v-model:visible="infoDialogVisible"
-      modal
-      dismissable-mask
-      header="About"
-    >
-      This visualization tool is an interactive guide on how to trace the LC-3 datapath.<br>
-
-      Designed by Huy Nguyen & Henry Bui, maintained by the <a
-        class="text-blue-500 underline"
-        href="https://github.com/gt-cs2110/"
-      >GT CS 2110 TA Team</a>.
-
-      <template #footer>
-        <a
-          title="Source Code"
-          aria-label="Source Code"
-          href="https://github.com/gt-cs2110/2110VisTool"
-        >
-          <SiGithub />
-        </a>
-      </template>
-    </Dialog>
 
     <!-- SVG + pseudocode -->
     <div class="flex gap-4 px-2 grow justify-center items-center">
