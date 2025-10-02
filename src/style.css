@@ -1,10 +1,59 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
+/* Vue Flow styles */
+@import '@vue-flow/core/dist/style.css';
+@import '@vue-flow/core/dist/theme-default.css';
+
 /* Background for UI related items */
 @utility bg-surface-ui {
     background-color: var(--p-surface-200);
     @variant dark {
         background-color: var(--p-surface-800);
     }
+}
+
+@theme inline {
+    --color-inactive: var(--color-surface-400);
+
+    --color-active-0: var(--color-red-500);
+    --color-active-0-light: var(--color-red-200);
+    --color-active-0-dark: var(--color-red-800);
+    --color-active-1: var(--color-orange-500);
+    --color-active-1-light: var(--color-orange-200);
+    --color-active-1-dark: var(--color-orange-800);
+    --color-active-2: var(--color-yellow-500);
+    --color-active-2-light: var(--color-yellow-200);
+    --color-active-2-dark: var(--color-yellow-800);
+    --color-active-3: var(--color-green-500);
+    --color-active-3-light: var(--color-green-200);
+    --color-active-3-dark: var(--color-green-800);
+    --color-active-4: var(--color-blue-500);
+    --color-active-4-light: var(--color-blue-200);
+    --color-active-4-dark: var(--color-blue-800);
+    --color-active-5: var(--color-purple-500);
+    --color-active-5-light: var(--color-purple-200);
+    --color-active-5-dark: var(--color-purple-800);
+    --color-active-6: var(--color-pink-500);
+    --color-active-6-light: var(--color-pink-200);
+    --color-active-6-dark: var(--color-pink-800);
+}
+
+/* Used for node SVGs. This doesn't need to be a Tailwind utility. */
+:root {
+    --vf-node-color: var(--color-surface-700);
+}
+/* Default styling for SVG shapes (e.g., ALU, MUX, tri-state) */
+.shape {
+    /* Positioning */
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    /* Coloring */
+    fill: var(--vf-node-bg);
+    stroke-width: 1px;
+    stroke: var(--vf-node-color);
+    /* Overflow */
+    overflow: visible;
 }
