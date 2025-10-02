@@ -77,15 +77,12 @@ function stepBack() {
   if (wire == CYCLE_BREAK) {
     wireState.value.cycle--;
   } else {
-    const history = wireActivationHistory.value.get(wire) || [];
-    if (history.length > 0) {
-      history.pop(); 
-      
-      if (history.length > 0) {
-        const previousCycle = history[history.length - 1];
-        lc3Diagram.value?.activateWire(wire, previousCycle);
-      } else {
-        lc3Diagram.value?.deactivateWire(wire);
+    const history = wireActivationHistory.value.get(wire);
+    if (history && history.length > 0) {
+      history.pop();
+      lc3Diagram.value?.deactivateWire(wire);
+
+      if (history.length === 0) {
         wireActivationHistory.value.delete(wire);
       }
     }
