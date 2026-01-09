@@ -14,7 +14,7 @@ interface MacroData {
      * Each element consists of a single cycle, 
      * which consists of an array of signals in the cycle.
      */
-    sequence: string[][]
+    sequence: (NodeId | `${NodeId}-${NodeId}`)[][]
 }
 export interface HighlightRange {
     /**
@@ -91,7 +91,7 @@ function pseudocode(parts: TemplateStringsArray | string, ...subs: [string, High
     return { source: template, highlights };
 }
 
-function edge(source: string, target: string) {
+function edge(source: NodeId, target: NodeId): `${NodeId}-${NodeId}` {
     return `${source}-${target}`;
 }
 
