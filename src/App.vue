@@ -202,7 +202,11 @@ function activateMacro(key: string) {
     </header>
 
     <!-- SVG + pseudocode -->
-    <div class="flex gap-4 px-2 grow justify-center items-center">
+    <TransitionGroup
+      name="main-panel"
+      tag="div"
+      class="flex px-2 grow justify-center items-center"
+    >
       <!-- The SVG diagram -->
       <div 
         class="flex justify-center items-center shrink-0" 
@@ -214,8 +218,11 @@ function activateMacro(key: string) {
         />
       </div>
       <!-- The pseudocode -->
-      <div>
-        <Card v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode">
+      <div
+        v-if="wireState.macro && SEQUENCE_DATA[wireState.macro].pseudocode"
+        class="ml-4"
+      >
+        <Card>
           <template #title>
             {{ SEQUENCE_DATA[wireState.macro].label }} Pseudocode
           </template>
@@ -228,7 +235,7 @@ function activateMacro(key: string) {
           </template>
         </Card>
       </div>
-    </div>
+    </TransitionGroup>
 
     <!-- Control panel -->
     <div class="control-panel">
@@ -360,5 +367,23 @@ function activateMacro(key: string) {
 .control-panel {
   @apply flex flex-col items-stretch;
   @apply bg-surface-ui border-surface border-2 rounded-t px-2;
+}
+
+.main-panel-move, /* apply transition to moving elements */
+.main-panel-enter-active,
+.main-panel-leave-active {
+  transition: all 0.5s ease;
+}
+
+.main-panel-enter-from,
+.main-panel-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.main-panel-leave-active {
+  position: absolute;
 }
 </style>
