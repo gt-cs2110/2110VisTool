@@ -99,6 +99,7 @@
       snap-to-grid
       :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
       :default-viewport="{ x: 3 * GRID_GAP_SIZE, y: 1 * GRID_GAP_SIZE, zoom: 0.5 }"
+      :translate-extent="[[-6 * GRID_GAP_SIZE, -2 * GRID_GAP_SIZE], [59 * GRID_GAP_SIZE, 58 * GRID_GAP_SIZE]]"
       @node-click="(e) => console.log(e.node.id, {...e.node.position})"
     >
       <Background
