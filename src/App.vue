@@ -8,7 +8,10 @@ const CYCLE_BREAK = "CYCLE_BREAK";
 
 const speedScale = ref(50);
 const activeWireTime = computed(() => {
-  const scale = Math.pow(1.5, speedScale.value / 100);
+  // Min: speedScale = 0   ==> 0.5
+  // Med: speedScale = 50  ==> 1.0
+  // Max: speedScale = 100 ==> 2.0
+  const scale = Math.pow(4, speedScale.value / 100) / 2;
   return DEFAULT_ACTIVE_WIRE_TIME / scale;
 });
 const lc3Diagram = useTemplateRef("lc3");
@@ -202,7 +205,7 @@ function activateMacro(key: string) {
     <div class="flex gap-4 px-2 grow justify-center items-center">
       <!-- The SVG diagram -->
       <div 
-        class="flex justify-center items-center flex-shrink-0" 
+        class="flex justify-center items-center shrink-0" 
         style="width: 650px; height: 600px;"
       >
         <LC3 
@@ -230,8 +233,10 @@ function activateMacro(key: string) {
     <!-- Control panel -->
     <div class="control-panel">
       <div class="flex items-stretch gap-2 py-2 justify-center">
-        <div class="flex items-center gap-2">
-          Speed: 
+        <div class="flex items-center gap-5">
+          <div>
+            Speed:
+          </div>
           <Slider
             v-model="speedScale"
             class="w-56"
