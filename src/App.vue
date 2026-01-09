@@ -195,7 +195,7 @@ function activateMacro(key: string) {
 <template>
   <div class="flex flex-col gap-3 h-screen">
     <!-- Header -->
-    <header class="p-4">
+    <header class="p-4 bg-primary-500 dark:bg-primary-600 border-b border-primary-700">
       <h1 class="text-center text-4xl">
         LC-3 Visualization Tool
       </h1>
