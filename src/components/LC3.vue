@@ -20,13 +20,13 @@
          * Activates the wire with the given ID, causing it to light up.
          * @param wireId ID of the wire to activate.
          */
-        activateWire(wireId: string, cycle: number) {
+        activateWire(wireId: string, cycle: number, duration: number) {
             if (!flow.value) return;
 
             const edge = flow.value.findEdge(wireId);
             if (edge) {
                 (edge.data.activeCycles ??= []).push(cycle);
-                edge.data.animator.animate(1000);
+                edge.data.animator.animate(duration);
                 return;
             }
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { EdgeProps, XYPosition } from '@vue-flow/core';
 import { BaseEdge, getSmoothStepPath, getStraightPath, useEdge } from '@vue-flow/core';
-import { computed, useTemplateRef, watch } from 'vue';
+import { computed, ref, useTemplateRef, watch } from 'vue';
 import { getManualPath } from './edgePath';
 import WireArrow from './WireArrow.vue';
 
@@ -27,16 +27,30 @@ const path = computed(() => {
 
   return getSmoothStepPath(props);
 });
-
+const animInProgress = ref(false);
+watch([animInProgress, activeClass], ([inProgress, activeCls]) => {
+  if (!inProgress) {
+    arrowEndClass.value = activeCls;
+  }
+});
 const { edgeEl } = useEdge();
 const baseEl = useTemplateRef("baseEdge");
 const pathEl = computed(() => baseEl.value?.pathEl);
 const arrowEnd = computed(() => `arrow-marker-${props.id}`);
+const arrowEndClass = ref<string>();
 
 // Put higher cycle elements on top
 watch(activeCycle, c => {
   if (edgeEl.value && edgeEl.value.parentElement) {
     edgeEl.value.parentElement.style.zIndex = String((c ?? -1) + 1);
+  }
+});
+// Update length of wire
+watch(pathEl, path => {
+  if (path) {
+    const length = String(path.getTotalLength());
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
   }
 });
 
@@ -49,19 +63,30 @@ interface Animator {
   complete(): void
 }
 
+const startOffset = (path: SVGPathElement) => String(path.getTotalLength());
+const endOffset = (_path: SVGPathElement) => "0";
+
 const animator: Animator = {
   animation: null,
   animate(duration: number) {
     const path = pathEl.value;
       // Apply animation
       if (path) {
-        this.animation = path.animate([{ strokeDashoffset: '1000' }, { strokeDashoffset: '0' }], {
+        animInProgress.value = true;
+        this.animation = path.animate([{ strokeDashoffset: startOffset(path) }, { strokeDashoffset: endOffset(path) }], {
           duration,
           direction: 'normal',
           easing: 'linear',
           iterations: 1,
         });
-        this.animation.onfinish = () => path.style.strokeDashoffset = "0";
+
+        this.animation.oncancel = () => {
+          animInProgress.value = false;
+        }
+        this.animation.onfinish = () => {
+          path.style.strokeDashoffset = endOffset(path);
+          animInProgress.value = false;
+        }
       }
     },
     pause() {
@@ -74,15 +99,12 @@ const animator: Animator = {
       this.animation?.cancel();
       this.animation = null;
       if (pathEl.value) {
-        pathEl.value.style.strokeDashoffset = '1000';
+        pathEl.value.style.strokeDashoffset = startOffset(pathEl.value);
       }
     },
     complete() {
-      this.animation?.cancel();
+      this.animation?.finish();
       this.animation = null;
-      if (pathEl.value) {
-        pathEl.value.style.strokeDashoffset = '0';
-      }
     }
 }
 
@@ -102,7 +124,7 @@ export default {
     v-if="!props.target.startsWith('gate')"
     :id="arrowEnd"
     type="arrow"
-    :active-class="activeClass"
+    :active-class="arrowEndClass"
   />
   <path
     :d="path[0]"
@@ -122,8 +144,6 @@ export default {
   @reference "@/style.css";
   .vue-flow__edge-wire > .vue-flow__edge-path {
     stroke-width: 3;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
 
     &.path-background {
       stroke: var(--color-inactive);

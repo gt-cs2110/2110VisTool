@@ -104,7 +104,7 @@ function stepFwd() {
     }
     wireActivationHistory.value.get(wire)!.push(wireState.value.cycle);
     
-    lc3Diagram.value?.activateWire(wire, wireState.value.cycle);
+    lc3Diagram.value?.activateWire(wire, wireState.value.cycle, activeWireTime.value);
   }
   wireState.value.step++;
 }
