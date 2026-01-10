@@ -143,7 +143,7 @@ export default {
 <style>
   @reference "@/style.css";
   .vue-flow__edge-wire > .vue-flow__edge-path {
-    stroke-width: 3;
+    stroke-width: 5;
 
     &.path-background {
       stroke: var(--color-inactive);

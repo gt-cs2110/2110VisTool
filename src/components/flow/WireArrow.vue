@@ -31,7 +31,7 @@ defineProps({
       <marker
         :id="id"
         :class="['vue-flow__arrowhead', activeClass]"
-        viewBox="-10 -10 20 20"
+        viewBox="-10 -10 25 20"
         :refX="refX"
         refY="0"
         :markerWidth="width"
@@ -46,7 +46,7 @@ defineProps({
           }"
           stroke-linecap="round"
           stroke-linejoin="round"
-          d="M 0,-5 L 10,0 L 0,5 Z"
+          d="M 5,-5 L 10,0 L 5,5 Z"
         />
       </marker>
     </defs>

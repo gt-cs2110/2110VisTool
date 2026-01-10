@@ -205,7 +205,9 @@
         }
     }
     /* NODE SVG ACTIVE STATES */
-    :deep(.vue-flow__node svg.shape) {
+    :deep(.vue-flow__node:not(.vue-flow__node-bus) svg.shape) {
+        @apply transition-colors;
+
         &.active-0 {
             fill: var(--color-active-0-light);
             stroke: var(--color-active-0);
@@ -236,31 +238,41 @@
         }
     }
     /* BUS ACTIVE STATES */
-    :deep(.vue-flow__node-bus svg.shape) {
-        &.active-0 g {
-            stroke: var(--color-active-0) !important;
+    :deep(.vue-flow__node-bus) {
+        :deep(.vue-flow__marker path) {
+            @apply transition-colors;
         }
-        &.active-1 g {
-            stroke: var(--color-active-1) !important;
-        }
-        &.active-2 g {
-            stroke: var(--color-active-2) !important;
-        }
-        &.active-3 g {
-            stroke: var(--color-active-3) !important;
-        }
-        &.active-4 g {
-            stroke: var(--color-active-4) !important;
-        }
-        &.active-5 g {
-            stroke: var(--color-active-5) !important;
-        }
-        &.active-6 g {
-            stroke: var(--color-active-6) !important;
+        svg.shape {
+            g {
+                @apply transition-colors;
+            }
+            &.active-0 g {
+                stroke: var(--color-active-0) !important;
+            }
+            &.active-1 g {
+                stroke: var(--color-active-1) !important;
+            }
+            &.active-2 g {
+                stroke: var(--color-active-2) !important;
+            }
+            &.active-3 g {
+                stroke: var(--color-active-3) !important;
+            }
+            &.active-4 g {
+                stroke: var(--color-active-4) !important;
+            }
+            &.active-5 g {
+                stroke: var(--color-active-5) !important;
+            }
+            &.active-6 g {
+                stroke: var(--color-active-6) !important;
+            }
         }
     }
     /* LOGIC NODE ACTIVE STATES */
     :deep(.vue-flow__node-logic) {
+        @apply transition-colors;
+
         &:has(.active-0) {
             background-color: var(--color-active-0-light);
             border-color: var(--color-active-0);
