@@ -5,12 +5,20 @@
 @import '@vue-flow/core/dist/style.css';
 @import '@vue-flow/core/dist/theme-default.css';
 
+/* Font */
+@import '@vue-flow/core/dist/theme-default.css';
+
 /* Background for UI related items */
 @utility bg-surface-ui {
     background-color: var(--p-surface-200);
     @variant dark {
         background-color: var(--p-surface-800);
     }
+}
+
+@theme {
+    --default-font-family: var(--font-mono);
+    --font-mono: "Iosevka", monospace;
 }
 
 @theme inline {

@@ -82,12 +82,17 @@
 
     const nodes = ref(initialNodes);
     const edges = ref(initialEdges);
+
+    function fit() {
+        // flow.value?.setCenter({ x: 29 * GRID_GAP_SIZE, y: 28 * GRID_GAP_SIZE });
+        flow.value?.fitView({ padding: 0.2, duration: 1000, minZoom: 0.3 });
+    }
 </script>
 
 <template>
   <div
     ref="top"
-    class="h-full w-full bg-surface-800 rounded"
+    class="h-full w-full bg-surface-800"
   >
     <VueFlow
       id="lc3-flow-diagram"
@@ -98,8 +103,8 @@
       class="vue-flow-container"
       snap-to-grid
       :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
-      :default-viewport="{ x: 3 * GRID_GAP_SIZE, y: 1 * GRID_GAP_SIZE, zoom: 0.5 }"
-      :translate-extent="[[-6 * GRID_GAP_SIZE, -2 * GRID_GAP_SIZE], [59 * GRID_GAP_SIZE, 58 * GRID_GAP_SIZE]]"
+      :translate-extent="[[-5000, -5000], [5000, 5000]]"
+      @pane-ready="fit"
       @node-click="(e) => console.log(e.node.id, {...e.node.position})"
     >
       <Background
