@@ -104,6 +104,7 @@
       snap-to-grid
       :snap-grid="[GRID_GAP_SIZE / 2, GRID_GAP_SIZE / 2]"
       :translate-extent="[[-5000, -5000], [5000, 5000]]"
+      :min-zoom="0.3"
       @pane-ready="fit"
       @node-click="(e) => console.log(e.node.id, {...e.node.position})"
     >

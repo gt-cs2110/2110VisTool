@@ -196,8 +196,8 @@ function activateMacro(key: string) {
 <template>
   <div class="flex flex-col gap-4 h-screen">
     <!-- Header -->
-    <header class="p-4 bg-primary-500 dark:bg-primary-600 border-b border-primary-700">
-      <h1 class="text-center text-xl">
+    <header class="pt-3 pb-2 bg-surface-ui border-b border-surface">
+      <h1 class="text-center">
         LC-3 Visualization Tool
       </h1>
     </header>
@@ -235,7 +235,7 @@ function activateMacro(key: string) {
             Ready
           </template>
           <template #content>
-            <p class="text-surface-400">
+            <p class="text-surface-500">
               Select an instruction from the menu below to view its execution flow.
             </p>
           </template>
@@ -244,7 +244,7 @@ function activateMacro(key: string) {
     </div>
 
     <!-- Control panel -->
-    <div class="control-panel">
+    <div class="flex flex-col items-stretch bg-surface-ui border-surface border border-b-0 rounded-t-xl mx-2 px-2">
       <div class="flex max-md:flex-col items-center gap-6 py-2 justify-center">
         <div class="flex items-center gap-5">
           <div>
@@ -375,11 +375,6 @@ function activateMacro(key: string) {
 
 <style scoped>
 @reference "@/style.css";
-
-.control-panel {
-  @apply flex flex-col items-stretch;
-  @apply bg-surface-ui border-surface border-2 rounded-t px-2;
-}
 
 .main-panel {
   grid-template-columns: 1fr var(--container-xs);
