@@ -84,8 +84,16 @@
     const edges = ref(initialEdges);
 
     function fit() {
-        // flow.value?.setCenter({ x: 29 * GRID_GAP_SIZE, y: 28 * GRID_GAP_SIZE });
-        flow.value?.fitView({ padding: 0.2, duration: 1000, minZoom: 0.3 });
+        const doFit = () => {
+            if (document.visibilityState === 'visible' && flow.value) {
+                requestAnimationFrame(() => {
+                    flow.value?.fitView({ padding: 0.2, duration: 1000, minZoom: 0.3 });
+                });
+            } else {
+                requestAnimationFrame(doFit);
+            }
+        };
+        doFit();
     }
 </script>
 
