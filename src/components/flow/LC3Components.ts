@@ -218,7 +218,7 @@ export const initialNodes: LC3Node[] = [
         type: "mux",
         position: { x: 19.5 * Consts.GRID_GAP_SIZE, y: 18.5 * Consts.GRID_GAP_SIZE },
         ...Consts.DEFAULT_NODE_DIMS,
-        data: { label: 'ADDR1MUX' }
+        data: { label: 'ADDR1MUX', reverseInputs: true }
     },
     {
         id: NodeId.Addr2Mux,
@@ -228,7 +228,9 @@ export const initialNodes: LC3Node[] = [
         data: {
             label: 'ADDR2MUX',
             inputSize: 4,
-            selectorLeftUp: true}
+            selectorLeftUp: true,
+            reverseInputs: true
+        }
     },
     {
         id: NodeId.FSM,
@@ -248,6 +250,7 @@ export const initialNodes: LC3Node[] = [
         data: { 
             label: "SR2MUX",
             orientation: 'down',
+            reverseInputs: true
         }
     },
     {
@@ -642,7 +645,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.Sext11,
         target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-0',
+        targetHandle: 'input-3',
         type: 'wire'
     },
 
@@ -652,7 +655,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.Sext9,
         target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-1',
+        targetHandle: 'input-2',
         type: 'wire'
     },
 
@@ -662,7 +665,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.Sext6,
         target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-2',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
@@ -672,7 +675,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.Sext5,
         target: NodeId.SR2Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-0',
+        targetHandle: 'input-1',
         type: 'wire'
     },
 
@@ -830,7 +833,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.PC,
         target: NodeId.Addr1Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-1',
+        targetHandle: 'input-0',
         type: 'wire',
         data: {
             intermediateNodes: [
@@ -858,7 +861,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.RegFile,
         target: NodeId.SR2Mux,
         sourceHandle: 'sr2mux',
-        targetHandle: 'input-1',
+        targetHandle: 'input-0',
         type: 'wire'
     },
     {
@@ -874,7 +877,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.RegFile,
         target: NodeId.Addr1Mux,
         sourceHandle: 'alu',
-        targetHandle: 'input-0',
+        targetHandle: 'input-1',
         type: 'wire',
         data: {
             intermediateNodes: [
@@ -1178,7 +1181,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.SignalA2M_0,
         target: NodeId.Addr2Mux,
         sourceHandle: 'output',
-        targetHandle: 'input-3',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 ];
