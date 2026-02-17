@@ -14,7 +14,8 @@ const props = defineProps<NodeProps<{
     orientation?: Orientation,
     inputSize?: number,
     selectorLeftUp?: boolean,
-    activeCycles?: number[]
+    activeCycles?: number[],
+    reverseInputs?: boolean
 }>>();
 
 const orientation = computed(() => props.data.orientation ?? 'up');
@@ -37,9 +38,15 @@ const handlePositions = computed(() => {
   
   return Array.from<HandleProperties, HandleProperties>([
     { id: 'output', side: Position.Right, handle: "source" },
-    ...Array.from<unknown, HandleProperties>({ length: nInputs.value }, (_, i) => (
-      { id: `input-${i}`, side: Position.Left, handle: "target", distance: `${computeDistance(i, nInputs.value)}%` }
-    )),
+    ...Array.from<unknown, HandleProperties>({ length: nInputs.value }, (_, i) => {
+      const distanceIndex = props.data.reverseInputs ? nInputs.value - 1 - i : i;
+      return {
+        id: `input-${i}`,
+        side: Position.Left,
+        handle: "target",
+        distance: `${computeDistance(distanceIndex, nInputs.value)}%`
+      };
+    }),
     { id: "selector", side: selectorSide, handle: "target", distance: selectorDistance, depth: selectorDepth }
   ], p => computeHandleOriented(p, orientation.value));
 });

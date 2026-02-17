@@ -120,7 +120,9 @@ export const initialNodes: LC3Node[] = [
         data: { 
             label: "PCMUX",
             inputSize: 3,
-            selectorLeftUp: true}
+            selectorLeftUp: true,
+            reverseInputs: true
+        }
     },
     { 
         id: NodeId.PCAdder,
@@ -702,7 +704,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.MarAdder,
         target: NodeId.PCMux,
         sourceHandle: 'output',
-        targetHandle: 'input-0',
+        targetHandle: 'input-2',
         type: 'wire'
     },
 
@@ -712,7 +714,7 @@ export const initialEdges: Edge[] = [
         source: NodeId.PCAdder,
         target: NodeId.PCMux,
         sourceHandle: 'output',
-        targetHandle: 'input-2',
+        targetHandle: 'input-0',
         type: 'wire'
     },
 

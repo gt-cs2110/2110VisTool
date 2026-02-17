@@ -60,8 +60,9 @@ import { ALU_SLANT } from '../constants';
   }
 
   const inputLabels = computed(() =>
-    (inputHandles ?? []).map((h, i) => {
+    (inputHandles ?? []).map((h) => {
       const { x, y } = percentToCoord(h.distance, h.side);
+      const i = parseInt(h.id?.replace('input-', '') ?? '0', 10);
       return {
         text: i.toString(2).padStart(Math.ceil(Math.log2(nInputs ?? 2)), '0'),
         x,
